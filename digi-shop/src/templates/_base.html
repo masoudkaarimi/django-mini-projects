@@ -1,0 +1,28 @@
+{% load vite %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Django DigiShop{% block title %}{% endblock title %}</title>
+
+        {% vite %}
+        {% vite 'static/assets/css/style.css' %}
+
+        {% block styles %}{% endblock styles %}
+    </head>
+    <body class="bg-gray-50">
+        {% include '_header.html' %}
+
+        <div class="container w-7xl mx-auto mt-4">
+            {% block content %}{% endblock content %}
+        </div>
+
+        {% include '_footer.html' %}
+
+        {% vite 'static/assets/js/script.js' %}
+        {% block scripts %}{% endblock scripts %}
+    </body>
+</html>
