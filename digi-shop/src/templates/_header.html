@@ -54,15 +54,60 @@
                             </svg>
                             {% translate 'Categories' %}
                         </a>
-                    </div>
-                    <div>
-                        <a class="p-2 w-full flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="#">
-                            <svg class="shrink-0 size-4 me-3 md:me-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        <a class="p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="#">
+                            <svg class="shrink-0 size-4 me-3 md:me-2 block md:hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            Log in
+                            {% translate 'Brands' %}
+                        </a>
+                    </div>
+                    <div class="grow relative flex flex-col md:flex-row flex-wrap items-start md:items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 order-first md:order-none">
+                        <form action="" class="w-full">
+                            <div class="relative">
+                                <input type="search"
+                                       class="form-control peer block w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 placeholder:text-gray-400 focus:border-indigo-600 focus:outline-hidden focus:ring-0"
+                                       placeholder="{% translate 'Search products' %}" aria-label="{% translate 'Search products' %}">
+                                <button type="submit" class="absolute top-1/2 end-2 -translate-y-1/2">
+                                    <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <line x1="21" x2="16.65" y1="21" y2="16.65"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <a class="relative p-2 md:ps-2 md:pe-0 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="#"
+                           title="{% translate 'Sign In' %}">
+                            <svg class="shrink-0 size-4 me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <span class="whitespace-nowrap block md:hidden">{% translate 'Sign In' %}</span>
+                        </a>
+                        <a class="relative p-2 md:ps-1 md:pe-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="#"
+                           title="{% translate 'Cart' %}">
+                            <svg class="shrink-0 size-4 me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"/>
+                                <circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h10.64a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                            <span class="absolute top-0 end-0 inline-flex items-center justify-center shrink-0 w-4 h-4 rounded-full bg-indigo-600 text-white text-xs font-semibold">3</span>
+                            <span class="whitespace-nowrap block md:hidden">{% translate 'Cart' %}</span>
+                        </a>
+                        <a class="relative p-2 md:p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500" href="#"
+                           title="{% translate 'Wishlist' %}">
+                            <svg class="shrink-0 size-4 me-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.66l-1.06-1.05a5.5 5.5 0 0 0-7.78 7.78l8.49 8.48a1 1 0 0 0 1.42 0l8.48-8.48a5.5 5.5 0 0 0 .01-7.78z"/>
+                            </svg>
+                            <span class="absolute top-0 end-0 inline-flex items-center justify-center shrink-0 w-4 h-4 rounded-full bg-indigo-600 text-white text-xs font-semibold">5</span>
+                            <span class="whitespace-nowrap block md:hidden">{% translate 'Wishlist' %}</span>
                         </a>
                     </div>
                 </div>
