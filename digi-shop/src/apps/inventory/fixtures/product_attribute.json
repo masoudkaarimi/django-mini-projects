@@ -1,0 +1,42 @@
+[
+    {
+        "model": "inventory.productattribute",
+        "pk": 1,
+        "fields": {
+            "name": "Color",
+            "description": "The color of the product"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 2,
+        "fields": {
+            "name": "Storage",
+            "description": "The amount of storage capacity"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 3,
+        "fields": {
+            "name": "RAM",
+            "description": "Random Access Memory capacity"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 4,
+        "fields": {
+            "name": "Screen Size",
+            "description": "The diagonal size of the screen"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 5,
+        "fields": {
+            "name": "Material",
+            "description": "The material used for construction"
+        }
+    }
+]

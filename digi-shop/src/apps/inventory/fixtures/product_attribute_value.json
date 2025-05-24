@@ -1,0 +1,90 @@
+[
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 1,
+        "fields": {
+            "product_attribute": 1,
+            "value": "Black"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 2,
+        "fields": {
+            "product_attribute": 1,
+            "value": "White"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 3,
+        "fields": {
+            "product_attribute": 1,
+            "value": "Blue"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 4,
+        "fields": {
+            "product_attribute": 2,
+            "value": "128GB"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 5,
+        "fields": {
+            "product_attribute": 2,
+            "value": "256GB"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 6,
+        "fields": {
+            "product_attribute": 3,
+            "value": "8GB"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 7,
+        "fields": {
+            "product_attribute": 3,
+            "value": "16GB"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 8,
+        "fields": {
+            "product_attribute": 4,
+            "value": "6.1\""
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 9,
+        "fields": {
+            "product_attribute": 4,
+            "value": "6.7\""
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 10,
+        "fields": {
+            "product_attribute": 5,
+            "value": "Silicone"
+        }
+    },
+    {
+        "model": "inventory.productattributevalue",
+        "pk": 11,
+        "fields": {
+            "product_attribute": 5,
+            "value": "Leather"
+        }
+    }
+]

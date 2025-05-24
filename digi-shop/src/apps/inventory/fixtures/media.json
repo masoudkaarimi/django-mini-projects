@@ -1,0 +1,86 @@
+[
+    {
+        "model": "inventory.media",
+        "pk": 1,
+        "fields": {
+            "product_inventory": 1,
+            "image": "images/products/galaxy-s23-black.png",
+            "alt_text": "Galaxy S23 Black Front View",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 2,
+        "fields": {
+            "product_inventory": 1,
+            "image": "images/products/galaxy-s23-black-back.png",
+            "alt_text": "Galaxy S23 Black Back View",
+            "is_featured": false,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 3,
+        "fields": {
+            "product_inventory": 2,
+            "image": "images/products/galaxy-s23-white.png",
+            "alt_text": "Galaxy S23 White Front View",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 4,
+        "fields": {
+            "product_inventory": 3,
+            "image": "images/products/iphone-14-black.png",
+            "alt_text": "iPhone 14 Black Front View",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 5,
+        "fields": {
+            "product_inventory": 5,
+            "image": "images/products/dell-xps-15.png",
+            "alt_text": "Dell XPS 15 Open View",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 6,
+        "fields": {
+            "product_inventory": 6,
+            "image": "images/products/galaxy-buds-pro.png",
+            "alt_text": "Galaxy Buds Pro Black",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.media",
+        "pk": 7,
+        "fields": {
+            "product_inventory": 7,
+            "image": "images/products/iphone-14-case.png",
+            "alt_text": "iPhone 14 Black Silicone Case",
+            "is_featured": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    }
+]

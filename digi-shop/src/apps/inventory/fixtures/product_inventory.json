@@ -1,0 +1,135 @@
+[
+    {
+        "model": "inventory.productinventory",
+        "pk": 1,
+        "fields": {
+            "sku": "GAL-S23-B128",
+            "upc": "123456789012",
+            "product": 1,
+            "product_type": 1,
+            "brand": 1,
+            "retail_price": "899.99",
+            "store_price": "849.99",
+            "sale_price": "799.99",
+            "weight": "0.17",
+            "is_default": true,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 2,
+        "fields": {
+            "sku": "GAL-S23-W256",
+            "upc": "123456789013",
+            "product": 1,
+            "product_type": 1,
+            "brand": 1,
+            "retail_price": "999.99",
+            "store_price": "949.99",
+            "sale_price": "899.99",
+            "weight": "0.17",
+            "is_default": false,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 3,
+        "fields": {
+            "sku": "IPH-14-B128",
+            "upc": "223456789012",
+            "product": 2,
+            "product_type": 1,
+            "brand": 2,
+            "retail_price": "999.99",
+            "store_price": "949.99",
+            "sale_price": "899.99",
+            "weight": "0.17",
+            "is_default": true,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 4,
+        "fields": {
+            "sku": "IPH-14-W256",
+            "upc": "223456789013",
+            "product": 2,
+            "product_type": 1,
+            "brand": 2,
+            "retail_price": "1099.99",
+            "store_price": "1049.99",
+            "sale_price": "999.99",
+            "weight": "0.17",
+            "is_default": false,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 5,
+        "fields": {
+            "sku": "DEL-XPS-S512",
+            "upc": "323456789012",
+            "product": 3,
+            "product_type": 2,
+            "brand": 3,
+            "retail_price": "1499.99",
+            "store_price": "1399.99",
+            "sale_price": "1299.99",
+            "weight": "1.8",
+            "is_default": true,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 6,
+        "fields": {
+            "sku": "GAL-BUD-BLK",
+            "upc": "423456789012",
+            "product": 4,
+            "product_type": 3,
+            "brand": 1,
+            "retail_price": "199.99",
+            "store_price": "179.99",
+            "sale_price": "159.99",
+            "weight": "0.06",
+            "is_default": true,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productinventory",
+        "pk": 7,
+        "fields": {
+            "sku": "IPH14-CS-BLK",
+            "upc": "523456789012",
+            "product": 5,
+            "product_type": 4,
+            "brand": 2,
+            "retail_price": "49.99",
+            "store_price": "39.99",
+            "sale_price": "29.99",
+            "weight": "0.04",
+            "is_default": true,
+            "is_active": true,
+            "created_at": "2023-01-15T08:00:00Z",
+            "updated_at": "2023-01-15T08:00:00Z"
+        }
+    }
+]
