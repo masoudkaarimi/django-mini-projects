@@ -628,3 +628,45 @@ def cart_view(request):
     }
 
     return render(request, 'shop/cart/index.html', context)
+
+
+def checkout_view(request):
+
+
+    context = {
+        "cart_items": [
+            {
+                "name": "Samsung Galaxy S24 Ultra Smartphone",
+                "price": "$1299.99",
+                "quantity": 1,
+                "image_url": "/static/assets/images/placeholder.svg",
+                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
+            },
+            {
+                "name": "Apple iPhone 15 Pro Max",
+                "price": "$1199.99",
+                "quantity": 2,
+                "image_url": "/static/assets/images/placeholder.svg",
+                "link": "/products/apple-iphone-15-pro-max",
+            },
+        ],
+        "subtotal": "$3699.97",
+        "shipping": "$0.00",
+        "tax": "$295.99",
+        "total": "$3995.96",
+        "shipping_address": {
+            "name": "John Doe",
+            "address": "123 Main Street, Apt 4B",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10001",
+            "country": "United States"
+        },
+        "payment": {
+            "card_name": "John Doe",
+            "card_type": "Visa",
+            "card_last4": "4242"
+        }
+    }
+
+    return render(request, 'shop/checkout/index.html', context)

@@ -1,0 +1,114 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">{% translate "Checkout" %}</h1>
+            <p class="text-gray-600 mt-2">{% translate "Review your order details before completing your purchase." %}</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Main Content (Shipping, Payment, Items) -->
+            <div class="w-full lg:w-7/12 space-y-6">
+                <!-- Shipping Address -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Shipping Address" %}</h2>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium text-gray-800">{{ shipping_address.name }}</span>
+                                <span class="ml-1 px-2 py-0.5 text-xs rounded-full bg-indigo-100 text-indigo-700 font-medium">{% translate "Home" %}</span>
+                            </div>
+                            <div class="text-gray-600 text-sm mt-1">{{ shipping_address.address }}</div>
+                            <div class="text-gray-600 text-sm">{{ shipping_address.city }}, {{ shipping_address.zip }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Payment Method" %}</h2>
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center gap-4">
+                        <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect width="20" height="14" x="2" y="5" rx="2" ry="2"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2 10h20"/>
+                        </svg>
+                        <div>
+                            <div class="font-medium text-gray-800">{{ payment.card_type }} {% translate "ending in" %} {{ payment.card_last4 }}</div>
+                            <div class="text-sm text-gray-600">{{ payment.card_name }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Items -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Order Items" %} ({{ cart_items|length }})</h2>
+                    <div class="space-y-4">
+                        {% for item in cart_items %}
+                            <div class="flex items-center border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-all">
+                                <div class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-md flex items-center justify-center overflow-hidden">
+                                    <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-full h-full object-cover object-center"/>
+                                </div>
+                                <div class="flex-1 ml-4">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center w-full">
+                                        <div>
+                                            <h3 class="text-base font-medium text-gray-800 mb-1">{{ item.name }}</h3>
+                                            <p class="text-sm text-gray-600">{% translate "Qty" %}: {{ item.quantity }}</p>
+                                        </div>
+                                        <p class="text-lg font-semibold text-indigo-600 mt-2 sm:mt-0">{{ item.price }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="w-full lg:w-5/12">
+                <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6 sticky top-4">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Order Summary" %}</h2>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{% translate "Subtotal" %}</span>
+                            <span class="text-gray-800 font-medium">{{ subtotal }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{% translate "Shipping" %}</span>
+                            <span class="text-gray-800 font-medium">{{ shipping }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">{% translate "Tax" %}</span>
+                            <span class="text-gray-800 font-medium">{{ tax }}</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3 mt-3 flex justify-between items-center">
+                            <span class="text-lg font-semibold text-gray-800">{% translate "Total" %}</span>
+                            <span class="text-xl font-bold text-indigo-600">{{ total }}</span>
+                        </div>
+                        <div class="flex items-center text-green-600 mt-1 text-sm">
+                            <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            {% translate "Free shipping on orders over $500" %}
+                        </div>
+                    </div>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="w-full flex items-center justify-center py-2.5 px-4 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition-all mb-3 shadow-sm">
+                            {% translate "Place Order" %}
+                        </button>
+                    </form>
+                    <a href="{% url 'shop:cart' %}"
+                       class="w-full inline-flex justify-center items-center border border-gray-300 rounded-lg py-2.5 px-4 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-all">
+                        {% translate "Return to Cart" %}
+                    </a>
+                    <p class="text-xs text-gray-500 text-center mt-2">
+                        {% translate "By placing your order, you agree to our Terms of Service and Privacy Policy." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

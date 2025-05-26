@@ -12,4 +12,5 @@ urlpatterns = [
     path('brands/', views.brand_archive_view, name='brand_archive'),
     path('brands/<slug:brand_slug>/', views.brand_single_view, name='brand_single'),
     path('cart/', views.cart_view, name='cart'),
+    path('checkout/', views.checkout_view, name='checkout'),
 ]
