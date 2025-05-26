@@ -1,0 +1,372 @@
+{% extends "_base.html" %}
+
+{% load static i18n %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <ol class="flex items-center whitespace-nowrap mb-6">
+            <li class="inline-flex items-center">
+                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
+                    {% translate 'Home' %}
+                </a>
+                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </li>
+            <li class="inline-flex items-center">
+                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
+                    {% translate 'Electronics' %}
+                </a>
+                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </li>
+            <li class="inline-flex items-center">
+                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
+                    {% translate 'Smartphones' %}
+                </a>
+                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </li>
+            <li class="inline-flex items-center text-sm font-semibold text-gray-800 truncate" aria-current="page">
+                {{ product.name }}
+            </li>
+        </ol>
+
+        <!-- Product Details -->
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            <!-- Product Images -->
+            <div class="space-y-4">
+                <!-- Main Image -->
+                <div class="relative overflow-hidden rounded-xl bg-gray-100">
+                    <img id="mainImage" class="w-full h-[28rem] object-cover transition-all duration-300" src="{% static 'assets/images/placeholder.svg' %}"
+                         alt="{{ product.name }}">
+                    {#{% if product.special_offer %}#}
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                            Special Offer
+                        </span>
+                    </div>
+                    {#{% endif %}#}
+                </div>
+
+                <!-- Thumbnails -->
+                <div class="grid grid-cols-5 gap-2">
+                    {% if product.image %}
+                        <div class="thumbnail cursor-pointer rounded-lg overflow-hidden border-2 border-indigo-500 hover:border-indigo-600 active">
+                            <img class="thumbnail-img w-full h-20 object-cover"
+                                 src="{% static 'assets/images/placeholder.svg' %}"
+                                 alt="{{ product.name }}"
+                                 onclick="activateThumbnail(this)"/>
+                        </div>
+                    {% endif %}
+
+                    {% for image in product.images %}
+                        <div class="thumbnail cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-indigo-500">
+                            <img class="thumbnail-img w-full h-20 object-cover"
+                                 src="{% static 'assets/images/placeholder.svg' %}"
+                                 alt="{{ product.name }} - image {{ forloop.counter }}"
+                                 onclick="activateThumbnail(this)"/>
+                        </div>
+                        {% empty %}
+                    {% endfor %}
+                </div>
+
+                <script>
+                    function activateThumbnail(clickedImg) {
+                        document.getElementById('mainImage').src = clickedImg.src;
+
+                        const thumbnails = document.querySelectorAll('.thumbnail');
+                        thumbnails.forEach(thumb => {
+                            thumb.classList.replace('border-indigo-500', 'border-transparent');
+                        });
+
+                        const parentDiv = clickedImg.parentElement;
+                        parentDiv.classList.replace('border-transparent', 'border-indigo-500');
+                    }
+                </script>
+            </div>
+
+            <!-- Product Details -->
+            <div class="space-y-8">
+                <!-- Brand and Title -->
+                <div>
+                    <p class="text-sm font-medium text-indigo-600 mb-2">{{ product.brand.name|default:"Samsung" }}</p>
+                    <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-2">{{ product.name }}</h1>
+                    <p class="text-sm text-gray-500">SKU: {{ product.sku|default:"SAM-GAL-S24-ULT-256" }}</p>
+                </div>
+
+                <!-- Price -->
+                <div class="flex items-center gap-3">
+                        <span class="text-4xl font-bold text-gray-900">
+                            ${{ product.price|default:"45,000,000" }}
+                        </span>
+                    {% if product.original_price %}
+                        <span class="text-xl text-gray-500 line-through">
+                                ${{ product.original_price|default:"50,000,000" }}
+                            </span>
+                    {% endif %}
+                    {% if product.discount_amount %}
+                        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Save ${{ product.discount_amount|default:"5,000,000" }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Quantity and Add to Cart -->
+                <div class="space-y-4">
+                    <!-- Stock Status -->
+                    <div class="flex items-center gap-2">
+                        <span class="size-2 bg-green-500 rounded-full"></span>
+                        <span class="text-sm font-medium text-green-600">
+                        In Stock ({{ product.stock_count|default:"25" }} available)
+                    </span>
+                    </div>
+
+                    <div class="flex items-center gap-x-3">
+                        <label class="text-sm font-medium text-gray-900">Quantity:</label>
+                        <div class="py-2 px-3 bg-white border border-gray-200 rounded-lg" data-hs-input-number>
+                            <div class="w-full flex justify-between items-center gap-x-3">
+                                <input id="quantity"
+                                       class="w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0"
+                                       type="number"
+                                       value="1"
+                                       min="1"
+                                       max="{{ product.stock_count|default:25 }}"
+                                       data-hs-input-number-input>
+                                <div class="flex justify-end items-center gap-x-1.5">
+                                    <button type="button"
+                                            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                                            data-hs-input-number-decrement>
+                                        <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 12h14"></path>
+                                        </svg>
+                                    </button>
+                                    <button type="button"
+                                            class="size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                                            data-hs-input-number-increment>
+                                        <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 5v14m-7-7h14"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="button"
+                                class="py-3 px-4 flex-1 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none"
+                                onclick="addToCart()">
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 7 1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12"></path>
+                                <path d="M5 7h14l-1-1a2 2 0 0 0-2-1H8a2 2 0 0 0-2 1Z"></path>
+                                <path d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9V5Z"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
+
+                        <button type="button"
+                                class="py-3 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                                onclick="toggleWishlist()">
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l6 6Z"></path>
+                            </svg>
+                        </button>
+
+                        <button type="button"
+                                class="py-3 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                <polyline points="16,6 12,2 8,6"></polyline>
+                                <line x1="12" x2="12" y1="2" y2="15"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Free Delivery Info -->
+                <div class="bg-teal-50 border border-teal-200 rounded-xl p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="flex-shrink-0 size-5 text-teal-600 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="ms-3">
+                            <h3 class="text-sm text-teal-800 font-medium">
+                                Free Delivery
+                            </h3>
+                            <p class="text-sm text-teal-700 mt-1">
+                                Orders over $500. Delivery in 2-3 business days.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Information Tabs -->
+        <div class="mt-14">
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8" aria-label="Tabs" role="tablist">
+                    <button type="button"
+                            class="hs-tab-active:font-semibold hs-tab-active:border-indigo-600 hs-tab-active:text-indigo-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 disabled:opacity-50 disabled:pointer-events-none active"
+                            id="tabs-with-underline-item-1"
+                            data-hs-tab="#tabs-with-underline-1"
+                            aria-controls="tabs-with-underline-1"
+                            role="tab">
+                        Description
+                    </button>
+                    <button type="button"
+                            class="hs-tab-active:font-semibold hs-tab-active:border-indigo-600 hs-tab-active:text-indigo-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 disabled:opacity-50 disabled:pointer-events-none"
+                            id="tabs-with-underline-item-2"
+                            data-hs-tab="#tabs-with-underline-2"
+                            aria-controls="tabs-with-underline-2"
+                            role="tab">
+                        Specifications
+                    </button>
+                </nav>
+            </div>
+
+            <div class="mt-8">
+                <div id="tabs-with-underline-1" role="tabpanel" aria-labelledby="tabs-with-underline-item-1">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Product Description</h2>
+                    <div class="prose max-w-none text-gray-600 leading-relaxed">
+                        <p>
+                            {{ product.description }}</p>
+                    </div>
+                </div>
+
+                <div id="tabs-with-underline-2" class="hidden" role="tabpanel" aria-labelledby="tabs-with-underline-item-2">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Specifications</h2>
+                    <ul class="grid sm:grid-cols-2 gap-4">
+                        {% if product.specifications %}
+                            {% for spec in product.specifications %}
+                                <li class="flex justify-between border-b border-b-gray-200 p-2">
+                                    <div class="text-sm text-gray-600">{{ spec.name }}:</div>
+                                    <div class="text-sm font-medium text-gray-900">{{ spec.value }}</div>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="flex justify-between border-b border-b-gray-200 p-2">
+                                <div class="text-sm text-gray-600">No specifications available</div>
+                                <div class="text-sm font-medium text-gray-900"></div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Products Slider -->
+        <div class="mt-14">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Similar Products</h2>
+
+            <div data-hs-carousel='{
+                "loadingClasses": "opacity-0",
+                "isInfiniteLoop": true,
+                "slidesQty": {
+                    "xs": 1,
+                    "sm": 2,
+                    "lg": 3,
+                    "xl": 4
+                }
+            }' class="relative">
+                <div class="hs-carousel relative overflow-hidden w-full min-h-[30rem] max-h-max">
+                    <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                        {% for product in similar_products %}
+                            <div class="hs-carousel-slide">
+                                <div class="px-2">
+                                    {% include 'components/_product_card.html' with product=product %}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="hs-carousel-slide">
+                                <div class="flex justify-center items-center h-full p-6">
+                                    <p class="text-gray-500">No similar products found.</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button type="button"
+                        class="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -start-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 ms-4 z-10">
+                    <span class="sr-only">Previous</span>
+                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"></path>
+                    </svg>
+                </button>
+                <button type="button"
+                        class="hs-carousel-next hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -end-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 me-4 z-10">
+                    <span class="sr-only">Next</span>
+                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-100 border border-green-200 text-green-800 px-4 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `
+                <div class="flex items-center gap-x-2">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                    <span class="text-sm font-medium">Added ${quantity} item(s) to cart!</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Wishlist functionality
+        function toggleWishlist() {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-indigo-100 border border-indigo-200 text-indigo-800 px-4 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `
+                <div class="flex items-center gap-x-2">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l6 6Z"></path>
+                    </svg>
+                    <span class="text-sm font-medium">Added to wishlist!</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+{% endblock content %}
