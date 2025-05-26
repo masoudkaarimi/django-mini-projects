@@ -30,6 +30,14 @@ class Brand(models.Model):
         verbose_name=_("Brand Description"),
         help_text=_("Format: optional, max-5000 characters")
     )
+    logo = models.ImageField(
+        upload_to='images/brands/',
+        default="images/brands/default.png",
+        null=True,
+        blank=True,
+        verbose_name=_("Brand Logo"),
+        help_text=_("Format: optional")
+    )
     is_active = models.BooleanField(
         default=True,
         null=False,
@@ -73,6 +81,14 @@ class Category(MPTTModel):
         blank=True,
         verbose_name=_("Parent Category"),
         help_text=_("Format: optional"),
+    )
+    icon = models.ImageField(
+        upload_to='images/categories/',
+        default="images/categories/default.png",
+        null=True,
+        blank=True,
+        verbose_name=_("Category Icon"),
+        help_text=_("Format: optional")
     )
     is_active = models.BooleanField(
         default=True,
