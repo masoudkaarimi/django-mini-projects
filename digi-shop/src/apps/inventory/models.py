@@ -82,7 +82,7 @@ class Category(MPTTModel):
         verbose_name=_("Parent Category"),
         help_text=_("Format: optional"),
     )
-    icon = models.ImageField(
+    image = models.ImageField(
         upload_to='images/categories/',
         default="images/categories/default.png",
         null=True,
