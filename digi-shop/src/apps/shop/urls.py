@@ -4,11 +4,12 @@ from apps.shop import views
 
 app_name = 'shop'
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('products/', views.product_archive, name='product_archive'),
-    path('products/<slug:product_slug>/', views.product_single, name='product_single'),
-    path('categories/', views.category_archive, name='category_archive'),
-    path('categories/<slug:category_slug>/', views.category_single, name='category_single'),
-    path('brands/', views.brand_archive, name='brand_archive'),
-    path('brands/<slug:brand_slug>/', views.brand_single, name='brand_single'),
+    path('', views.index_view, name='home'),
+    path('products/', views.product_archive_view, name='product_archive'),
+    path('products/<slug:product_slug>/', views.product_single_view, name='product_single'),
+    path('categories/', views.category_archive_view, name='category_archive'),
+    path('categories/<slug:category_slug>/', views.category_single_view, name='category_single'),
+    path('brands/', views.brand_archive_view, name='brand_archive'),
+    path('brands/<slug:brand_slug>/', views.brand_single_view, name='brand_single'),
+    path('cart/', views.cart_view, name='cart'),
 ]

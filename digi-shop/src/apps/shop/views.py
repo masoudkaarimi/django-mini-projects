@@ -1,16 +1,16 @@
 from django.shortcuts import render
 
 
-def index(request):
+def index_view(request):
     context = {
         "banners": [
             {
-                "image_url": "/static/images/banner1.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/collections/new-arrivals",
                 "alt_text": "New Arrivals"
             },
             {
-                "image_url": "/static/images/banner2.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/collections/sale",
                 "alt_text": "Sale"
             },
@@ -57,25 +57,25 @@ def index(request):
             {
                 "name": "Premium WordPress Theme",
                 "price": "$59.99",
-                "image_url": "/static/images/wordpress-theme.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/premium-wordpress-theme",
             },
             {
                 "name": "Digital Marketing eBook",
                 "price": "$19.99",
-                "image_url": "/static/images/ebook.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/digital-marketing-ebook",
             },
             {
                 "name": "Photoshop Brushes Pack",
                 "price": "$29.99",
-                "image_url": "/static/images/brushes.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/photoshop-brushes",
             },
             {
                 "name": "Video Editing Course",
                 "price": "$89.99",
-                "image_url": "/static/images/video-course.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/video-editing-course",
             },
         ],
@@ -84,7 +84,7 @@ def index(request):
     return render(request, 'shop/home/index.html', context)
 
 
-def product_archive(request):
+def product_archive_view(request):
     context = {
         "categories": [
             {
@@ -154,25 +154,25 @@ def product_archive(request):
             {
                 "name": "Premium WordPress Theme",
                 "price": "$59.99",
-                "image_url": "/static/images/wordpress-theme.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/premium-wordpress-theme",
             },
             {
                 "name": "Digital Marketing eBook",
                 "price": "$19.99",
-                "image_url": "/static/images/ebook.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/digital-marketing-ebook",
             },
             {
                 "name": "Photoshop Brushes Pack",
                 "price": "$29.99",
-                "image_url": "/static/images/brushes.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/photoshop-brushes",
             },
             {
                 "name": "Video Editing Course",
                 "price": "$89.99",
-                "image_url": "/static/images/video-course.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/video-editing-course",
             },
         ],
@@ -181,12 +181,12 @@ def product_archive(request):
     return render(request, 'shop/product/archive.html', context)
 
 
-def product_single(request, product_slug):
+def product_single_view(request, product_slug):
     context = {
         "product": {
             "name": "Samsung Galaxy S24 Ultra Smartphone",
             "price": "1299.99",
-            "image": "/static/images/placeholder.svg",
+            "image": "/static/assets/images/placeholder.svg",
             "description": "The Samsung Galaxy S24 Ultra represents the pinnacle of smartphone technology, featuring cutting-edge AI capabilities, professional-grade camera system, and the powerful S Pen for ultimate productivity.",
             "slug": product_slug,
             "sku": "SAM-GAL-S24-ULT-256",
@@ -218,15 +218,15 @@ def product_single(request, product_slug):
             ],
             "images": [
                 {
-                    "url": "/static/images/product1.jpg",
+                    "url": "/static/assets/images/placeholder.svg",
                     "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Front View"
                 },
                 {
-                    "url": "/static/images/product2.jpg",
+                    "url": "/static/assets/images/placeholder.svg",
                     "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Back View"
                 },
                 {
-                    "url": "/static/images/product3.jpg",
+                    "url": "/static/assets/images/placeholder.svg",
                     "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Side View"
                 }
             ]
@@ -348,7 +348,7 @@ def product_single(request, product_slug):
     return render(request, 'shop/product/single.html', context)
 
 
-def category_archive(request):
+def category_archive_view(request):
     context = {
         "categories": [
             {
@@ -393,7 +393,7 @@ def category_archive(request):
     return render(request, 'shop/category/archive.html', context)
 
 
-def category_single(request, category_slug):
+def category_single_view(request, category_slug):
     context = {
         "category": {
             "name": category_slug.capitalize(),
@@ -469,25 +469,25 @@ def category_single(request, category_slug):
             {
                 "name": "Premium WordPress Theme",
                 "price": "$59.99",
-                "image_url": "/static/images/wordpress-theme.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/premium-wordpress-theme",
             },
             {
                 "name": "Digital Marketing eBook",
                 "price": "$19.99",
-                "image_url": "/static/images/ebook.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/digital-marketing-ebook",
             },
             {
                 "name": "Photoshop Brushes Pack",
                 "price": "$29.99",
-                "image_url": "/static/images/brushes.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/photoshop-brushes",
             },
             {
                 "name": "Video Editing Course",
                 "price": "$89.99",
-                "image_url": "/static/images/video-course.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/video-editing-course",
             },
         ],
@@ -496,7 +496,7 @@ def category_single(request, category_slug):
     return render(request, 'shop/category/single.html', context)
 
 
-def brand_archive(request):
+def brand_archive_view(request):
     context = {
         "brands": [
             {
@@ -529,7 +529,7 @@ def brand_archive(request):
     return render(request, 'shop/brand/archive.html', context)
 
 
-def brand_single(request, brand_slug):
+def brand_single_view(request, brand_slug):
     context = {
         "brand": {
             "name": brand_slug.capitalize(),
@@ -579,25 +579,25 @@ def brand_single(request, brand_slug):
             {
                 "name": "Premium WordPress Theme",
                 "price": "$59.99",
-                "image_url": "/static/images/wordpress-theme.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/premium-wordpress-theme",
             },
             {
                 "name": "Digital Marketing eBook",
                 "price": "$19.99",
-                "image_url": "/static/images/ebook.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/digital-marketing-ebook",
             },
             {
                 "name": "Photoshop Brushes Pack",
                 "price": "$29.99",
-                "image_url": "/static/images/brushes.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/photoshop-brushes",
             },
             {
                 "name": "Video Editing Course",
                 "price": "$89.99",
-                "image_url": "/static/images/video-course.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/video-editing-course",
             },
         ],
@@ -606,25 +606,25 @@ def brand_single(request, brand_slug):
     return render(request, 'shop/brand/single.html', context)
 
 
-def cart(request):
+def cart_view(request):
     context = {
         "cart_items": [
             {
                 "name": "Samsung Galaxy S24 Ultra Smartphone",
                 "price": "$1299.99",
                 "quantity": 1,
-                "image_url": "/static/images/product1.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/samsung-galaxy-s24-ultra-smartphone",
             },
             {
                 "name": "Apple iPhone 15 Pro Max",
                 "price": "$1199.99",
                 "quantity": 2,
-                "image_url": "/static/images/product2.jpg",
+                "image_url": "/static/assets/images/placeholder.svg",
                 "link": "/products/apple-iphone-15-pro-max",
             },
         ],
         "total_price": "$3699.97"
     }
 
-    return render(request, 'shop/cart.html', context)
+    return render(request, 'shop/cart/index.html', context)
