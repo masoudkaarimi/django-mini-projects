@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+
+        <div class="text-center">
+            {% include 'components/_heading.html' with heading=heading %}
+        </div>
+
+        <form method="post" class="form-container max-w-md" novalidate>
+            {% csrf_token %}
+
+            <div>
+                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="form-error">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+                <div class="relative">
+                    {{ form.password }}
+                    <button type="button" data-hs-toggle-password='{"target": "#password"}' class="btn-password-toggle">
+                        {% include "components/icons/_eye_toggle_icon.html" %}
+                    </button>
+                </div>
+                {% if form.password.errors %}
+                    <div class="form-error">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="text-right">
+                <a href="{% url 'account:password_reset' %}" class="text-link text-sm">{% translate "Forgot password?" %}</a>
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="form-error">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-lg btn-primary w-full">
+                {% translate "Login" %}
+            </button>
+
+            <p class="form-text text-center">
+                {% translate "Don't have an account?" %}
+                <a href="{% url 'account:register' %}" class="text-link">{% translate "Sign up" %}</a>
+            </p>
+        </form>
+    </section>
+{% endblock content %}
