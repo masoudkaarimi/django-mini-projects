@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: './src'
+      dockerfile: Dockerfile
+    container_name: "web"
+    restart: "always"
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+    volumes:
+      - type: "bind"
+        source: './src/'
+        target: '/src'
+    networks:
+      - web_network
+      - nginx_network
+    env_file:
+      - "./.env"
+
+  postgres:
+    image: postgres:latest
+    restart: "always"
+    ports:
+      - "5432:5432"
+    container_name: "postgres"
+    networks:
+      - web_network
+    env_file:
+      - "./.env"
+    environment:
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-1234}
+    volumes:
+      - pg:/var/lib/postgresql/data
+
+  nginx:
+    build:
+      context: "./nginx"
+      dockerfile: Dockerfile
+    restart: "always"
+    container_name: "nginx"
+    ports:
+      - "80:80"
+      - '443:443'
+    networks:
+      - nginx_network
+    volumes:
+      - type: "bind"
+        source: './src/staticfiles/'
+        target: '/src/staticfiles'
+
+      - type: "bind"
+        source: './src/media/'
+        target: '/src/media'
+
+      - type: "bind"
+        source: './src/logs/'
+        target: '/src/logs'
+
+    depends_on:
+      - web
+
+#  redis:
+#    image: redis:latest
+#    restart: always
+#    ports:
+#      - '6379:6379'
+#    container_name: redis
+#    networks:
+#      - web_network
+#    env_file:
+#      - "./.env"
+#    environment:
+#      - REDIS_DB=${REDIS_DB:-0}
+#      - REDIS_PASSWORD=${REDIS_PASSWORD:-12345678}
+#    volumes:
+#      - redis:/data
+
+volumes:
+  pg:
+    external: True
+#  redis:
+#    external: True
+
+networks:
+  nginx_network:
+    external: True
+  web_network:
+    external: True
