@@ -507,6 +507,7 @@ def address_delete_view(request, pk, *args, **kwargs):
         try:
             address = Address.objects.get(pk=pk, user=request.user)
             address.delete()
+            toast(request, _("Address deleted successfully."), level='success')
             return JsonResponse({
                 'success': True,
                 'message': _("Address deleted successfully."),
@@ -530,6 +531,7 @@ def address_set_default_view(request, pk, *args, **kwargs):
             address.is_default = True
             address.save()
 
+            toast(request, _("Default address set successfully."), level='success')
             return JsonResponse({
                 'success': True,
                 'message': _("Default address set successfully."),
@@ -539,6 +541,7 @@ def address_set_default_view(request, pk, *args, **kwargs):
                 'success': False,
                 'message': _("Address not found."),
             })
+
     return JsonResponse({
         'success': False,
         'message': _("Invalid request method. Use POST to set an address as default."),
