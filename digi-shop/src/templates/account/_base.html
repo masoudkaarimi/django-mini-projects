@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <div class="container mx-auto py-8">
+        <div class="flex flex-row-reverse lg:flex-row gap-x-8 relative">
+            {% include 'components/_dashboard_sidebar_menu.html' %}
+
+            <div class="w-full">
+                {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+                {% include 'components/_heading.html' with heading=heading %}
+
+                {% block dashboard_content %}{% endblock dashboard_content %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

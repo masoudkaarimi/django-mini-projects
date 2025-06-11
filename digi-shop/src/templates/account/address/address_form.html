@@ -1,0 +1,105 @@
+{% load i18n %}
+
+<form id="address-form" method="post" action="{% url 'account:address_create' %}" novalidate>
+    {% csrf_token %}
+    <div class="p-4 overflow-y-auto">
+        <div class="grid grid-cols-1 gap-4">
+            <!-- Address Nickname -->
+            <div>
+                <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.title.label }}</label>
+                {{ form.title }}
+                {% if form.title.help_text %}
+                    <div class="text-xs text-gray-500 mt-1">{{ form.title.help_text }}</div>
+                {% endif %}
+                <div class="form-error"></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Recipient Name -->
+                <div>
+                    <label for="{{ form.full_name.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.full_name.label }}</label>
+                    {{ form.full_name }}
+                    <div class="form-error"></div>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.phone_number.label }}</label>
+                    {{ form.phone_number }}
+                    <div class="form-error"></div>
+                </div>
+            </div>
+
+            <!-- Country -->
+            <div>
+                <label for="{{ form.country.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.country.label }}</label>
+                {{ form.country }}
+                <div class="form-error"></div>
+            </div>
+
+            <!-- Address Lines -->
+            <div>
+                <label for="{{ form.address_line_1.id_for_label }}" class="block text-sm font-medium mb-2">
+                    {{ form.address_line_1.label }}
+                </label>
+                {{ form.address_line_1 }}
+                <div class="form-error"></div>
+            </div>
+
+            <div>
+                <label for="{{ form.address_line_2.id_for_label }}" class="block text-sm font-medium mb-2">
+                    {{ form.address_line_2.label }}
+                </label>
+                {{ form.address_line_2 }}
+                <div class="form-error"></div>
+            </div>
+
+            <!-- City, State, Zip in one row -->
+            <div class="grid grid-cols-3 gap-4">
+                <div>
+                    <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.city.label }}</label>
+                    {{ form.city }}
+                    <div class="form-error"></div>
+                </div>
+                <div>
+                    <label for="{{ form.state.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.state.label }}</label>
+                    {{ form.state }}
+                    <div class="form-error"></div>
+                </div>
+                <div>
+                    <label for="{{ form.zip_code.id_for_label }}" class="block text-sm font-medium mb-2">{{ form.zip_code.label }}</label>
+                    {{ form.zip_code }}
+                    <div class="form-error"></div>
+                </div>
+            </div>
+
+            <!-- Set as Default -->
+            <div class="flex items-center">
+                <div class="flex items-center gap-x-2">
+                    <label for="{{ form.is_default.id_for_label }}" class="relative inline-block w-9 h-5 cursor-pointer">
+                        {{ form.is_default }}
+                        <span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-indigo-600"></span>
+                        <span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-4 bg-white rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+                    </label>
+                    <label for="{{ form.is_default.id_for_label }}" class="text-sm text-gray-600">{{ form.is_default.label }}</label>
+                </div>
+                <div class="form-error"></div>
+            </div>
+
+            <!-- Form feedback message -->
+            <div id="form-feedback" class="hidden mt-2"></div>
+        </div>
+    </div>
+    <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200">
+        <button type="button"
+                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                data-hs-overlay="#address-modal">
+            {% translate 'Cancel' %}
+        </button>
+        <button type="submit" id="submit-address"
+                class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-hidden focus:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none">
+            {% include 'components/_loading_spinner.html' %}
+            <span id="submit-text">{% translate 'Add Address' %}</span>
+        </button>
+    </div>
+</form>

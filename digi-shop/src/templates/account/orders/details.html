@@ -1,0 +1,606 @@
+{% extends "account/_base.html" %}
+
+{% load static i18n %}
+
+{% block dashboard_content %}
+    <section>
+        <div class="p-2 bg-gray-200/50 rounded-2xl h-full mb-8">
+            <!-- Order Header -->
+            <div class="grid grid-cols-3 md:grid-cols-4 p-4">
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Status' %}</div>
+                    <div class="flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500 mr-1.5"></span>
+                        <span class="text-sm font-medium">{% translate 'Order in progress' %}</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Order ID' %}</div>
+                    <div class="text-sm font-medium">701918633</div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Order date' %}</div>
+                    <div class="text-sm font-medium">04/05/2024</div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Total' %}</div>
+                    <div class="text-sm font-medium">$219</div>
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="px-6 pt-3 bg-white rounded-xl relative flex-grow mb-2">
+                <div class="grid md:grid-cols-3 gap-4 py-6">
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-800 mb-2">
+                            {% translate 'Shipping address' %}
+                        </h4>
+
+                        <ul class="mt-2 space-y-1 text-sm font-light text-gray-800">
+                            <li>James Collins</li>
+                            <li>280 Suzanne Throughway</li>
+                            <li>New York, Breannabury, OR 45801</li>
+                            <li>United States</li>
+                            <li class="mt-2">+44 000 000 0001</li>
+                        </ul>
+
+                        <div class="mt-3">
+                            <button type="button"
+                                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
+                                    <path d="m15 5 4 4"></path>
+                                </svg>
+                                {% translate 'Change address' %}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="mb-5">
+                            <h4 class="text-sm font-medium text-gray-800 mb-2">
+                                {% translate 'Contact details' %}
+                            </h4>
+                            <p class="text-sm text-gray-600">
+                                jamescollins@site.so
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-800 mb-2">
+                                {% translate 'Payment method' %}
+                            </h4>
+                            <div class="flex items-center">
+                                <div class="inline-flex items-center justify-center w-10 h-6 border border-gray-200 rounded-md mr-2">
+                                    <svg class="w-8 h-auto" width="35" height="22" viewBox="0 0 35 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <mask id="mastercard-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="35" height="22">
+                                            <path d="M34.5 0.375H0.5V21.387H34.5V0.375Z" fill="white"></path>
+                                        </mask>
+                                        <g mask="url(#mastercard-mask)">
+                                            <path d="M22.0899 19.1431H12.9099V2.61914H22.0899V19.1431Z" fill="#FF5F00"></path>
+                                            <path d="M13.488 10.881C13.488 7.532 15.052 4.54 17.5 2.619C15.647 1.157 13.369 0.375 11.006 0.375C5.209 0.375 0.5 5.084 0.5 10.881C0.5 16.678 5.209 21.387 11.006 21.387C13.369 21.387 15.647 20.605 17.5 19.143C15.052 17.222 13.488 14.23 13.488 10.881Z"
+                                                  fill="#EB001B"></path>
+                                            <path d="M34.5 10.881C34.5 16.678 29.791 21.387 23.994 21.387C21.631 21.387 19.353 20.605 17.5 19.143C19.948 17.222 21.512 14.23 21.512 10.881C21.512 7.532 19.948 4.54 17.5 2.619C19.353 1.157 21.631 0.375 23.994 0.375C29.791 0.375 34.5 5.084 34.5 10.881Z"
+                                                  fill="#F79E1B"></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <span class="text-sm text-gray-600">
+                                        MasterCard •••• 4242
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">{% translate 'Subtotal' %}</span>
+                                <span class="text-sm text-gray-800 font-medium">$229</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">{% translate 'Shipping' %}</span>
+                                <span class="text-sm text-gray-800 font-medium">{% translate 'Free' %}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">{% translate 'Estimated Tax' %}</span>
+                                <span class="text-sm text-gray-800 font-medium">$0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">{% translate 'Sale' %}</span>
+                                <span class="text-sm text-gray-800 font-light">-$20</span>
+                            </div>
+                            <div class="flex justify-between pt-2 border-t border-gray-100">
+                                <span class="text-sm font-medium text-gray-800">{% translate 'Total' %}</span>
+                                <div>
+                                    <span class="text-xs font-light text-gray-600 mr-1">USD</span>
+                                    <span class="text-sm font-medium text-gray-800">$209</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex justify-end">
+                            <button type="button"
+                                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                    <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"></path>
+                                    <rect x="6" y="14" width="12" height="8" rx="1"></rect>
+                                </svg>
+                                {% translate 'View or Print receipt' %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-100 py-4">
+                    <div class="flex flex-wrap items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">
+                                {% translate 'Something wrong?' %} <a
+                                    class="inline-flex items-center gap-1 text-sm underline underline-offset-6 text-gray-800 hover:text-blue-600 focus:outline-hidden focus:text-blue-600"
+                                    href="#">
+                                {% translate 'Exchange or return' %}
+                                <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </a>
+                            </p>
+                        </div>
+
+                        <button type="button"
+                                class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-red-200 bg-white text-sm font-medium text-red-500 hover:bg-red-50 focus:outline-none">
+                            {% translate 'Cancel order' %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="px-6 pt-3 bg-white rounded-xl relative flex-grow">
+                <div class="py-4 border-b border-gray-100">
+                    <div class="flex flex-wrap items-center justify-between">
+                        <!-- Delivery Information -->
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <svg class="flex-shrink-0 h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path>
+                                    <path d="M15 18H9"></path>
+                                    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path>
+                                    <circle cx="17" cy="18" r="2"></circle>
+                                    <circle cx="7" cy="18" r="2"></circle>
+                                </svg>
+                                <span class="text-sm text-gray-600">
+                                        {% translate 'Estimated delivery' %}: <span class="font-medium text-gray-800">Wednesday, Aug 7 2024</span>
+                                    </span>
+                            </div>
+
+                            <!-- Delivery Address -->
+                            <div class="flex items-center">
+                                <svg class="flex-shrink-0 h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z"></path>
+                                    <path d="M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2"></path>
+                                    <path d="M18 22v-3"></path>
+                                    <circle cx="10" cy="10" r="3"></circle>
+                                </svg>
+                                <span class="text-sm text-gray-600">
+                                        280 Suzanne Throughway, New York, Beauharnois, CP 43851, US
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!-- Order Details Button -->
+                        <div class="mt-4 sm:mt-0">
+                            <a href="#"
+                               class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-hidden focus:bg-gray-700 disabled:opacity-50 disabled:pointer-events-none">
+                                {% translate 'Order details' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="pt-4">
+                    <div class="relative">
+                        <div class="grid grid-cols-4 gap-3 mb-4">
+                            <div>
+                                <div class="flex items-center gap-1 mb-2 text-sm text-gray-800">
+                                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 6 9 17l-5-5"></path>
+                                    </svg>
+                                    {% translate 'Order placed' %}
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded">
+                                    <div class="h-1.5 bg-gray-800 rounded" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="relative flex items-center gap-1 mb-2 text-sm text-gray-800">
+                                    <svg class="size-4 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 6 9 17l-5-5"></path>
+                                    </svg>
+                                    <span class="flex absolute size-2.5">
+                                            <span class="animate-ping absolute inline-flex size-full rounded-full bg-indigo-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full size-2.5 bg-indigo-500"></span>
+                                        </span>
+                                    <span class="ps-4">{% translate 'Preparing order' %}</span>
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded">
+                                    <div class="h-1.5 bg-indigo-500 rounded" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1 mb-2 text-sm text-gray-800">
+                                    <svg class="size-4 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 6 9 17l-5-5"></path>
+                                    </svg>
+                                    {% translate 'Shipped' %}
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded">
+                                    <div class="h-1.5 rounded" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1 mb-2 text-sm text-gray-800">
+                                    <svg class="size-4 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 6 9 17l-5-5"></path>
+                                    </svg>
+                                    {% translate 'Delivered' %}
+                                </div>
+                                <div class="h-1.5 bg-gray-200 rounded">
+                                    <div class="h-1.5 rounded" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product List -->
+                <div class="divide-y divide-gray-200">
+                    <div class="py-4">
+                        <div class="relative flex flex-col md:flex-row">
+                            <div class="relative size-full max-w-40 flex-shrink-0">
+                                <img class="size-full object-cover rounded-xl" src="{% static 'assets/images/placeholder.svg' %}" alt="Nike SB Zoom Blazer Mid Electric">
+                            </div>
+
+                            <div class="p-4 flex-1">
+                                <!-- Header -->
+                                <div class="sm:flex justify-between mb-2">
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-800">
+                                            Nike SB Zoom Blazer Mid Electric
+                                        </h4>
+                                        <p class="text-sm font-medium text-gray-800 mt-1">
+                                            $150
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Grid -->
+                                <div class="flex flex-wrap gap-6 mb-3">
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Color' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            White
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Size' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            US 10
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Quantity' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Button Group -->
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button"
+                                            class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                        {% translate 'Buy it again' %}
+                                    </button>
+
+                                    <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
+                                       href="#">
+                                        {% translate 'Write a product review' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-4">
+                        <div class="relative flex flex-col md:flex-row">
+                            <div class="relative size-full max-w-40 flex-shrink-0">
+                                <img class="size-full object-cover rounded-xl" src="{% static 'assets/images/placeholder.svg' %}" alt="Nike SB Zoom Blazer Mid Electric">
+                            </div>
+
+                            <div class="p-4 flex-1">
+                                <!-- Header -->
+                                <div class="sm:flex justify-between mb-2">
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-800">
+                                            Nike SB Zoom Blazer Mid Electric
+                                        </h4>
+                                        <p class="text-sm font-medium text-gray-800 mt-1">
+                                            $150
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Grid -->
+                                <div class="flex flex-wrap gap-6 mb-3">
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Color' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            White
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Size' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            US 10
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Quantity' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Button Group -->
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button"
+                                            class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                        {% translate 'Buy it again' %}
+                                    </button>
+
+                                    <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
+                                       href="#">
+                                        {% translate 'Write a product review' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-4">
+                        <div class="relative flex flex-col md:flex-row">
+                            <div class="relative size-full max-w-40 flex-shrink-0">
+                                <img class="size-full object-cover rounded-xl" src="{% static 'assets/images/placeholder.svg' %}" alt="Nike SB Zoom Blazer Mid Electric">
+                            </div>
+
+                            <div class="p-4 flex-1">
+                                <!-- Header -->
+                                <div class="sm:flex justify-between mb-2">
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-800">
+                                            Nike SB Zoom Blazer Mid Electric
+                                        </h4>
+                                        <p class="text-sm font-medium text-gray-800 mt-1">
+                                            $150
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Grid -->
+                                <div class="flex flex-wrap gap-6 mb-3">
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Color' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            White
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Size' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            US 10
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Quantity' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Button Group -->
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button"
+                                            class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                        {% translate 'Buy it again' %}
+                                    </button>
+
+                                    <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
+                                       href="#">
+                                        {% translate 'Write a product review' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-2 bg-gray-200/50 rounded-2xl h-full mb-8">
+            <!-- Order Header -->
+            <div class="grid grid-cols-3 md:grid-cols-4 p-4">
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Status' %}</div>
+                    <div class="flex items-center gap-1">
+                        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"></path>
+                        </svg>
+                        <span class="text-sm font-medium">{% translate 'Order delivered' %}</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Order ID' %}</div>
+                    <div class="text-sm font-medium">701918633</div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Order date' %}</div>
+                    <div class="text-sm font-medium">04/05/2024</div>
+                </div>
+                <div>
+                    <div class="text-xs font-light text-gray-600 mb-1">{% translate 'Total' %}</div>
+                    <div class="text-sm font-medium">$219</div>
+                </div>
+            </div>
+
+            <div class="px-6 pt-3 bg-white rounded-xl relative flex-grow">
+                <!-- Order Details -->
+                <div class="py-4 border-b border-gray-100">
+                    <div class="flex flex-wrap items-center justify-between">
+                        <!-- Delivery Information -->
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <svg class="flex-shrink-0 h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"></path>
+                                    <path d="M15 18H9"></path>
+                                    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"></path>
+                                    <circle cx="17" cy="18" r="2"></circle>
+                                    <circle cx="7" cy="18" r="2"></circle>
+                                </svg>
+                                <span class="text-sm text-gray-600">
+                                        {% translate 'Delivered' %}: <span class="font-medium text-gray-800">Friday, May 31 2024</span>
+                                    </span>
+                            </div>
+
+                            <!-- Delivery Address -->
+                            <div class="flex items-center">
+                                <svg class="flex-shrink-0 h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z"></path>
+                                    <path d="M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2"></path>
+                                    <path d="M18 22v-3"></path>
+                                    <circle cx="10" cy="10" r="3"></circle>
+                                </svg>
+                                <span class="text-sm text-gray-600">
+                                        280 Suzanne Throughway, New York, Beauharnois, CP 43851, US
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!-- Order Details Button -->
+                        <div class="mt-4 sm:mt-0">
+                            <a href="#"
+                               class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg bg-gray-800 text-sm font-medium text-white hover:bg-gray-700 focus:outline-hidden focus:bg-gray-700 disabled:opacity-50 disabled:pointer-events-none">
+                                {% translate 'Order details' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product List -->
+                <div class="divide-y divide-gray-200">
+                    <div class="py-4">
+                        <div class="relative flex flex-col md:flex-row">
+                            <div class="relative size-full max-w-40 flex-shrink-0">
+                                <img class="size-full object-cover rounded-xl" src="{% static 'assets/images/placeholder.svg' %}" alt="Nike SB Zoom Blazer Mid Electric">
+                            </div>
+
+                            <div class="p-4 flex-1">
+                                <!-- Header -->
+                                <div class="sm:flex justify-between mb-2">
+                                    <div class="flex-1">
+                                        <h4 class="text-sm font-medium text-gray-800">
+                                            Nike SB Zoom Blazer Mid Electric
+                                        </h4>
+                                        <p class="text-sm font-medium text-gray-800 mt-1">
+                                            $150
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Grid -->
+                                <div class="flex flex-wrap gap-6 mb-3">
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Color' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            White
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Size' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            US 10
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h4 class="text-xs text-gray-500">
+                                            {% translate 'Quantity' %}
+                                        </h4>
+                                        <p class="text-sm font-medium">
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Button Group -->
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button type="button"
+                                            class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none">
+                                        {% translate 'Buy it again' %}
+                                    </button>
+
+                                    <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none"
+                                       href="#">
+                                        {% translate 'Write a product review' %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock dashboard_content %}

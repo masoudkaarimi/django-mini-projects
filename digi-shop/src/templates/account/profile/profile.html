@@ -1,0 +1,217 @@
+{% extends "account/_base.html" %}
+
+{% load static i18n %}
+
+{% block dashboard_content %}
+    <section>
+        <!-- Profile Photo Section -->
+        <form method="POST" enctype="multipart/form-data" id="avatar-form" action="{% url 'account:profile_update_avatar' %}">
+            {% csrf_token %}
+            <div class="flex items-center mb-8">
+                <div class="relative">
+                    <img class="inline-block h-16 w-16 rounded-full object-cover" src="{{ user.profile.get_avatar_url }}" alt="Profile image">
+                </div>
+                <div class="ml-4">
+                    <label for="file-upload" class="cursor-pointer flex items-center text-sm border border-gray-300 py-1.5 px-2 rounded-lg text-gray-800 hover:bg-gray-100">
+                        <svg class="w-4 h-4 mr-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        {% translate 'Upload photo' %}
+                        <input id="file-upload" name="avatar" type="file" class="sr-only" accept="image/*" onchange="document.getElementById('avatar-form').submit()">
+                    </label>
+                </div>
+            </div>
+        </form>
+
+        <form action="{% url 'account:profile_update' %}" method="post" class="mt-2" novalidate>
+            {% csrf_token %}
+
+            <!-- Name Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-800">{% translate 'Name' %}</label>
+                        <div class="text-sm font-light text-gray-600">{{ user.get_full_name }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="name-edit-collapse" aria-expanded="false" aria-controls="name-edit-form" data-hs-collapse="#name-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+
+                <div id="name-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="name-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.first_name }}
+                        {{ profile_form.last_name }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-800">{% translate 'Email' %}</label>
+                        <div class="text-sm font-light text-gray-600">{{ user.email }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="email-edit-collapse" aria-expanded="false" aria-controls="email-edit-form" data-hs-collapse="#email-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+
+                <div id="email-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="email-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.email }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="phone_number" class="block text-sm font-medium text-gray-800">{% translate 'Phone Number' %}</label>
+                        <div class="text-sm font-light text-gray-600">{{ user.phone_number }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="phone_number-edit-collapse" aria-expanded="false" aria-controls="phone_number-edit-form" data-hs-collapse="#phone_number-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+
+                <div id="phone_number-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300"
+                     aria-labelledby="phone_number-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.phone_number }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Password Field -->
+        <form action="{% url 'account:profile_update_password' %}" method="post" class="mt-2" novalidate>
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-800">{% translate 'Password' %}</label>
+                        <div class="text-sm font-light text-gray-600">********</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="password-edit-collapse" aria-expanded="false" aria-controls="password-edit-form" data-hs-collapse="#password-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+
+                <div id="password-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="password-edit-collapse">
+                    {% csrf_token %}
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3" data-hs-toggle-password-group>
+                        <div class="w-full">
+                            <div class="relative">
+                                {{ password_form.old_password }}
+                                <button type="button" data-hs-toggle-password='{"target": ["#old_password", "#new_password1", "#new_password2"]}' class="btn-password-toggle">
+                                    {% include "components/icons/_eye_toggle_icon.html" %}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="relative">
+                                {{ password_form.new_password1 }}
+                                <button type="button" data-hs-toggle-password='{"target": ["#old_password", "#new_password1", "#new_password2"]}' class="btn-password-toggle">
+                                    {% include "components/icons/_eye_toggle_icon.html" %}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <div class="relative">
+                                {{ password_form.new_password2 }}
+                                <button type="button" data-hs-toggle-password='{"target": ["#old_password", "#new_password1", "#new_password2"]}' class="btn-password-toggle">
+                                    {% include "components/icons/_eye_toggle_icon.html" %}
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Two-factor Authentication -->
+        <div class="border-b border-gray-200 pb-3 mb-3">
+            <div class="flex justify-between items-center mb-2">
+                <div>
+                    <label for="two_factor" class="block text-sm font-medium text-gray-800">{% translate 'Two-factor Authentication' %} <span class="text-xs text-red-500">(Not Implemented)</span></label>
+                    <div class="text-sm font-light text-gray-600">
+                        {% translate 'Enhance your account security with two-factor authentication.' %}
+                    </div>
+                </div>
+                <button type="button"
+                        class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                        id="two-factor-edit-collapse" aria-expanded="false" aria-controls="two-factor-edit-form" data-hs-collapse="#two-factor-edit-form">
+                    <span class="hs-collapse-open:hidden">{% translate 'Enable' %}</span>
+                    <span class="hs-collapse-open:block hidden">{% translate 'Disable' %}</span>
+                </button>
+            </div>
+
+            <div id="two-factor-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="two-factor-edit-collapse">
+                <form action="#" method="post" class="mt-2" novalidate>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">
+                        {% translate 'Enable Two-Factor Authentication' %}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Account -->
+        <div class="border-b border-gray-200 pb-3 mb-3">
+            <div class="flex justify-between items-center mb-2">
+                <div>
+                    <label for="delete_account" class="block text-sm font-medium text-red-600">{% translate 'Delete Account' %}</label>
+                    <div class="text-sm font-light text-gray-600">
+                        {% translate 'Permanently delete your account. This action cannot be undone.' %}
+                    </div>
+                </div>
+                <button type="button"
+                        class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-red-600 decoration-2 hover:text-red-700 hover:underline focus:outline-hidden focus:underline focus:text-red-700 disabled:opacity-50 disabled:pointer-events-none"
+                        id="delete-account-collapse" aria-expanded="false" aria-controls="delete-account-form" data-hs-collapse="#delete-account-form">
+                    <span class="hs-collapse-open:hidden">{% translate 'Delete' %}</span>
+                    <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                </button>
+            </div>
+
+            <div id="delete-account-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="delete-account-collapse">
+                <form action="{% url 'account:profile_delete' %}" method="post" class="mt-2" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" name="permanent_delete" value="true">
+                    <button type="button" onclick="confirmDeletion()" class="btn btn-danger">{% translate 'Confirm Account Deletion' %}</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock dashboard_content %}
+
+{% block script %}
+    <script>
+        function confirmDeletion() {
+            if (confirm("{% translate 'Are you sure you want to delete your account? This action cannot be undone.' %}")) {
+                document.querySelector('#delete-account-form form').submit();
+            }
+        }
+    </script>
+{% endblock script %}
+
