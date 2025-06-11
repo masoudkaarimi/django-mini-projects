@@ -43,7 +43,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "apps.shop",
-    "apps.inventory",
+    "apps.account",
+    # "apps.inventory",
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -129,12 +130,14 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # User model
-# AUTH_USER_MODEL = "account.User"
+AUTH_USER_MODEL = "account.User"
 
 # Authentication backends
-# AUTHENTICATION_BACKENDS = [
-#     "django.contrib.auth.backends.ModelBackend",
-# ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'apps.account.backends.EmailBackend',
+    'apps.account.backends.PhoneNumberBackend',
+]
 
 # Email
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
@@ -165,6 +168,9 @@ SITE_NAME = _("DigiShop")
 #     "STATIC_LOOKUP": True
 # }
 
+# File Configuration
+ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"]
+MAX_IMAGE_SIZE = 1024  # in KB
 
 # Logging
 LOGGING = {
