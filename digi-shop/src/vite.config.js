@@ -27,11 +27,11 @@ export default defineConfig(config => {
         },
         plugins: [
             djangoVitePlugin({
-                // root: '.',
                 input: [
                     join(INPUT_DIR, '/js/script.js'),
                     join(INPUT_DIR, '/css/style.css'),
                 ],
+                // root: '.',
             }),
             tailwindcss(),
         ],

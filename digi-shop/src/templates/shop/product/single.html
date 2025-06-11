@@ -3,40 +3,8 @@
 {% load static i18n %}
 
 {% block content %}
-    <div class="container mx-auto px-4 py-8">
-        <!-- Breadcrumb -->
-        <ol class="flex items-center whitespace-nowrap mb-6">
-            <li class="inline-flex items-center">
-                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
-                    {% translate 'Home' %}
-                </a>
-                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
-            </li>
-            <li class="inline-flex items-center">
-                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
-                    {% translate 'Electronics' %}
-                </a>
-                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
-            </li>
-            <li class="inline-flex items-center">
-                <a class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600" href="{% url 'shop:home' %}">
-                    {% translate 'Smartphones' %}
-                </a>
-                <svg class="flex-shrink-0 mx-2 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m9 18 6-6-6-6"></path>
-                </svg>
-            </li>
-            <li class="inline-flex items-center text-sm font-semibold text-gray-800 truncate" aria-current="page">
-                {{ product.name }}
-            </li>
-        </ol>
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
 
         <!-- Product Details -->
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
@@ -321,7 +289,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </section>
 
     <script>
         // Cart functionality

@@ -3,11 +3,9 @@
 {% load static i18n %}
 
 {% block content %}
-    <div class="container mx-auto px-4 py-8">
-        <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">{% translate "All Products" %}</h1>
-            <p class="text-gray-600 mt-2">{% translate "Discover our collection of high-quality products" %}</p>
-        </div>
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+        {% include 'components/_heading.html' with heading=heading %}
 
         <div class="flex flex-col lg:flex-row gap-8">
             <!-- Filter Sidebar - Made sticky -->
@@ -431,5 +429,5 @@
                 </nav>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}
