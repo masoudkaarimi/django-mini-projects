@@ -1,28 +1,81 @@
-{% load vite %}
+{% load vite static i18n %}
+
+{% get_current_language as LANGUAGE %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-full" lang="{{ LANGUAGE }}" {% if LANGUAGE == 'fa' or LANGUAGE == 'ar' %}dir="rtl" {% else %}dir="ltr"{% endif %}>
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Django DigiShop{% block title %}{% endblock title %}</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
+        <title>{% translate 'DigiShop' %}{% if title %} - {{ title }} {% endif %}</title>
+
+        <!-- SEO Meta Tags -->
+        {% with seo=page.page_seo %}
+            {% if seo %}
+                {#<title>{{ seo.title|title }}</title>#}
+                <meta name="description" content="{{ seo.description }}">
+                <meta name="keywords" content="{{ seo.keywords }}">
+                <meta name="robots" content="{{ seo.robots }}">
+
+                <!-- Open Graph (OG) Tags for Social Media Sharing -->
+                <meta property="og:type" content="website">
+                <meta property="og:site_name" content="{{ seo.title }}">
+                <meta property="og:locale" content="en_US">
+                <meta property="og:title" content="{{ seo.title }}">
+                <meta property="og:description" content="{{ seo.description }}">
+                <meta property="og:url" content="{{ seo.canonical }}">
+                <meta property="og:image" content="{% static 'your-og-image.jpg' %}">
+
+                <!-- Twitter Card Tags for Twitter Sharing (if needed) -->
+                <meta name="twitter:card" content="summary">
+                <meta name="twitter:title" content="{{ seo.title }}">
+                <meta name="twitter:description" content="{{ seo.description }}">
+                <meta name="twitter:image" content="{% static 'your-twitter-image.jpg' %}">
+                <meta name="twitter:image:alt" content="{{ seo.title }}">
+                <meta name="twitter:site" content="@yourtwitterhandle">
+                <meta name="twitter:creator" content="@yourtwitterhandle">
+
+                <!-- Canonical URL -->
+                <link rel="canonical" href="{{ seo.canonical }}">
+            {% else %}
+                <title>{{ title }} | {{ site_name }}</title>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/images/favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon/favicon-16x16.png' %}">
+        <meta name="theme-color" content="#ffffff">
+
+
+        <!-- Tailwind CSS -->
         {% vite %}
         {% vite 'static/assets/css/style.css' %}
 
-        {% block styles %}{% endblock styles %}
+        {% block style %}{% endblock style %}
     </head>
-    <body class="bg-gray-50">
+    <body class="flex flex-col h-full bg-gray-50">
+        {% include "components/_toast.html" %}
+
+        <!-- Header -->
         {% include '_header.html' %}
 
-        <main class="container max-w-full mx-auto mt-4 px-4 md:px-0">
+        <!-- Main -->
+        <main class="container max-w-full mx-auto mt-4 px-4 md:px-0 shrink-0">
             {% block content %}{% endblock content %}
         </main>
 
+        <!-- Footer -->
         {% include '_footer.html' %}
 
+        <!-- Scripts -->
         {% vite 'static/assets/js/script.js' %}
-        {% block scripts %}{% endblock scripts %}
+        {% block script %}{% endblock script %}
+
+        <!-- SEO: JSON-LD -->
+        <script type="application/ld+json">{{ seo.json_ld|safe }}</script>
     </body>
 </html>
