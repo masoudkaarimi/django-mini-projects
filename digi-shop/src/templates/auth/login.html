@@ -56,3 +56,35 @@
         </form>
     </section>
 {% endblock content %}
+
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Store cart data in sessionStorage before login
+            const loginForm = document.querySelector('form[action*="login"]');
+
+            if (loginForm && window.cartManager) {
+                loginForm.addEventListener('submit', function () {
+                    // Flag for pending cart sync after login
+                    sessionStorage.setItem('pending_cart_sync', 'true');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if we need to sync cart after login
+            if (sessionStorage.getItem('pending_cart_sync') && window.cartManager) {
+                // Trigger cart sync
+                window.cartManager.syncWithServer();
+
+                // Clear the flag
+                sessionStorage.removeItem('pending_cart_sync');
+
+                // Dispatch login success event
+                document.dispatchEvent(new CustomEvent('login-success'));
+            }
+        });
+    </script>
+{% endblock script %}

@@ -1,0 +1,92 @@
+[
+    {
+        "model": "inventory.inventory",
+        "pk": 1,
+        "fields": {
+            "variant": 1,
+            "quantity": 100,
+            "reserved_quantity": 5,
+            "reorder_level": 20,
+            "track_quantity": true,
+            "allow_backorders": false,
+            "is_active": true,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.inventory",
+        "pk": 2,
+        "fields": {
+            "variant": 2,
+            "quantity": 50,
+            "reserved_quantity": 10,
+            "reorder_level": 15,
+            "track_quantity": true,
+            "allow_backorders": false,
+            "is_active": true,
+            "created_at": "2024-01-15T11:00:00Z",
+            "updated_at": "2024-01-15T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.inventory",
+        "pk": 3,
+        "fields": {
+            "variant": 3,
+            "quantity": 200,
+            "reserved_quantity": 0,
+            "reorder_level": 30,
+            "track_quantity": true,
+            "allow_backorders": false,
+            "is_active": true,
+            "created_at": "2024-01-16T10:00:00Z",
+            "updated_at": "2024-01-16T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.inventory",
+        "pk": 4,
+        "fields": {
+            "variant": 4,
+            "quantity": 0,
+            "reserved_quantity": 0,
+            "reorder_level": 10,
+            "track_quantity": true,
+            "allow_backorders": true,
+            "is_active": true,
+            "created_at": "2024-01-17T10:00:00Z",
+            "updated_at": "2024-01-17T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.inventory",
+        "pk": 5,
+        "fields": {
+            "variant": 5,
+            "quantity": 999999,
+            "reserved_quantity": 0,
+            "reorder_level": 0,
+            "track_quantity": false,
+            "allow_backorders": false,
+            "is_active": true,
+            "created_at": "2024-01-18T10:00:00Z",
+            "updated_at": "2024-01-18T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.inventory",
+        "pk": 6,
+        "fields": {
+            "variant": 6,
+            "quantity": 5,
+            "reserved_quantity": 3,
+            "reorder_level": 10,
+            "track_quantity": true,
+            "allow_backorders": false,
+            "is_active": false,
+            "created_at": "2024-01-10T08:00:00Z",
+            "updated_at": "2024-01-20T12:00:00Z"
+        }
+    }
+]

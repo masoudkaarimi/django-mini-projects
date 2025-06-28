@@ -1,0 +1,77 @@
+[
+    {
+        "model": "inventory.productattribute",
+        "pk": 1,
+        "fields": {
+            "product": 1,
+            "attribute": 7,
+            "value_option": 5,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 2,
+        "fields": {
+            "product": 2,
+            "attribute": 7,
+            "value_option": 6,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 3,
+        "fields": {
+            "product": 3,
+            "attribute": 2,
+            "value_number": "1.20",
+            "value_text": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "value_option": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 4,
+        "fields": {
+            "product": 4,
+            "attribute": 5,
+            "value_boolean": true,
+            "value_text": null,
+            "value_number": null,
+            "value_datetime": null,
+            "value_option": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productattribute",
+        "pk": 5,
+        "fields": {
+            "product": 5,
+            "attribute": 1,
+            "value_text": "MP3 + PDF",
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "value_option": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    }
+]

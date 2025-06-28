@@ -1,814 +1,309 @@
-from django.shortcuts import render
+from django.http import Http404
 from django.urls import reverse
+from django.db.models import Count
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView, DetailView, ListView
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from apps.shop.models import SliderBanner
+from apps.inventory.models import Product, Brand, Category
 
 
-def home_view(request):
-    context = {
-        "banners": [
-            {
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/collections/new-arrivals",
-                "alt_text": "New Arrivals"
-            },
-            {
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/collections/sale",
-                "alt_text": "Sale"
-            },
-        ],
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-        "featured_products": [
-            {
-                "name": "Premium WordPress Theme",
-                "price": "59.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/premium-wordpress-theme",
-            },
-            {
-                "name": "Digital Marketing eBook",
-                "price": "19.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/digital-marketing-ebook",
-            },
-            {
-                "name": "Photoshop Brushes Pack",
-                "price": "29.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/photoshop-brushes",
-            },
-            {
-                "name": "Video Editing Course",
-                "price": "89.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/video-editing-course",
-            },
-        ],
-    }
+class HomeView(TemplateView):
+    template_name = 'shop/home/home.html'
 
-    return render(request, 'shop/home/index.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slider_banners = SliderBanner.objects.filter(is_active=True).order_by('order')[:2]
+        categories = (Category.objects.annotate(product_count=Count('products')).order_by('-product_count')[:6])
+        featured_products = Product.objects.filter(is_featured=True, is_active=True).order_by('-created_at')[:4]
+        context.update({
+            "slider_banners": slider_banners,
+            "categories": categories,
+            "featured_products": featured_products,
+        })
+
+        return context
 
 
-def product_archive_view(request):
-    context = {
-        "breadcrumb": [
+# Todo: ContactView,AboutView,FAQView,TermsView
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'shop/product/product_list.html'
+    context_object_name = 'products'
+    paginate_by = 12
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = (Product.objects.values('categories__id', 'categories__name', 'categories__slug').annotate(product_count=Count('id'))).order_by('-product_count')[:6]
+        brands = (Product.objects.values('brand__id', 'brand__name', 'brand__slug').annotate(product_count=Count('id'))).order_by('-product_count')[:6]
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Products'), 'url': None},
+            ],
+            "heading": {
+                "title": _("All Products"),
+                "subtitle": _("Discover our collection of high-quality products."),
+            },
+            "categories": categories,
+            "brands": brands,
+        })
+
+        return context
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'shop/product/product_detail.html'
+    context_object_name = 'product'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        product = self.object
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Products'), 'url': reverse('shop:product_list')},
+                {'title': product.name, 'url': None},
+            ],
+            "images": product.media.all(),
+            "specifications": product.attribute_values.select_related('attribute').all(),
+            "brand": product.brand,
+            "categories": Product.objects.values('categories__name', 'categories__slug').annotate(product_count=Count('id')).order_by('-product_count')[:6],
+            "similar_products": Product.objects.filter(categories__in=product.categories.all()).exclude(id=product.id).distinct().order_by('?')[:6],
+            'color_options': product.get_color_options(),
+            'size_options': product.get_size_options(),
+            'pricing': product.get_pricing(),
+            'inventory': product.get_inventory(),
+        })
+
+        # Get pricing and inventory from default variant
+        variant = product.get_default_variant()
+        if variant:
+            context["price"] = variant.pricing.current_price if hasattr(variant, 'pricing') else None
+            context["stock_count"] = variant.inventory.quantity if hasattr(variant.inventory, "quantity") else 0
+        else:
+            context["price"] = None
+            context["stock_count"] = 0
+
+        return context
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'shop/category/category_list.html'
+    context_object_name = 'categories'
+    paginate_by = 12
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        return Category.objects.filter(is_active=True, parent=None)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Categories'), 'url': None},
+            ],
+            "heading": {
+                "title": _("All Categories"),
+                "subtitle": _("Browse through our categories to find what you need."),
+            },
+        })
+
+        return context
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'shop/category/category_detail.html'
+    context_object_name = 'category'
+    paginate_by = 2
+
+    def get_object(self):
+        path = self.kwargs.get('path', '').strip('/')
+        if not path:
+            raise Http404("Category path is required.")
+
+        slugs = path.split('/')
+        category = get_object_or_404(Category, slug=slugs[0], parent=None, is_active=True)
+
+        for slug in slugs[1:]:
+            category = get_object_or_404(Category, slug=slug, parent=category, is_active=True)
+
+        return category
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = self.object
+        sort = self.request.GET.get('sort', 'default')
+        products_queryset = Product.objects.filter(categories__in=category.get_descendants(include_self=True), is_active=True).distinct()
+
+        if sort == 'newest':
+            products_queryset = products_queryset.order_by('-created_at')
+        # elif sort == 'popular':
+        # products_queryset = products_queryset.order_by('-popularity')
+        elif sort == 'price_asc':
+            products_queryset = products_queryset.order_by('price')
+        elif sort == 'price_desc':
+            products_queryset = products_queryset.order_by('-price')
+        elif sort == 'name_asc':
+            products_queryset = products_queryset.order_by('name')
+        else:
+            products_queryset = products_queryset.order_by('-id')
+
+        paginator = Paginator(products_queryset, self.paginate_by)
+        page_number = self.request.GET.get('page')
+
+        try:
+            products_page = paginator.page(page_number)
+        except PageNotAnInteger:
+            products_page = paginator.page(1)
+        except EmptyPage:
+            products_page = paginator.page(paginator.num_pages)
+
+        breadcrumb = [
             {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Products'), 'url': None},
-        ],
-        "heading": {
-            "title": _("All Products"),
-            "subtitle": _("Discover our collection of high-quality products"),
-        },
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-        "brands": [
-            {
-                "name": "Apple",
-                "logo": "apple",
-                "product_count": 15,
-                "link": "#"
-            },
-            {
-                "name": "Samsung",
-                "logo": "samsung",
-                "product_count": 20,
-                "link": "#"
-            },
-            {
-                "name": "Sony",
-                "logo": "sony",
-                "product_count": 10,
-                "link": "#"
-            },
-            {
-                "name": "LG",
-                "logo": "lg",
-                "product_count": 8,
-                "link": "#"
-            },
-        ],
-        "products": [
-            {
-                "name": "Premium WordPress Theme",
-                "price": "59.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/premium-wordpress-theme",
-            },
-            {
-                "name": "Digital Marketing eBook",
-                "price": "19.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/digital-marketing-ebook",
-            },
-            {
-                "name": "Photoshop Brushes Pack",
-                "price": "29.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/photoshop-brushes",
-            },
-            {
-                "name": "Video Editing Course",
-                "price": "89.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/video-editing-course",
-            },
-        ],
-    }
-
-    return render(request, 'shop/product/archive.html', context)
-
-
-def product_single_view(request, product_slug):
-    product = {
-        "name": "Samsung Galaxy S24 Ultra Smartphone",
-        "price": "1299.99",
-        "image": "/static/assets/images/placeholder.svg",
-        "description": "The Samsung Galaxy S24 Ultra represents the pinnacle of smartphone technology, featuring cutting-edge AI capabilities, professional-grade camera system, and the powerful S Pen for ultimate productivity.",
-        "slug": product_slug,
-        "sku": "SAM-GAL-S24-ULT-256",
-        "stock_count": 25,
-        "brand": {
-            "name": "Samsung",
-            "logo": "samsung"
-        },
-        "original_price": "1499.99",
-        "discount_amount": "200.00",
-        "special_offer": True,
-        "specifications": [
-            {"name": "Display Size", "value": "6.8 inches"},
-            {"name": "Resolution", "value": "3088 x 1440 pixels"},
-            {"name": "Processor", "value": "Snapdragon 8 Gen 3"},
-            {"name": "RAM", "value": "12GB"},
-            {"name": "Storage", "value": "256GB"},
-            {"name": "Main Camera", "value": "200MP + 12MP + 10MP + 10MP"},
-            {"name": "Selfie Camera", "value": "12MP"},
-            {"name": "Battery", "value": "5000mAh"},
-            {"name": "Operating System", "value": "Android 14"},
-            {"name": "Connectivity", "value": "5G, Wi-Fi 6E, Bluetooth 5.3"},
-            {"name": "Special Features", "value": "S Pen included, IP68 water resistance"},
-            {"name": "Dimensions", "value": "6.43 x 3.11 x 0.35 inches"},
-            {"name": "Weight", "value": "8.22 ounces"},
-            {"name": "Color Options", "value": "Titanium Black, Titanium Gray, Titanium Violet, Titanium Yellow"},
-            {"name": "Warranty", "value": "1-year manufacturer warranty"},
-            {"name": "Included Accessories", "value": "S Pen, USB-C cable, ejection pin"},
-        ],
-        "images": [
-            {
-                "url": "/static/assets/images/placeholder.svg",
-                "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Front View"
-            },
-            {
-                "url": "/static/assets/images/placeholder.svg",
-                "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Back View"
-            },
-            {
-                "url": "/static/assets/images/placeholder.svg",
-                "alt_text": "Samsung Galaxy S24 Ultra Smartphone - Side View"
-            }
+            {'title': _('Categories'), 'url': reverse('shop:category_list')},
         ]
-    }
 
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Products'), 'url': reverse('shop:product_archive')},
-            {'title': product["name"], 'url': None},
-        ],
-        "similar_products": [
-            {
-                "name": "iPhone 15 Pro Max",
-                "price": "1199.99",
-                "original_price": "1299.99",
-                "discount_amount": "100.00",
-                "brand": {
-                    "name": "Apple"
-                }
-            },
-            {
-                "name": "Google Pixel 8 Pro",
-                "price": "899.99",
-                "brand": {
-                    "name": "Google"
-                }
-            },
-            {
-                "name": "Samsung Galaxy S24+",
-                "price": "999.99",
-                "original_price": "1099.99",
-                "discount_amount": "100.00",
-                "brand": {
-                    "name": "Samsung"
-                }
-            },
-            {
-                "name": "OnePlus 11 Pro",
-                "price": "799.99",
-                "brand": {
-                    "name": "OnePlus"
-                }
-            },
-            {
-                "name": "Xiaomi 13 Pro",
-                "price": "899.99",
-                "brand": {
-                    "name": "Xiaomi"
-                }
-            },
-            {
-                "name": "Sony Xperia 1 V",
-                "price": "1099.99",
-                "brand": {
-                    "name": "Sony"
-                }
-            }
-        ],
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-        "brands": [
-            {
-                "name": "Apple",
-                "logo": "apple",
-                "product_count": 15,
-                "link": "#"
-            },
-            {
-                "name": "Samsung",
-                "logo": "samsung",
-                "product_count": 20,
-                "link": "#"
-            },
-            {
-                "name": "Sony",
-                "logo": "sony",
-                "product_count": 10,
-                "link": "#"
-            },
-            {
-                "name": "LG",
-                "logo": "lg",
-                "product_count": 8,
-                'link': '#'
-            },
-        ],
-    }
+        ancestors = category.get_ancestors(include_self=True)
+        for i, ancestor in enumerate(ancestors):
+            breadcrumb.append({
+                'title': ancestor.name,
+                'url': None if i == len(ancestors) - 1 else ancestor.get_absolute_url()
+            })
 
-    return render(request, 'shop/product/single.html', context)
+        context.update({
+            "breadcrumb": breadcrumb,
+            "heading": {
+                "title": category.name,
+                "subtitle": _("Explore our collection of %(category)s products") % {"category": category.name},
+            },
+            "products": products_page,
+            "page_obj": products_page,
+            "is_paginated": products_page.has_other_pages(),
+            "sort": sort,
+        })
+
+        return context
 
 
-def category_archive_view(request):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Categories'), 'url': None},
-        ],
-        "heading": {
-            "title": _("All Categories"),
-            "subtitle": _("Browse through our categories to find what you need."),
-        },
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-    }
+class BrandListView(ListView):
+    model = Brand
+    template_name = 'shop/brand/brand_list.html'
+    context_object_name = 'brands'
+    paginate_by = 12
+    ordering = ['-created_at']
 
-    return render(request, 'shop/category/archive.html', context)
+    def get_queryset(self):
+        return Brand.objects.filter(is_active=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # brands = (Product.objects.values(
+        #     'brand__id',
+        #     'brand__name',
+        #     'brand__logo',
+        #     'brand__slug'
+        # ).annotate(product_count=Count('id'))).order_by('-product_count')[:6]
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Brands'), 'url': None},
+            ],
+            "heading": {
+                "title": _("All Brands"),
+                "subtitle": _("Browse through our extensive collection of brands."),
+            },
+            # "brands": brands,
+        })
+
+        return context
 
 
-def category_single_view(request, category_slug):
-    category = {
-        "name": category_slug.capitalize(),
-        "image": "electronics",
-        "description": "Latest gadgets and devices",
-        "slug": category_slug,
-    }
-
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Categories'), 'url': reverse('shop:category_archive')},
-            {'title': category["name"], 'url': None},
-        ],
-        "heading": {
-            "title": category["name"],
-            "subtitle": _("Explore our collection of %(category)s products") % {"category": category["name"]},
-        },
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-        "brands": [
-            {
-                "name": "Apple",
-                "logo": "apple",
-                "product_count": 15,
-                "link": "#"
-            },
-            {
-                "name": "Samsung",
-                "logo": "samsung",
-                "product_count": 20,
-                "link": "#"
-            },
-            {
-                "name": "Sony",
-                "logo": "sony",
-                "product_count": 10,
-                "link": "#"
-            },
-            {
-                "name": "LG",
-                "logo": "lg",
-                "product_count": 8,
-                "link": "#"
-            },
-        ],
-        "products": [
-            {
-                "name": "Premium WordPress Theme",
-                "price": "59.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/premium-wordpress-theme",
-            },
-            {
-                "name": "Digital Marketing eBook",
-                "price": "19.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/digital-marketing-ebook",
-            },
-            {
-                "name": "Photoshop Brushes Pack",
-                "price": "29.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/photoshop-brushes",
-            },
-            {
-                "name": "Video Editing Course",
-                "price": "89.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/video-editing-course",
-            },
-        ],
-    }
-
-    return render(request, 'shop/category/single.html', context)
+class BrandDetailView(DetailView):
+    model = Brand
+    template_name = 'shop/brand/brand_detail.html'
+    context_object_name = 'brand'
+    paginate_by = 2
 
 
-def brand_archive_view(request):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Brands'), 'url': None},
-        ],
-        "heading": {
-            "title": _("All Brands"),
-            "subtitle": _("Browse through our extensive collection of brands."),
-        },
-        "brands": [
-            {
-                "name": "Apple",
-                "logo": "apple",
-                "product_count": 15,
-                "link": "#"
-            },
-            {
-                "name": "Samsung",
-                "logo": "samsung",
-                "product_count": 20,
-                "link": "#"
-            },
-            {
-                "name": "Sony",
-                "logo": "sony",
-                "product_count": 10,
-                "link": "#"
-            },
-            {
-                "name": "LG",
-                "logo": "lg",
-                "product_count": 8,
-                "link": "#"
-            },
-        ],
-    }
+class CheckoutView(TemplateView):
+    template_name = 'shop/checkout/checkout.html'
 
-    return render(request, 'shop/brand/archive.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = self.request.session.get('cart', {})
+        cart_items = []
+        subtotal = 0
 
+        for product_id, item in cart.items():
+            try:
+                product = Product.objects.get(id=product_id)
+                quantity = item.get('quantity', 1)
+                price = float(product.price)
+                item_total = price * quantity
+                subtotal += item_total
 
-def brand_single_view(request, brand_slug):
-    brand = {
-        "name": brand_slug.capitalize(),
-        "logo": "electronics",
-        "description": "Latest gadgets and devices",
-        "slug": brand_slug,
-    }
+                cart_items.append({
+                    "name": product.name,
+                    "price": f"{price:.2f}",
+                    "quantity": quantity,
+                    "image_url": product.image.url if product.image else "/static/assets/images/placeholder.svg",
+                    "link": product.get_absolute_url(),
+                })
+            except Product.DoesNotExist:
+                continue
 
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Categories'), 'url': reverse('shop:category_archive')},
-            {'title': brand["name"], 'url': None},
-        ],
-        "heading": {
-            "title": brand["name"],
-            "subtitle": _("Explore products from %(brand)s") % {"brand": brand["name"]},
-        },
-        "categories": [
-            {
-                "name": "Notebooks",
-                "image": "laptop",
-                "product_count": 12,
-                "link": "#"
-            },
-            {
-                "name": "Smartphones",
-                "image": "smartphone",
-                "product_count": 22,
-                "link": "#"
-            },
-            {
-                "name": "Smartwatches",
-                "image": "watch",
-                "product_count": 35,
-                "link": "#"
-            },
-            {
-                "name": "TV/Audio",
-                "image": "tv",
-                "product_count": 76,
-                "link": "#"
-            },
-            {
-                "name": "Gaming",
-                "image": "gamepad",
-                "product_count": 41,
-                "link": "#"
-            },
-            {
-                "name": "Accessories",
-                "image": "headphones",
-                "product_count": 75,
-                "link": "#"
-            },
-        ],
-        "products": [
-            {
-                "name": "Premium WordPress Theme",
-                "price": "59.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/premium-wordpress-theme",
-            },
-            {
-                "name": "Digital Marketing eBook",
-                "price": "19.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/digital-marketing-ebook",
-            },
-            {
-                "name": "Photoshop Brushes Pack",
-                "price": "29.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/photoshop-brushes",
-            },
-            {
-                "name": "Video Editing Course",
-                "price": "89.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/video-editing-course",
-            },
-        ],
-    }
-
-    return render(request, 'shop/brand/single.html', context)
-
-
-def cart_view(request):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Cart'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Shopping Cart"),
-            "subtitle": _("Review your items before proceeding to checkout."),
-        },
-        "cart_items": [
-            {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "quantity": 1,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-            },
-            {
-                "name": "Apple iPhone 15 Pro Max",
-                "price": "1199.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-            {
-                "name": "Google Pixel 8 Pro",
-                "price": "899.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            }, {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "quantity": 1,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-            },
-            {
-                "name": "Apple iPhone 15 Pro Max",
-                "price": "1199.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-            {
-                "name": "Google Pixel 8 Pro",
-                "price": "899.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            }, {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "quantity": 1,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-            },
-            {
-                "name": "Apple iPhone 15 Pro Max",
-                "price": "1199.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-            {
-                "name": "Google Pixel 8 Pro",
-                "price": "899.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-        ],
-        "total_price": "3699.97"
-    }
-
-    return render(request, 'shop/cart/index.html', context)
-
-
-def checkout_view(request):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Checkout'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Checkout"),
-            "subtitle": _("Review your order details before completing your purchase."),
-        },
-        "cart_items": [
-            {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "quantity": 1,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-            },
-            {
-                "name": "Apple iPhone 15 Pro Max",
-                "price": "1199.99",
-                "quantity": 2,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-        ],
-        "subtotal": "3699.97",
-        "shipping": "0.00",
-        "tax": "295.99",
-        "total": "3995.96",
-        "shipping_address": {
+        shipping_address = {
             "name": "John Doe",
             "address": "123 Main Street, Apt 4B",
             "city": "New York",
             "state": "NY",
             "zip": "10001",
             "country": "United States"
-        },
-        "payment": {
+        }
+
+        payment = {
             "card_name": "John Doe",
             "card_type": "Visa",
             "card_last4": "4242"
         }
-    }
 
-    return render(request, 'shop/checkout/index.html', context)
+        tax = subtotal * 0.08
+        shipping = 0.0
+        total = subtotal + tax + shipping
 
-
-def wishlist_view(request):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Wishlist'), 'url': None},
-        ],
-        "heading": {
-            "title": _("My Wishlist"),
-            "subtitle": _("Items you've saved for later"),
-        },
-        "wishlist_items": [
-            {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Checkout'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Checkout"),
+                "subtitle": _("Review your order details before completing your purchase."),
             },
-            {
-                "name": "Apple iPhone 15 Pro Max",
-                "price": "1199.99",
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/apple-iphone-15-pro-max",
-            },
-        ]
-    }
+            "cart_items": cart_items,
+            "subtotal": f"{subtotal:.2f}",
+            "tax": f"{tax:.2f}",
+            "shipping": f"{shipping:.2f}",
+            "total": f"{total:.2f}",
+            "shipping_address": shipping_address,
+            "payment": payment,
+        })
 
-    return render(request, 'shop/wishlist/index.html', context)
+        return context

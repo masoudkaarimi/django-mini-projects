@@ -1,4 +1,5 @@
 import 'preline'
+import './cart.js'
 
 import "toastify-js/src/toastify.css"
 

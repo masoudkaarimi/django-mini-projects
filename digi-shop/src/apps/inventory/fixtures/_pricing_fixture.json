@@ -1,0 +1,142 @@
+[
+    {
+        "model": "inventory.pricing",
+        "pk": 1,
+        "fields": {
+            "variant": 1,
+            "tier": 1,
+            "cost_price": "799.00",
+            "base_price": "999.00",
+            "sale_price": null,
+            "currency": "USD",
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 2,
+        "fields": {
+            "variant": 1,
+            "tier": 3,
+            "cost_price": "799.00",
+            "base_price": "949.00",
+            "sale_price": null,
+            "currency": "USD",
+            "created_at": "2024-01-15T10:10:00Z",
+            "updated_at": "2024-01-15T10:10:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 3,
+        "fields": {
+            "variant": 2,
+            "tier": 1,
+            "cost_price": "899.00",
+            "base_price": "1099.00",
+            "sale_price": "999.00",
+            "currency": "USD",
+            "created_at": "2024-01-15T11:00:00Z",
+            "updated_at": "2024-01-15T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 4,
+        "fields": {
+            "variant": 3,
+            "tier": 1,
+            "cost_price": "60.00",
+            "base_price": "119.99",
+            "sale_price": "89.99",
+            "currency": "USD",
+            "created_at": "2024-01-16T10:00:00Z",
+            "updated_at": "2024-01-16T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 5,
+        "fields": {
+            "variant": 3,
+            "tier": 2,
+            "cost_price": "60.00",
+            "base_price": "119.99",
+            "sale_price": "79.99",
+            "currency": "USD",
+            "created_at": "2024-01-16T10:10:00Z",
+            "updated_at": "2024-01-16T10:10:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 6,
+        "fields": {
+            "variant": 4,
+            "tier": 1,
+            "cost_price": "65.00",
+            "base_price": "119.99",
+            "sale_price": null,
+            "currency": "USD",
+            "created_at": "2024-01-17T10:00:00Z",
+            "updated_at": "2024-01-17T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 7,
+        "fields": {
+            "variant": 5,
+            "tier": 1,
+            "cost_price": "20.00",
+            "base_price": "99.99",
+            "sale_price": null,
+            "currency": "USD",
+            "created_at": "2024-01-18T10:00:00Z",
+            "updated_at": "2024-01-18T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 8,
+        "fields": {
+            "variant": 5,
+            "tier": 4,
+            "cost_price": "20.00",
+            "base_price": "49.99",
+            "sale_price": null,
+            "currency": "USD",
+            "created_at": "2024-01-18T10:10:00Z",
+            "updated_at": "2024-01-18T10:10:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 9,
+        "fields": {
+            "variant": 2,
+            "tier": 5,
+            "cost_price": "899.00",
+            "base_price": "1099.00",
+            "sale_price": "899.00",
+            "currency": "USD",
+            "created_at": "2024-01-19T10:00:00Z",
+            "updated_at": "2024-01-19T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricing",
+        "pk": 10,
+        "fields": {
+            "variant": 1,
+            "tier": 2,
+            "cost_price": null,
+            "base_price": "999.00",
+            "sale_price": "949.00",
+            "currency": "EUR",
+            "created_at": "2024-01-20T10:00:00Z",
+            "updated_at": "2024-01-20T10:00:00Z"
+        }
+    }
+]

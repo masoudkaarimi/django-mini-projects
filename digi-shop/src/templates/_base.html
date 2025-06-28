@@ -50,6 +50,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon/favicon-16x16.png' %}">
         <meta name="theme-color" content="#ffffff">
 
+        {% block head %}{% endblock head %}
 
         <!-- Tailwind CSS -->
         {% vite %}
@@ -57,7 +58,7 @@
 
         {% block style %}{% endblock style %}
     </head>
-    <body class="flex flex-col h-full bg-gray-50">
+    <body class="flex flex-col h-full bg-gray-50" data-authenticated="{{ user.is_authenticated }}">
         {% include "components/_toast.html" %}
 
         <!-- Header -->

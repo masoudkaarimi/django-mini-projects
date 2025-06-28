@@ -12,17 +12,20 @@ class Command(BaseCommand):
         fixtures_dir = os.path.join('apps', app_name, 'fixtures')
 
         fixtures = [
-            'brand',
-            'category',
-            'product_type',
-            'product_attribute',
-            'product_type_attribute',
-            'product_attribute_value',
-            'product',
-            'product_inventory',
-            'product_inventory_attribute_value',
-            'stock',
-            'media'
+            'brand_fixture',
+            'category_fixture',
+            'attribute_fixture',
+            'attribute_option_fixture',
+            'product_type_fixture',
+            'product_type_attribute_fixture',
+            'product_fixture',
+            'product_attribute_fixture',
+            'product_variant_fixture',
+            'product_variant_attribute_fixture',
+            'product_media_fixture',
+            'inventory_fixture',
+            # 'pricing_tier_fixture',
+            'pricing_fixture',
         ]
 
         self.stdout.write(self.style.NOTICE('Starting to load fixtures...'))

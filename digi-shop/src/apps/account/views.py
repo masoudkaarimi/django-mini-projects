@@ -1,34 +1,149 @@
-from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
-from django.contrib.auth import views as auth_views
 from django.template.loader import render_to_string
-from django.utils.decorators import method_decorator
+from django.contrib.auth import views as auth_views
 from django.utils.encoding import force_bytes, force_str
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, FormView, TemplateView
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, authenticate, logout, get_user_model, update_session_auth_hash
 
-from core.utils import toast
-from apps.account.models import Address
-from apps.account.decorators import unauthenticated_user
+from apps.common.mixins import AnonymousRequiredMixin
+from apps.common.utils import toast
+from apps.account.models import Address, Wishlist
 from apps.account.tokens import account_activation_token
 from apps.account.forms import RegisterForm, LoginForm, AddressForm, ProfileForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 
 User = get_user_model()
 
 
-class PasswordResetView(auth_views.PasswordResetView):
+class RegisterView(AnonymousRequiredMixin, FormView):
+    form_class = RegisterForm
+    template_name = "auth/registration/register.html"
+    success_url = reverse_lazy('account:register')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
+
+        current_site = get_current_site(self.request)
+        subject = _('Activate your Account')
+        message = render_to_string('auth/registration/activation_email.html', {
+            'user': user,
+            'protocol': self.request.scheme,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        user.email_user(subject=subject, message=message)
+
+        return render(self.request, 'auth/registration/activation_email_sent.html', context={
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Register'), 'url': reverse('account:register')},
+                {'title': _('Email Confirmation'), 'url': None},
+            ],
+        })
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Register'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Create your account"),
+                "subtitle": _("Please fill in your information to register."),
+            },
+        })
+
+        return context
+
+
+class AccountActivateView(AnonymousRequiredMixin, View):
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            if not user.is_active:
+                user.is_active = True
+                user.save()
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                toast(request, _("Your account has been activated successfully! Welcome %(username)s to DigiShop.") % {'username': user.username}, level='success')
+            else:
+                toast(request, _("Your account is already active."), level='info')
+            return redirect('account:dashboard')
+
+        context = {
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Register'), 'url': reverse('account:register')},
+                {'title': _('Invalid Activation'), 'url': None},
+            ],
+        }
+
+        return render(request, 'auth/registration/activation_invalid.html', context=context)
+
+
+class LoginView(AnonymousRequiredMixin, FormView):
+    form_class = LoginForm
+    template_name = "auth/login.html"
+    success_url = reverse_lazy('account:dashboard')
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(self.request, username=username, password=password)
+
+        if not user:
+            toast(self.request, _("Username or Password is incorrect"), level='error')
+            return redirect('account:login')
+
+        if not user.is_active:
+            toast(self.request, _("Your account is inactive. Please check your email for activation instructions."), level='error')
+            return redirect('account:login')
+
+        login(self.request, user)
+        toast(self.request, _("Login successful! Welcome %(username)s to DigiShop.") % {'username': user.username}, level='success')
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse_lazy('shop:home')},
+                {'title': _('Login'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Login to your account"),
+                "subtitle": _("Please enter your credentials to access your account."),
+            },
+        })
+        return context
+
+
+class LogoutView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        toast(request, _("Logout successful."), level="success")
+        return redirect('shop:home')
+
+
+class PasswordResetView(AnonymousRequiredMixin, auth_views.PasswordResetView):
     template_name = 'auth/password/password_reset.html'
     email_template_name = 'auth/password/password_reset_email.html'
     form_class = PasswordResetForm
     success_url = reverse_lazy('account:password_reset_done')
-
-    @method_decorator(unauthenticated_user)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,12 +160,8 @@ class PasswordResetView(auth_views.PasswordResetView):
         return context
 
 
-class PasswordResetDoneView(auth_views.PasswordResetDoneView):
+class PasswordResetDoneView(AnonymousRequiredMixin, auth_views.PasswordResetDoneView):
     template_name = 'auth/password/password_reset_done.html'
-
-    @method_decorator(unauthenticated_user)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,14 +178,10 @@ class PasswordResetDoneView(auth_views.PasswordResetDoneView):
         return context
 
 
-class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+class PasswordResetConfirmView(AnonymousRequiredMixin, auth_views.PasswordResetConfirmView):
     template_name = 'auth/password/password_reset_confirm.html'
     form_class = SetPasswordForm
     success_url = reverse_lazy('account:password_reset_complete')
-
-    @method_decorator(unauthenticated_user)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,12 +199,8 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
         return context
 
 
-class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+class PasswordResetCompleteView(AnonymousRequiredMixin, auth_views.PasswordResetCompleteView):
     template_name = 'auth/password/password_reset_complete.html'
-
-    @method_decorator(unauthenticated_user)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -114,214 +217,123 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
         return context
 
 
-@unauthenticated_user
-def register_view(request, *args, **kwargs):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "account/dashboard/dashboard.html"
 
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            # login(request, user)
-            # return redirect("account:login")
-            current_site = get_current_site(request)
-            subject = _('Activate your Account')
-            message = render_to_string('auth/registration/account_activation_email.html', {
-                'user': user,
-                'protocol': request.scheme,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            user.email_user(subject=subject, message=message)
-            context = {
-                "breadcrumb": [
-                    {'title': _('Home'), 'url': reverse('shop:home')},
-                    {'title': _('Register'), 'url': reverse('account:register')},
-                    {'title': _('Email Confirmation'), 'url': None},
-                ],
-            }
-            return render(request, 'auth/registration/account_register_email_confirm.html', context=context)
-
-    form = RegisterForm()
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Register'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Create your account"),
-            "subtitle": _("Please fill in your information to register."),
-        },
-        "form": form
-    }
-    return render(request, "auth/registration/account_register.html", context=context)
-
-
-@unauthenticated_user
-def account_activate_view(request, uidb64, token, *args, **kwargs):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.save()
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        toast(request, _("Your account has been activated successfully! Welcome %(username)s to DigiShop.") % {'username': user.username}, level='success')
-        return redirect('account:dashboard')
-
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Register'), 'url': reverse('account:register')},
-            {'title': _('Invalid Activation'), 'url': None},
-        ],
-    }
-    return render(request, 'auth/registration/account_activation_invalid.html', context=context)
-
-
-@unauthenticated_user
-def login_view(request, *args, **kwargs):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-
-        if form.is_valid():
-            user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-
-            if not user:
-                toast(request, _("Username or Password is incorrect"), level='error')
-                return redirect("account:login")
-
-            if not user.is_active:
-                toast(request, _("Your account is inactive. Please check your email for activation instructions."), level='error')
-                return redirect("account:login")
-
-            login(request, user)
-            toast(request, _("Login successful! Welcome %(username)s to DigiShop.") % {'username': user.username}, level='success')
-            return redirect("account:dashboard")
-
-    form = LoginForm()
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Login'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Login to your account"),
-            "subtitle": _("Please enter your credentials to access your account."),
-        },
-        "form": form
-    }
-    return render(request, "auth/login.html", context=context)
-
-
-@login_required(login_url="account:login")
-def logout_view(request, *args, **kwargs):
-    logout(request)
-    toast(request, _("Logout successful."), level="success")
-    return redirect("shop:home")
-
-
-@login_required(login_url="account:login")
-def dashboard_view(request, *args, **kwargs):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': None},
-        ],
-        "heading": {
-            "title": _("My Account"),
-            "subtitle": _("Manage your account settings and personal information."),
-        },
-        "dashboard_items": [
-            {
-                'title': _('Personal Info'),
-                'description': _('Update your details, email preferences or password'),
-                'url': reverse('account:profile'),
-                'icon': 'personal_info'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': None},
+            ],
+            "heading": {
+                "title": _("My Account"),
+                "subtitle": _("Manage your account settings and personal information."),
             },
-            {
-                'title': _('My Orders'),
-                'description': _('Check the status of your orders or see past orders'),
-                'url': reverse('account:orders'),
-                'icon': 'orders'
+            "dashboard_items": [
+                {
+                    'title': _('Personal Info'),
+                    'description': _('Update your details, email preferences or password'),
+                    'url': reverse('account:profile'),
+                    'icon': 'personal_info'
+                },
+                {
+                    'title': _('My Orders'),
+                    'description': _('Check the status of your orders or see past orders'),
+                    'url': reverse('account:order_list'),
+                    'icon': 'orders'
+                },
+                {
+                    'title': _('Addresses'),
+                    'description': _('Manage your billing & shipping addresses'),
+                    'url': reverse('account:address_list'),
+                    'icon': 'addresses'
+                },
+                {
+                    'title': _('Payment'),
+                    'description': _('Manage credit cards'),
+                    'url': reverse('account:payment_list'),
+                    'icon': 'payment'
+                },
+                {
+                    'title': _('Wallet'),
+                    'description': _('Manage your digital wallet'),
+                    'url': reverse('account:profile'),  # TODO: create this page
+                    'icon': 'wallet'
+                },
+                {
+                    'title': _('Reviews'),
+                    'description': _('Manage your product reviews'),
+                    'url': reverse('account:profile'),  # TODO: create this page
+                    'icon': 'reviews'
+                },
+                {
+                    'title': _('Wishlist'),
+                    'description': _('View your saved items'),
+                    'url': reverse('account:profile'),  # TODO: create this page
+                    'icon': 'wishlist'
+                },
+                {
+                    'title': _('Recently viewed'),
+                    'description': _('Browse your viewing history'),
+                    'url': reverse('account:profile'),  # TODO: create this page
+                    'icon': 'recently_viewed'
+                }
+            ]
+        })
+        return context
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "account/profile/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Personal Info'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Profile"),
+                "subtitle": _("Manage your personal information and account settings."),
             },
-            {
-                'title': _('Addresses'),
-                'description': _('Manage your billing & shipping addresses'),
-                'url': reverse('account:address_list'),
-                'icon': 'addresses'
+            "profile_form": ProfileForm(instance=self.request.user.profile),
+            "password_form": PasswordChangeForm(self.request.user),
+        })
+        return context
+
+
+class ProfileUpdateView(LoginRequiredMixin, View):
+    template_name = 'account/profile/profile.html'
+
+    def get_context(self, form):
+        return {
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Personal Info'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Profile"),
+                "subtitle": _("Manage your personal information and account settings."),
             },
-            {
-                'title': _('Payment'),
-                'description': _('Manage credit cards'),
-                'url': reverse('account:payments'),
-                'icon': 'payment'
-            },
-            {
-                'title': _('Wallet'),
-                'description': _('Manage your digital wallet'),
-                'url': reverse('account:profile'),  # Todo: create this page
-                'icon': 'wallet'
-            },
-            {
-                'title': _('Reviews'),
-                'description': _('Manage your product reviews'),
-                'url': reverse('account:profile'),  # Todo: create this page
-                'icon': 'reviews'
-            },
-            {
-                'title': _('Wishlist'),
-                'description': _('View your saved items'),
-                'url': reverse('account:profile'),  # Todo: create this page
-                'icon': 'wishlist'
-            },
-            {
-                'title': _('Recently viewed'),
-                'description': _('Browse your viewing history'),
-                'url': reverse('account:profile'),  # Todo: create this page
-                'icon': 'recently_viewed'
-            }
-        ]
-    }
+            "form": form,
+        }
 
-    return render(request, 'account/dashboard/index.html', context=context)
+    def get(self, request, *args, **kwargs):
+        form = ProfileForm(instance=request.user.profile)
+        return render(request, self.template_name, context=self.get_context(form))
 
-
-@login_required(login_url="account:login")
-def profile_view(request, *args, **kwargs):
-    profile_form = ProfileForm(instance=request.user)
-    password_form = PasswordChangeForm(request.user)
-
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Personal Info'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Profile"),
-            "subtitle": _("Manage your personal information and account settings."),
-        },
-        "profile_form": profile_form,
-        "password_form": password_form,
-    }
-
-    return render(request, 'account/profile/profile.html', context=context)
-
-
-@login_required(login_url="account:login")
-def profile_update_view(request, *args, **kwargs):
-    if request.method == "POST":
-        form = ProfileForm(request.POST, instance=request.user, partial=True)
-
+    def post(self, request, *args, **kwargs):
+        form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid():
             form.save()
             toast(request, _("Profile updated successfully."), level='success')
+
+            return redirect('account:profile')
         else:
             error_msgs = []
             for field, errors in form.errors.items():
@@ -329,39 +341,24 @@ def profile_update_view(request, *args, **kwargs):
                     error_msgs.append(f"{field}: {error}")
             toast(request, _("Please correct the errors below: ") + " ".join(error_msgs), level='error')
 
-        return redirect('account:profile')
-
-    form = ProfileForm(instance=request.user)
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Personal Info'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Profile"),
-            "subtitle": _("Manage your personal information and account settings."),
-        },
-        "form": form,
-    }
-
-    return render(request, 'account/profile/index.html', context=context)
+            return render(request, self.template_name, context=self.get_context(form))
 
 
-@login_required(login_url="account:login")
-def profile_update_avatar_view(request):
-    if request.method == 'POST' and request.FILES.get('avatar'):
-        profile = request.user.profile
-        profile.avatar = request.FILES['avatar']
-        profile.save()
-        toast(request, _("Profile picture updated successfully."), level='success')
+class ProfileAvatarUpdateView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        if 'avatar' in request.FILES:
+            profile = request.user.profile
+            profile.avatar = request.FILES['avatar']
+            profile.save()
+            toast(request, _("Profile picture updated successfully."), level='success')
+        else:
+            toast(request, _("No avatar image uploaded."), level='error')
 
-    return redirect(request.META.get('HTTP_REFERER', 'profile'))
+        return redirect(request.META.get('HTTP_REFERER', reverse('account:profile')))
 
 
-@login_required(login_url="account:login")
-def profile_update_password_view(request):
-    if request.method == "POST":
+class ProfileUpdatePasswordView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
 
         if form.is_valid():
@@ -375,13 +372,11 @@ def profile_update_password_view(request):
                 for error in errors:
                     error_msgs.append(f"{field}: {error}")
             toast(request, _("Please correct the errors below: ") + " ".join(error_msgs), level='error')
+            return redirect('account:profile')
 
-    return redirect('account:profile')
 
-
-@login_required(login_url="account:login")
-def profile_delete_view(request, *args, **kwargs):
-    if request.method == "POST":
+class ProfileDeleteView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
         user = request.user
         permanent_delete = request.POST.get('permanent_delete', 'false').lower() == 'true'
 
@@ -392,286 +387,268 @@ def profile_delete_view(request, *args, **kwargs):
         else:
             toast(request, _("There was a problem deleting your account. Please try again."), level='error')
 
-    return redirect('account:profile')
+        return redirect('account:profile')
 
 
-@login_required(login_url="account:login")
-def address_list_view(request, *args, **kwargs):
-    addresses = Address.objects.filter(user=request.user).order_by('-is_default')
+class WishlistView(LoginRequiredMixin, ListView):
+    template_name = 'account/wishlist/wishlist.html'
+    context_object_name = 'products'
 
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Addresses'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Addresses"),
-            "subtitle": _("Manage your addresses for shipping and billing."),
-        },
-        "addresses": addresses,
-        "form": AddressForm(),
-    }
-    return render(request, 'account/address/address_list.html', context)
+    def get_queryset(self):
+        wishlist = get_object_or_404(Wishlist, user=self.request.user)
+        return wishlist.products.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-@login_required(login_url="account:login")
-def address_detail_view(request, pk, *args, **kwargs):
-    try:
-        address = Address.objects.get(pk=pk, user=request.user)
-    except Address.DoesNotExist:
-        return JsonResponse({
-            'success': False,
-            'message': _("Address not found."),
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Wishlist'), 'url': None},
+            ],
+            "heading": {
+                "title": _("My Wishlist"),
+                "subtitle": _("Items you've saved for later"),
+            }
         })
 
-    form = AddressForm(instance=address)
-
-    data = {}
-    for field in form.fields:
-        value = getattr(address, field)
-        if hasattr(value, '__class__') and value.__class__.__name__ in ['PhoneNumber', 'Country']:
-            data[field] = str(value)
-        else:
-            data[field] = value
-
-    return JsonResponse({
-        'success': True,
-        'data': data
-    })
+        return context
 
 
-@login_required(login_url="account:login")
-def address_create_view(request, *args, **kwargs):
-    if request.method == "POST":
+class AddressListView(LoginRequiredMixin, TemplateView):
+    template_name = 'account/address/address_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Addresses'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Addresses"),
+                "subtitle": _("Manage your addresses for shipping and billing."),
+            },
+            "addresses": Address.objects.filter(user=self.request.user).order_by('-is_default'),
+            "form": AddressForm(),
+        })
+        return context
+
+
+class AddressDetailView(LoginRequiredMixin, View):
+    def get(self, request, pk, *args, **kwargs):
+        try:
+            address = Address.objects.get(pk=pk, user=request.user)
+        except Address.DoesNotExist:
+            return JsonResponse({'success': False, 'message': _("Address not found.")})
+
+        form = AddressForm(instance=address)
+        data = {}
+        for field in form.fields:
+            value = getattr(address, field)
+            if hasattr(value, '__class__') and value.__class__.__name__ in ['PhoneNumber', 'Country']:
+                data[field] = str(value)
+            else:
+                data[field] = value
+
+        return JsonResponse({'success': True, 'data': data})
+
+
+class AddressCreateView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
         form = AddressForm(request.POST)
-
         if form.is_valid():
             address = form.save(commit=False)
             address.user = request.user
             address.save()
-
             return JsonResponse({
                 'success': True,
                 'message': _("Address added successfully."),
             })
-        else:
-            errors = {field: str(error[0]) for field, error in form.errors.items()}
-            return JsonResponse({
-                'success': False,
-                'message': _("Failed to add address. Please check the form."),
-                'errors': errors
-            })
-    return JsonResponse({
-        'success': False,
-        'message': _("Invalid request method. Use POST to add an address."),
-    })
+        errors = {field: str(error[0]) for field, error in form.errors.items()}
+        return JsonResponse({
+            'success': False,
+            'message': _("Failed to add address. Please check the form."),
+            'errors': errors
+        })
 
 
-@login_required(login_url="account:login")
-def address_update_view(request, pk, *args, **kwargs):
-    if request.method == "POST":
-        try:
-            address = Address.objects.get(pk=pk, user=request.user)
-        except Address.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'message': _("Address not found."),
-            })
-
+class AddressUpdateView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        address = get_object_or_404(Address, pk=pk, user=request.user)
         form = AddressForm(request.POST, instance=address)
-
         if form.is_valid():
             form.save()
-
             return JsonResponse({
                 'success': True,
                 'message': _("Address updated successfully."),
             })
-        else:
-            errors = {field: str(error[0]) for field, error in form.errors.items()}
-            return JsonResponse({
-                'success': False,
-                'message': _("Failed to update the address. Please check the form."),
-                'errors': errors
-            })
-    return JsonResponse({
-        'success': False,
-        'message': _("Invalid request method. Use POST to update an address."),
-    })
+        errors = {field: str(error[0]) for field, error in form.errors.items()}
+        return JsonResponse({
+            'success': False,
+            'message': _("Failed to update the address. Please check the form."),
+            'errors': errors
+        })
 
 
-@login_required(login_url="account:login")
-def address_delete_view(request, pk, *args, **kwargs):
-    if request.method == "DELETE":
+class AddressDeleteView(LoginRequiredMixin, View):
+    def delete(self, request, pk, *args, **kwargs):
         try:
             address = Address.objects.get(pk=pk, user=request.user)
             address.delete()
             toast(request, _("Address deleted successfully."), level='success')
-            return JsonResponse({
-                'success': True,
-                'message': _("Address deleted successfully."),
-            })
+            return JsonResponse({'success': True, 'message': _("Address deleted successfully.")})
         except Address.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'message': _("Address not found."),
-            })
-    return JsonResponse({
-        'success': False,
-        'message': _("Invalid request method. Use DELETE to remove an address."),
-    })
+            return JsonResponse({'success': False, 'message': _("Address not found.")})
 
 
-@login_required(login_url="account:login")
-def address_set_default_view(request, pk, *args, **kwargs):
-    if request.method == "POST":
+class AddressSetDefaultView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
         try:
             address = Address.objects.get(pk=pk, user=request.user)
             address.is_default = True
             address.save()
-
             toast(request, _("Default address set successfully."), level='success')
-            return JsonResponse({
-                'success': True,
-                'message': _("Default address set successfully."),
-            })
+            return JsonResponse({'success': True, 'message': _("Default address set successfully.")})
         except Address.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'message': _("Address not found."),
-            })
-
-    return JsonResponse({
-        'success': False,
-        'message': _("Invalid request method. Use POST to set an address as default."),
-    })
+            return JsonResponse({'success': False, 'message': _("Address not found.")})
 
 
-@login_required(login_url="account:login")
-def orders_view(request, *args, **kwargs):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Orders'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Order History"),
-            "subtitle": _("View your past orders and their details."),
-        },
-        "orders": [
-            {
-                "order_id": "ORD123456",
-                "date": "2023-10-01",
-                "status": "Shipped",
-                "total": "1299.99",
-                "items": [
-                    {
-                        "name": "Samsung Galaxy S24 Ultra Smartphone",
-                        "price": "1299.99",
-                        "quantity": 1,
-                        "image_url": "/static/assets/images/placeholder.svg",
-                        "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-                    }
-                ]
+class OrderListView(LoginRequiredMixin, TemplateView):
+    template_name = 'account/order/order_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Orders'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Order History"),
+                "subtitle": _("View your past orders and their details."),
             },
-            {
-                "order_id": "ORD123457",
-                "date": "2023-10-05",
-                "status": "Delivered",
-                "total": "2399.98",
-                "items": [
-                    {
-                        "name": "Apple iPhone 15 Pro Max",
-                        "price": "1199.99",
-                        "quantity": 2,
-                        "image_url": "/static/assets/images/placeholder.svg",
-                        "link": "/products/apple-iphone-15-pro-max",
-                    }
-                ]
+            "orders": [
+                {
+                    "order_id": "ORD123456",
+                    "date": "2023-10-01",
+                    "status": "Shipped",
+                    "total": "1299.99",
+                    "items": [
+                        {
+                            "name": "Samsung Galaxy S24 Ultra Smartphone",
+                            "price": "1299.99",
+                            "quantity": 1,
+                            "image_url": "/static/assets/images/placeholder.svg",
+                            "link": "/products/samsung-galaxy-s24-ultra-smartphone",
+                        }
+                    ]
+                },
+                {
+                    "order_id": "ORD123457",
+                    "date": "2023-10-05",
+                    "status": "Delivered",
+                    "total": "2399.98",
+                    "items": [
+                        {
+                            "name": "Apple iPhone 15 Pro Max",
+                            "price": "1199.99",
+                            "quantity": 2,
+                            "image_url": "/static/assets/images/placeholder.svg",
+                            "link": "/products/apple-iphone-15-pro-max",
+                        }
+                    ]
+                }
+            ]
+        })
+
+        return context
+
+
+class OrderDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'account/order/order_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = {
+            "id": "ORD123456",
+            "date": "2023-10-01",
+            "status": "Shipped",
+            "total": "1299.99",
+            "items": [
+                {
+                    "name": "Samsung Galaxy S24 Ultra Smartphone",
+                    "price": "1299.99",
+                    "quantity": 1,
+                    "image_url": "/static/assets/images/placeholder.svg",
+                    "link": "/products/samsung-galaxy-s24-ultra-smartphone",
+                }
+            ],
+            "shipping_address": {
+                "name": "James Collins",
+                "address": "123 Main Street, Apt 4B",
+                "city": "New York",
+                "state": "NY",
+                "zip": "10001",
+                "country": "United States"
+            },
+            "payment_method": {
+                "card_name": "James Collins",
+                "card_type": "Visa",
+                "card_last4": "4242"
             }
-        ]
-    }
-
-    return render(request, 'account/orders/index.html', context)
-
-
-@login_required(login_url="account:login")
-def order_detail_view(request, order_slug, *args, **kwargs):
-    order = {
-        "id": "ORD123456",
-        "date": "2023-10-01",
-        "status": "Shipped",
-        "total": "1299.99",
-        "items": [
-            {
-                "name": "Samsung Galaxy S24 Ultra Smartphone",
-                "price": "1299.99",
-                "quantity": 1,
-                "image_url": "/static/assets/images/placeholder.svg",
-                "link": "/products/samsung-galaxy-s24-ultra-smartphone",
-            }
-        ],
-        "shipping_address": {
-            "name": "James Collins",
-            "address": "123 Main Street, Apt 4B",
-            "city": "New York",
-            "state": "NY",
-            "zip": "10001",
-            "country": "United States"
-        },
-        "payment_method": {
-            "card_name": "James Collins",
-            "card_type": "Visa",
-            "card_last4": "4242"
         }
-    }
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Orders'), 'url': reverse('account:order')},
-            {'title': _('Order Details'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Order Details"),
-            "subtitle": _("Order ID") + ": " + order["id"],
-        },
-        "order": order,
-    }
-
-    return render(request, 'account/orders/details.html', context)
-
-
-@login_required(login_url="account:login")
-def payments_view(request, *args, **kwargs):
-    context = {
-        "breadcrumb": [
-            {'title': _('Home'), 'url': reverse('shop:home')},
-            {'title': _('Account'), 'url': reverse('account:dashboard')},
-            {'title': _('Payment Methods'), 'url': None},
-        ],
-        "heading": {
-            "title": _("Payment Methods"),
-            "subtitle": _("Manage your payment methods for easier checkout.")
-        },
-        "payment_methods": [
-            {
-                "name": "Visa",
-                "last4": "4242",
-                "expiry": "12/25",
-                "is_default": True,
-                "id": "pm_visa_01"
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Orders'), 'url': reverse('account:order')},
+                {'title': _('Order Detail # %(order_id)s') % {'order_id': order["id"]}, 'url': None},
+            ],
+            "heading": {
+                "title": _("Order Details"),
+                "subtitle": _('Order ID: %(order_id)s') % {'order_id': order["id"]},
             },
-            {
-                "name": "MasterCard",
-                "last4": "1234",
-                "expiry": "11/24",
-                "is_default": False,
-                "id": "pm_mastercard_02"
-            }
-        ]
-    }
+            "order": order,
+        })
+        return context
 
-    return render(request, 'account/payments/index.html', context)
+
+class PaymentMethodListView(LoginRequiredMixin, TemplateView):
+    template_name = 'account/payment/payment_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Account'), 'url': reverse('account:dashboard')},
+                {'title': _('Payment Methods'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Payment Methods"),
+                "subtitle": _("Manage your payment methods for easier checkout."),
+            },
+            "payment_methods": [
+                {
+                    "name": "Visa",
+                    "last4": "4242",
+                    "expiry": "12/25",
+                    "is_default": True,
+                    "id": "pm_visa_01"
+                },
+                {
+                    "name": "MasterCard",
+                    "last4": "1234",
+                    "expiry": "11/24",
+                    "is_default": False,
+                    "id": "pm_mastercard_02"
+                }
+            ]
+        })
+
+        return context

@@ -1,0 +1,128 @@
+[
+    {
+        "model": "inventory.attribute",
+        "pk": 1,
+        "fields": {
+            "name": "Material",
+            "slug": "material",
+            "type": "text",
+            "is_required": true,
+            "is_variant": false,
+            "is_filterable": true,
+            "is_active": true,
+            "unit": null,
+            "help_text": "Material type of the product (e.g., cotton, leather)",
+            "order": 1,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 2,
+        "fields": {
+            "name": "Weight",
+            "slug": "weight",
+            "type": "number",
+            "is_required": false,
+            "is_variant": false,
+            "is_filterable": true,
+            "is_active": true,
+            "unit": "kg",
+            "help_text": null,
+            "order": 2,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 3,
+        "fields": {
+            "name": "Color",
+            "slug": "color",
+            "type": "color",
+            "is_required": true,
+            "is_variant": true,
+            "is_filterable": true,
+            "is_active": true,
+            "unit": null,
+            "help_text": "Main color of the item",
+            "order": 3,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 4,
+        "fields": {
+            "name": "Size",
+            "slug": "size",
+            "type": "size",
+            "is_required": true,
+            "is_variant": true,
+            "is_filterable": true,
+            "is_active": true,
+            "unit": null,
+            "help_text": "Clothing size (e.g., S, M, L)",
+            "order": 4,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 5,
+        "fields": {
+            "name": "Is Waterproof",
+            "slug": "is-waterproof",
+            "type": "boolean",
+            "is_required": false,
+            "is_variant": false,
+            "is_filterable": false,
+            "is_active": true,
+            "unit": null,
+            "help_text": "Whether the product is waterproof or not",
+            "order": 5,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 6,
+        "fields": {
+            "name": "Release Date",
+            "slug": "release-date",
+            "type": "datetime",
+            "is_required": false,
+            "is_variant": false,
+            "is_filterable": false,
+            "is_active": true,
+            "unit": null,
+            "help_text": "Official release date",
+            "order": 6,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.attribute",
+        "pk": 7,
+        "fields": {
+            "name": "Operating System",
+            "slug": "operating-system",
+            "type": "select",
+            "is_required": true,
+            "is_variant": false,
+            "is_filterable": true,
+            "is_active": false,
+            "unit": null,
+            "help_text": null,
+            "order": 7,
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+        }
+    }
+]

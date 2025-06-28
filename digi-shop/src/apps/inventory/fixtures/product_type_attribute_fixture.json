@@ -1,0 +1,62 @@
+[
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 1,
+        "fields": {
+            "product_type": 1,
+            "attribute": 3,
+            "is_required": true,
+            "order": 1
+        }
+    },
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 2,
+        "fields": {
+            "product_type": 1,
+            "attribute": 7,
+            "is_required": false,
+            "order": 2
+        }
+    },
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 3,
+        "fields": {
+            "product_type": 2,
+            "attribute": 2,
+            "is_required": true,
+            "order": 1
+        }
+    },
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 4,
+        "fields": {
+            "product_type": 2,
+            "attribute": 6,
+            "is_required": false,
+            "order": 2
+        }
+    },
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 5,
+        "fields": {
+            "product_type": 3,
+            "attribute": 4,
+            "is_required": true,
+            "order": 1
+        }
+    },
+    {
+        "model": "inventory.producttypeattribute",
+        "pk": 6,
+        "fields": {
+            "product_type": 4,
+            "attribute": 5,
+            "is_required": false,
+            "order": 1
+        }
+    }
+]

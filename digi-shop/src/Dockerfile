@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DJANGO_SETTINGS_MODULE=core.settings.production
 
 # Set work directory
-WORKDIR /src
+WORKDIR /usr/src
 
 # Install system dependencies including Node.js
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -21,15 +21,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt /src/
+COPY requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy package.json and install NPM dependencies
-COPY package.json package-lock.json* /src/
+COPY package.json package-lock.json* ./
 RUN npm install
 
 # Copy project files
-COPY . /src/
+COPY . .
 
 # Setup Django before building
 RUN python manage.py collectstatic --noinput || echo "Skipping initial collectstatic"

@@ -1,17 +1,15 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from apps.shop import views
 
 app_name = 'shop'
 urlpatterns = [
-    path('', views.home_view, name='home'),
-    path('products/', views.product_archive_view, name='product_archive'),
-    path('products/<slug:product_slug>/', views.product_single_view, name='product_single'),
-    path('categories/', views.category_archive_view, name='category_archive'),
-    path('categories/<slug:category_slug>/', views.category_single_view, name='category_single'),
-    path('brands/', views.brand_archive_view, name='brand_archive'),
-    path('brands/<slug:brand_slug>/', views.brand_single_view, name='brand_single'),
-    path('cart/', views.cart_view, name='cart'),
-    path('checkout/', views.checkout_view, name='checkout'),
-    path('wishlist/', views.wishlist_view, name='wishlist'),
+    path('', views.HomeView.as_view(), name='home'),
+    path('product/', views.ProductListView.as_view(), name='product_list'),
+    path('product/<slug:slug>/', views.ProductDetailView.as_view(), name='product_detail'),
+    path('category/', views.CategoryListView.as_view(), name='category_list'),
+    re_path(r'^category/(?P<path>.+)/$', views.CategoryDetailView.as_view(), name='category_detail'),
+    path('brand/', views.BrandListView.as_view(), name='brand_list'),
+    path('brand/<slug:slug>/', views.BrandDetailView.as_view(), name='brand_detail'),
+    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
 ]

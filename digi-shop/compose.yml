@@ -1,94 +1,155 @@
 version: '3.8'
 
 services:
-  web:
+  django:
     build:
-      context: './src'
+      context: ./src
       dockerfile: Dockerfile
-    container_name: "web"
-    restart: "always"
+    container_name: django
+    restart: always
+    ports:
+      - '8000:8000'
     expose:
       - 8000
     depends_on:
       - postgres
+      - redis
     volumes:
-      - type: "bind"
-        source: './src/'
-        target: '/src'
+      - ./src/:/usr/src
+      # - type: bind
+      # source: ./src/
+      # target: /usr/src
     networks:
-      - web_network
+      - django_network
       - nginx_network
     env_file:
-      - "./.env"
+      - ./.env
 
   postgres:
-    image: postgres:latest
-    restart: "always"
+    image: postgres
+    container_name: postgres
+    restart: always
     ports:
-      - "5432:5432"
-    container_name: "postgres"
+      - '5432:5432'
+    volumes:
+      - ./database/postgres:/var/lib/postgresql/data
     networks:
-      - web_network
-    env_file:
-      - "./.env"
+      - django_network
+    #    env_file:
+    #      - ./.env
     environment:
       - POSTGRES_DB=${DB_NAME:-postgres}
       - POSTGRES_USER=${DB_USER:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-1234}
-    volumes:
-      - pg:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+
 
   nginx:
     build:
-      context: "./nginx"
+      context: ./nginx
       dockerfile: Dockerfile
-    restart: "always"
-    container_name: "nginx"
+    restart: always
+    container_name: nginx
     ports:
-      - "80:80"
+      - '80:80'
       - '443:443'
     networks:
       - nginx_network
     volumes:
-      - type: "bind"
-        source: './src/staticfiles/'
-        target: '/src/staticfiles'
+      - type: bind
+        source: ./src/staticfiles/
+        target: /src/staticfiles
 
-      - type: "bind"
-        source: './src/media/'
-        target: '/src/media'
+      - type: bind
+        source: ./src/media/
+        target: /src/media
 
-      - type: "bind"
-        source: './src/logs/'
-        target: '/src/logs'
+      - type: bind
+        source: ./src/logs/
+        target: /src/logs
 
     depends_on:
-      - web
+      - django
 
-#  redis:
-#    image: redis:latest
-#    restart: always
-#    ports:
-#      - '6379:6379'
-#    container_name: redis
-#    networks:
-#      - web_network
-#    env_file:
-#      - "./.env"
-#    environment:
-#      - REDIS_DB=${REDIS_DB:-0}
-#      - REDIS_PASSWORD=${REDIS_PASSWORD:-12345678}
-#    volumes:
-#      - redis:/data
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - django_network
+    env_file:
+      - ./.env
+    environment:
+      - REDIS_DB=${REDIS_DB:-0}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-12345678}
+    volumes:
+      - redis:/data
 
-volumes:
-  pg:
-    external: True
+  celery:
+    build:
+      context: src
+    container_name: celery
+    restart: always
+    command: celery -A core worker -l info
+    environment:
+      - DEBUG=1
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379:0
+    depends_on:
+      - django
+      - redis
+    volumes:
+      - ./src/:/src
+
+  celery_beat:
+    build:
+      context: src
+    container_name: celery
+    restart: always
+    command: celery -A core worker -l info
+    depends_on:
+      - redis
+      - celery
+    volumes:
+      - ./src/:/src
+
+  flower:
+    image: mher/flower
+    container_name: flower
+    restart: always
+    ports:
+      - '8888:8888'
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=8888
+    depends_on:
+      - redis
+      - celery
+      - celery_beat
+
+#volumes:
+#  postgres:
+#    external: True
 #  redis:
 #    external: True
 
-networks:
-  nginx_network:
-    external: True
-  web_network:
-    external: True
+#networks:
+#  nginx_network:
+#    external: True
+#  django_network:
+#    external: True
+
+
+# on amir dev pv fine -> wsl restrict guid
+# docker-compose up -d --build
+# docker-compose up -d
+# docker-compose ps
+
+# move all env to .env file (Very important)

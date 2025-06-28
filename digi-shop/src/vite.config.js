@@ -30,6 +30,7 @@ export default defineConfig(config => {
                 input: [
                     join(INPUT_DIR, '/js/script.js'),
                     join(INPUT_DIR, '/css/style.css'),
+                    // join(INPUT_DIR, '/js/cart.js'),
                 ],
                 // root: '.',
             }),

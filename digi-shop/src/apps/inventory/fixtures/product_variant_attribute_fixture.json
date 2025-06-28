@@ -1,0 +1,77 @@
+[
+    {
+        "model": "inventory.productvariantattribute",
+        "pk": 1,
+        "fields": {
+            "variant": 1,
+            "attribute": 4,
+            "value_option": 3,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productvariantattribute",
+        "pk": 2,
+        "fields": {
+            "variant": 2,
+            "attribute": 4,
+            "value_option": 4,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productvariantattribute",
+        "pk": 3,
+        "fields": {
+            "variant": 3,
+            "attribute": 4,
+            "value_option": 4,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productvariantattribute",
+        "pk": 4,
+        "fields": {
+            "variant": 3,
+            "attribute": 3,
+            "value_option": 1,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.productvariantattribute",
+        "pk": 5,
+        "fields": {
+            "variant": 4,
+            "attribute": 3,
+            "value_option": 2,
+            "value_text": null,
+            "value_number": null,
+            "value_boolean": null,
+            "value_datetime": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    }
+]

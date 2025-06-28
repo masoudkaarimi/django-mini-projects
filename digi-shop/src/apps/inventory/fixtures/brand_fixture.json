@@ -1,0 +1,132 @@
+[
+    {
+        "model": "inventory.brand",
+        "pk": 1,
+        "fields": {
+            "name": "Apple",
+            "slug": "apple",
+            "logo": "uploads/brands/logos/logo_apple_001.jpg",
+            "description": "Technology company known for innovative consumer electronics, software, and online services.",
+            "is_active": true,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 2,
+        "fields": {
+            "name": "Samsung",
+            "slug": "samsung",
+            "logo": "uploads/brands/logos/logo_samsung_002.jpg",
+            "description": "South Korean multinational conglomerate specializing in electronics and technology.",
+            "is_active": true,
+            "created_at": "2024-01-16T11:30:00Z",
+            "updated_at": "2024-01-16T11:30:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 3,
+        "fields": {
+            "name": "Nike",
+            "slug": "nike",
+            "logo": "uploads/brands/logos/logo_nike_003.jpg",
+            "description": "American multinational corporation engaged in design, development, manufacturing and marketing of footwear, apparel, equipment, accessories and services.",
+            "is_active": true,
+            "created_at": "2024-01-17T09:15:00Z",
+            "updated_at": "2024-01-17T09:15:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 4,
+        "fields": {
+            "name": "Adidas",
+            "slug": "adidas",
+            "logo": "uploads/brands/logos/logo_adidas_004.jpg",
+            "description": "German multinational corporation that designs and manufactures shoes, clothing and accessories.",
+            "is_active": true,
+            "created_at": "2024-01-18T14:20:00Z",
+            "updated_at": "2024-01-18T14:20:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 5,
+        "fields": {
+            "name": "Sony",
+            "slug": "sony",
+            "logo": null,
+            "description": "Japanese multinational conglomerate corporation specializing in electronics, gaming, entertainment and financial services.",
+            "is_active": true,
+            "created_at": "2024-01-19T16:45:00Z",
+            "updated_at": "2024-01-19T16:45:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 6,
+        "fields": {
+            "name": "Discontinued Brand",
+            "slug": "discontinued-brand",
+            "logo": "uploads/brands/logos/logo_discontinued_006.jpg",
+            "description": "This brand is no longer active and has been discontinued.",
+            "is_active": false,
+            "created_at": "2024-01-10T08:00:00Z",
+            "updated_at": "2024-01-20T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 7,
+        "fields": {
+            "name": "Minimalist Brand",
+            "slug": "minimalist-brand",
+            "logo": null,
+            "description": null,
+            "is_active": true,
+            "created_at": "2024-01-21T10:30:00Z",
+            "updated_at": "2024-01-21T10:30:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 8,
+        "fields": {
+            "name": "Luxury Brand Co",
+            "slug": "luxury-brand-co",
+            "logo": "uploads/brands/logos/logo_luxury_008.jpg",
+            "description": "Premium luxury brand offering high-end products with exceptional quality and craftsmanship. Our products represent the pinnacle of excellence and sophistication in their respective categories.",
+            "is_active": true,
+            "created_at": "2024-01-22T13:15:00Z",
+            "updated_at": "2024-01-22T13:15:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 9,
+        "fields": {
+            "name": "Eco Friendly",
+            "slug": "eco-friendly",
+            "logo": "uploads/brands/logos/logo_eco_009.jpg",
+            "description": "Environmentally conscious brand committed to sustainability and eco-friendly practices.",
+            "is_active": true,
+            "created_at": "2024-01-23T07:45:00Z",
+            "updated_at": "2024-01-23T07:45:00Z"
+        }
+    },
+    {
+        "model": "inventory.brand",
+        "pk": 10,
+        "fields": {
+            "name": "Budget Brand",
+            "slug": "budget-brand",
+            "logo": null,
+            "description": "Affordable brand focusing on value-for-money products without compromising on basic quality.",
+            "is_active": false,
+            "created_at": "2024-01-24T15:00:00Z",
+            "updated_at": "2024-01-25T09:30:00Z"
+        }
+    }
+]

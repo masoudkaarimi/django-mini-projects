@@ -34,7 +34,7 @@
                 <div class="flex justify-between items-center mb-2">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-800">{% translate 'Name' %}</label>
-                        <div class="text-sm font-light text-gray-600">{{ user.get_full_name }}</div>
+                        <div class="text-sm font-light text-gray-600">{{ user.get_full_name|default:"Not Set" }}</div>
                     </div>
                     <button type="button"
                             class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -58,7 +58,7 @@
                 <div class="flex justify-between items-center mb-2">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-800">{% translate 'Email' %}</label>
-                        <div class="text-sm font-light text-gray-600">{{ user.email }}</div>
+                        <div class="text-sm font-light text-gray-600">{{ user.email|default:"Not Set" }}</div>
                     </div>
                     <button type="button"
                             class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -81,7 +81,7 @@
                 <div class="flex justify-between items-center mb-2">
                     <div>
                         <label for="phone_number" class="block text-sm font-medium text-gray-800">{% translate 'Phone Number' %}</label>
-                        <div class="text-sm font-light text-gray-600">{{ user.phone_number }}</div>
+                        <div class="text-sm font-light text-gray-600">{{ user.phone_number|default:"Not Set" }}</div>
                     </div>
                     <button type="button"
                             class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -99,7 +99,77 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Gender Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="gender" class="block text-sm font-medium text-gray-800">{% translate 'Gender' %}</label>
+                        <div class="text-sm font-light text-gray-600 capitalize">{{ user.profile.get_gender_display|default:"Not Set" }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="gender-edit-collapse" aria-expanded="false" aria-controls="gender-edit-form" data-hs-collapse="#gender-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+                <div id="gender-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300"
+                     aria-labelledby="gender-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.gender }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Birth Date Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="birthdate" class="block text-sm font-medium text-gray-800">{% translate 'Birth Date' %}</label>
+                        <div class="text-sm font-light text-gray-600">{{ user.profile.birthdate|date:"Y-m-d"|default:"Not Set" }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="birthdate-edit-collapse" aria-expanded="false" aria-controls="birthdate-edit-form" data-hs-collapse="#birthdate-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+
+                <div id="birthdate-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="birthdate-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.birthdate }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- National Code Field -->
+            <div class="border-b border-gray-200 pb-3 mb-3">
+                <div class="flex justify-between items-center mb-2">
+                    <div>
+                        <label for="national_code" class="block text-sm font-medium text-gray-800">{% translate 'National Code' %}</label>
+                        <div class="text-sm font-light text-gray-600">{{ user.profile.national_code|default:"Not Set" }}</div>
+                    </div>
+                    <button type="button"
+                            class="hs-collapse-toggle inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 decoration-2 hover:text-blue-700 hover:underline focus:outline-hidden focus:underline focus:text-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                            id="national_code-edit-collapse" aria-expanded="false" aria-controls="national_code-edit-form" data-hs-collapse="#national_code-edit-form">
+                        <span class="hs-collapse-open:hidden">{% translate 'Edit' %}</span>
+                        <span class="hs-collapse-open:block hidden">{% translate 'Cancel' %}</span>
+                    </button>
+                </div>
+                <div id="national_code-edit-form" class="hs-collapse p-1 hidden w-full overflow-hidden transition-[height] duration-300"
+                     aria-labelledby="national_code-edit-collapse">
+                    <div class="flex flex-wrap gap-2 w-full md:w-1/3">
+                        {{ profile_form.national_code }}
+                        <button type="submit" class="btn btn-secondary">{% translate 'Save changes' %}</button>
+                    </div>
+                </div>
+            </div>
         </form>
+
 
         <!-- Password Field -->
         <form action="{% url 'account:profile_update_password' %}" method="post" class="mt-2" novalidate>
@@ -151,7 +221,8 @@
         </form>
 
         <!-- Two-factor Authentication -->
-        <div class="border-b border-gray-200 pb-3 mb-3">
+        <!--
+         <div class="border-b border-gray-200 pb-3 mb-3">
             <div class="flex justify-between items-center mb-2">
                 <div>
                     <label for="two_factor" class="block text-sm font-medium text-gray-800">{% translate 'Two-factor Authentication' %} <span class="text-xs text-red-500">(Not Implemented)</span></label>
@@ -176,9 +247,10 @@
                 </form>
             </div>
         </div>
+        -->
 
         <!-- Delete Account -->
-        <div class="border-b border-gray-200 pb-3 mb-3">
+        <div class="border-b border-gray-200 pb-3">
             <div class="flex justify-between items-center mb-2">
                 <div>
                     <label for="delete_account" class="block text-sm font-medium text-red-600">{% translate 'Delete Account' %}</label>

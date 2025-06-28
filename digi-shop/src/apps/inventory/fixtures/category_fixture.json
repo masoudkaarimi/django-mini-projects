@@ -1,0 +1,439 @@
+[
+    {
+        "model": "inventory.category",
+        "pk": 1,
+        "fields": {
+            "name": "Electronics",
+            "slug": "electronics",
+            "parent": null,
+            "image": "uploads/categories/icons/icon_electronics_001.jpg",
+            "description": "Electronic devices and gadgets including smartphones, laptops, tablets, and accessories.",
+            "order": 1,
+            "is_active": true,
+            "lft": 1,
+            "rght": 20,
+            "tree_id": 1,
+            "level": 0,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 2,
+        "fields": {
+            "name": "Smartphones",
+            "slug": "smartphones",
+            "parent": 1,
+            "image": "uploads/categories/icons/icon_smartphones_002.jpg",
+            "description": "Latest smartphones from various brands with different features and price ranges.",
+            "order": 1,
+            "is_active": true,
+            "lft": 2,
+            "rght": 7,
+            "tree_id": 1,
+            "level": 1,
+            "created_at": "2024-01-15T11:00:00Z",
+            "updated_at": "2024-01-15T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 3,
+        "fields": {
+            "name": "Android Phones",
+            "slug": "android-phones",
+            "parent": 2,
+            "image": "uploads/categories/icons/icon_android_003.jpg",
+            "description": "Android-based smartphones from various manufacturers.",
+            "order": 1,
+            "is_active": true,
+            "lft": 3,
+            "rght": 4,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-15T12:00:00Z",
+            "updated_at": "2024-01-15T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 4,
+        "fields": {
+            "name": "iPhones",
+            "slug": "iphones",
+            "parent": 2,
+            "image": "uploads/categories/icons/icon_iphones_004.jpg",
+            "description": "Apple iPhone series with latest iOS features.",
+            "order": 2,
+            "is_active": true,
+            "lft": 5,
+            "rght": 6,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-15T13:00:00Z",
+            "updated_at": "2024-01-15T13:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 5,
+        "fields": {
+            "name": "Laptops",
+            "slug": "laptops",
+            "parent": 1,
+            "image": "uploads/categories/icons/icon_laptops_005.jpg",
+            "description": "Portable computers for work, gaming, and personal use.",
+            "order": 2,
+            "is_active": true,
+            "lft": 8,
+            "rght": 13,
+            "tree_id": 1,
+            "level": 1,
+            "created_at": "2024-01-16T10:00:00Z",
+            "updated_at": "2024-01-16T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 6,
+        "fields": {
+            "name": "Gaming Laptops",
+            "slug": "gaming-laptops",
+            "parent": 5,
+            "image": "uploads/categories/icons/icon_gaming_laptops_006.jpg",
+            "description": "High-performance laptops designed for gaming enthusiasts.",
+            "order": 1,
+            "is_active": true,
+            "lft": 9,
+            "rght": 10,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-16T11:00:00Z",
+            "updated_at": "2024-01-16T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 7,
+        "fields": {
+            "name": "Business Laptops",
+            "slug": "business-laptops",
+            "parent": 5,
+            "image": "uploads/categories/icons/icon_business_laptops_007.jpg",
+            "description": "Professional laptops optimized for business and productivity tasks.",
+            "order": 2,
+            "is_active": true,
+            "lft": 11,
+            "rght": 12,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-16T12:00:00Z",
+            "updated_at": "2024-01-16T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 8,
+        "fields": {
+            "name": "Tablets",
+            "slug": "tablets",
+            "parent": 1,
+            "image": "uploads/categories/icons/icon_tablets_008.jpg",
+            "description": "Portable tablet computers for entertainment and productivity.",
+            "order": 3,
+            "is_active": true,
+            "lft": 14,
+            "rght": 19,
+            "tree_id": 1,
+            "level": 1,
+            "created_at": "2024-01-17T10:00:00Z",
+            "updated_at": "2024-01-17T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 9,
+        "fields": {
+            "name": "iPad",
+            "slug": "ipad",
+            "parent": 8,
+            "image": "uploads/categories/icons/icon_ipad_009.jpg",
+            "description": "Apple iPad series with various screen sizes and capabilities.",
+            "order": 1,
+            "is_active": true,
+            "lft": 15,
+            "rght": 16,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-17T11:00:00Z",
+            "updated_at": "2024-01-17T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 10,
+        "fields": {
+            "name": "Android Tablets",
+            "slug": "android-tablets",
+            "parent": 8,
+            "image": "uploads/categories/icons/icon_android_tablets_010.jpg",
+            "description": "Android-based tablets from various manufacturers.",
+            "order": 2,
+            "is_active": true,
+            "lft": 17,
+            "rght": 18,
+            "tree_id": 1,
+            "level": 2,
+            "created_at": "2024-01-17T12:00:00Z",
+            "updated_at": "2024-01-17T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 11,
+        "fields": {
+            "name": "Fashion",
+            "slug": "fashion",
+            "parent": null,
+            "image": "uploads/categories/icons/icon_fashion_011.jpg",
+            "description": "Clothing, footwear, and accessories for men, women, and children.",
+            "order": 2,
+            "is_active": true,
+            "lft": 1,
+            "rght": 16,
+            "tree_id": 2,
+            "level": 0,
+            "created_at": "2024-01-18T10:00:00Z",
+            "updated_at": "2024-01-18T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 12,
+        "fields": {
+            "name": "Footwear",
+            "slug": "footwear",
+            "parent": 11,
+            "image": "uploads/categories/icons/icon_footwear_012.jpg",
+            "description": "Shoes, sneakers, boots, and other footwear for all occasions.",
+            "order": 1,
+            "is_active": true,
+            "lft": 2,
+            "rght": 9,
+            "tree_id": 2,
+            "level": 1,
+            "created_at": "2024-01-18T11:00:00Z",
+            "updated_at": "2024-01-18T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 13,
+        "fields": {
+            "name": "Sneakers",
+            "slug": "sneakers",
+            "parent": 12,
+            "image": "uploads/categories/icons/icon_sneakers_013.jpg",
+            "description": "Athletic and casual sneakers for sports and everyday wear.",
+            "order": 1,
+            "is_active": true,
+            "lft": 3,
+            "rght": 4,
+            "tree_id": 2,
+            "level": 2,
+            "created_at": "2024-01-18T12:00:00Z",
+            "updated_at": "2024-01-18T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 14,
+        "fields": {
+            "name": "Boots",
+            "slug": "boots",
+            "parent": 12,
+            "image": "uploads/categories/icons/icon_boots_014.jpg",
+            "description": "Various types of boots including work boots, fashion boots, and hiking boots.",
+            "order": 2,
+            "is_active": true,
+            "lft": 5,
+            "rght": 6,
+            "tree_id": 2,
+            "level": 2,
+            "created_at": "2024-01-18T13:00:00Z",
+            "updated_at": "2024-01-18T13:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 15,
+        "fields": {
+            "name": "Formal Shoes",
+            "slug": "formal-shoes",
+            "parent": 12,
+            "image": "uploads/categories/icons/icon_formal_shoes_015.jpg",
+            "description": "Professional and formal footwear for business and special occasions.",
+            "order": 3,
+            "is_active": true,
+            "lft": 7,
+            "rght": 8,
+            "tree_id": 2,
+            "level": 2,
+            "created_at": "2024-01-18T14:00:00Z",
+            "updated_at": "2024-01-18T14:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 16,
+        "fields": {
+            "name": "Clothing",
+            "slug": "clothing",
+            "parent": 11,
+            "image": "uploads/categories/icons/icon_clothing_016.jpg",
+            "description": "Apparel and garments for men, women, and children.",
+            "order": 2,
+            "is_active": true,
+            "lft": 10,
+            "rght": 15,
+            "tree_id": 2,
+            "level": 1,
+            "created_at": "2024-01-19T10:00:00Z",
+            "updated_at": "2024-01-19T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 17,
+        "fields": {
+            "name": "T-Shirts",
+            "slug": "t-shirts",
+            "parent": 16,
+            "image": "uploads/categories/icons/icon_tshirts_017.jpg",
+            "description": "Casual and graphic t-shirts in various styles and colors.",
+            "order": 1,
+            "is_active": true,
+            "lft": 11,
+            "rght": 12,
+            "tree_id": 2,
+            "level": 2,
+            "created_at": "2024-01-19T11:00:00Z",
+            "updated_at": "2024-01-19T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 18,
+        "fields": {
+            "name": "Jeans",
+            "slug": "jeans",
+            "parent": 16,
+            "image": "uploads/categories/icons/icon_jeans_018.jpg",
+            "description": "Denim jeans in various fits and washes for men and women.",
+            "order": 2,
+            "is_active": true,
+            "lft": 13,
+            "rght": 14,
+            "tree_id": 2,
+            "level": 2,
+            "created_at": "2024-01-19T12:00:00Z",
+            "updated_at": "2024-01-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 19,
+        "fields": {
+            "name": "Sports & Outdoors",
+            "slug": "sports-outdoors",
+            "parent": null,
+            "image": "uploads/categories/icons/icon_sports_019.jpg",
+            "description": "Sports equipment, outdoor gear, and fitness accessories.",
+            "order": 3,
+            "is_active": true,
+            "lft": 1,
+            "rght": 6,
+            "tree_id": 3,
+            "level": 0,
+            "created_at": "2024-01-20T10:00:00Z",
+            "updated_at": "2024-01-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 20,
+        "fields": {
+            "name": "Fitness Equipment",
+            "slug": "fitness-equipment",
+            "parent": 19,
+            "image": "uploads/categories/icons/icon_fitness_020.jpg",
+            "description": "Home and gym fitness equipment for various workout routines.",
+            "order": 1,
+            "is_active": true,
+            "lft": 2,
+            "rght": 3,
+            "tree_id": 3,
+            "level": 1,
+            "created_at": "2024-01-20T11:00:00Z",
+            "updated_at": "2024-01-20T11:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 21,
+        "fields": {
+            "name": "Outdoor Gear",
+            "slug": "outdoor-gear",
+            "parent": 19,
+            "image": "uploads/categories/icons/icon_outdoor_021.jpg",
+            "description": "Equipment and accessories for camping, hiking, and outdoor adventures.",
+            "order": 2,
+            "is_active": true,
+            "lft": 4,
+            "rght": 5,
+            "tree_id": 3,
+            "level": 1,
+            "created_at": "2024-01-20T12:00:00Z",
+            "updated_at": "2024-01-20T12:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 22,
+        "fields": {
+            "name": "Inactive Category",
+            "slug": "inactive-category",
+            "parent": null,
+            "image": null,
+            "description": "This category has been deactivated and is no longer visible to customers.",
+            "order": 999,
+            "is_active": false,
+            "lft": 1,
+            "rght": 2,
+            "tree_id": 4,
+            "level": 0,
+            "created_at": "2024-01-10T08:00:00Z",
+            "updated_at": "2024-01-21T15:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.category",
+        "pk": 23,
+        "fields": {
+            "name": "Minimal Category",
+            "slug": "minimal-category",
+            "parent": null,
+            "image": null,
+            "description": null,
+            "order": 0,
+            "is_active": true,
+            "lft": 1,
+            "rght": 2,
+            "tree_id": 5,
+            "level": 0,
+            "created_at": "2024-01-22T10:30:00Z",
+            "updated_at": "2024-01-22T10:30:00Z"
+        }
+    }
+]

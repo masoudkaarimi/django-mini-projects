@@ -1,6 +1,5 @@
 import secrets
 
-from PIL import Image
 from django.db import models
 from django.conf import settings
 from django.core.mail import send_mail
@@ -11,11 +10,12 @@ from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from apps.common.models import TimeStampedModel
+from apps.common.utils import generate_upload_path
 from apps.account.validators import profile_avatar_validator
-from core.utils import generate_upload_path
 
 
-class User(AbstractUser):
+class User(AbstractUser, TimeStampedModel):
     class IdentityByEmailDoesNotExist(models.ObjectDoesNotExist):
         pass
 
@@ -25,6 +25,8 @@ class User(AbstractUser):
     class IdentityByPhoneNumberDoesNotExist(models.ObjectDoesNotExist):
         pass
 
+    date_joined = None
+    last_login = None
     email = models.EmailField(
         unique=True,
         blank=False,
@@ -38,30 +40,36 @@ class User(AbstractUser):
         verbose_name=_('Phone Number'),
         help_text=_("The user's phone number. (Optional)")
     )
-    is_two_factor_enabled = models.BooleanField(
-        default=False,
-        verbose_name=_("Two-factor Authentication"),
-        help_text=_("Whether two-factor authentication is enabled for this user.")
-    )
-    two_factor_secret = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=_("2FA Secret"),
-        help_text=_("Secret key for TOTP-based two-factor authentication.")
-    )
-    backup_codes = models.JSONField(
-        default=list,
-        blank=True,
-        null=True,
-        verbose_name=_("Backup Codes"),
-        help_text=_("Backup codes for two-factor authentication recovery.")
-    )
+    # is_two_factor_enabled = models.BooleanField(
+    #     default=False,
+    #     verbose_name=_("Two-factor Authentication"),
+    #     help_text=_("Whether two-factor authentication is enabled for this user.")
+    # )
+    # two_factor_secret = models.CharField(
+    #     max_length=255,
+    #     blank=True,
+    #     null=True,
+    #     verbose_name=_("2FA Secret"),
+    #     help_text=_("Secret key for TOTP-based two-factor authentication.")
+    # )
+    # backup_codes = models.JSONField(
+    #     default=list,
+    #     blank=True,
+    #     null=True,
+    #     verbose_name=_("Backup Codes"),
+    #     help_text=_("Backup codes for two-factor authentication recovery.")
+    # )
     last_login_ip = models.GenericIPAddressField(
         blank=True,
         null=True,
         verbose_name=_("Last Login IP Address"),
         help_text=_("The IP address of the user's last login, if available. (Auto-generated)")
+    )
+    last_login_at = models.DateTimeField(
+        blank=True,
+        null=True,
+        verbose_name=_("Last Login Date"),
+        help_text=_("The date and time of the user's last login, if available. (Auto-generated)")
     )
 
     class Meta:
@@ -82,34 +90,34 @@ class User(AbstractUser):
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    def generate_two_factor_secret(self):
-        import pyotp
-
-        self.two_factor_secret = pyotp.random_base32()
-        self.save(update_fields=['two_factor_secret'])
-        return self.two_factor_secret
-
-    def verify_two_factor_token(self, token):
-        if not self.is_two_factor_enabled or not self.two_factor_secret:
-            return False
-
-        import pyotp
-
-        totp = pyotp.TOTP(self.two_factor_secret)
-        return totp.verify(token)
-
-    def generate_backup_codes(self, count=10):
-        import secrets
-        import string
-
-        alphabet = string.ascii_uppercase + string.digits
-        codes = [
-            ''.join(secrets.choice(alphabet) for _ in range(8))
-            for _ in range(count)
-        ]
-        self.backup_codes = codes
-        self.save(update_fields=['backup_codes'])
-        return codes
+    # def generate_two_factor_secret(self):
+    #     import pyotp
+    #
+    #     self.two_factor_secret = pyotp.random_base32()
+    #     self.save(update_fields=['two_factor_secret'])
+    #     return self.two_factor_secret
+    #
+    # def verify_two_factor_token(self, token):
+    #     if not self.is_two_factor_enabled or not self.two_factor_secret:
+    #         return False
+    #
+    #     import pyotp
+    #
+    #     totp = pyotp.TOTP(self.two_factor_secret)
+    #     return totp.verify(token)
+    #
+    # def generate_backup_codes(self, count=10):
+    #     import secrets
+    #     import string
+    #
+    #     alphabet = string.ascii_uppercase + string.digits
+    #     codes = [
+    #         ''.join(secrets.choice(alphabet) for _ in range(8))
+    #         for _ in range(count)
+    #     ]
+    #     self.backup_codes = codes
+    #     self.save(update_fields=['backup_codes'])
+    #     return codes
 
     def deactivate_account(self):
         # Anonymize personal data
@@ -179,11 +187,17 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
+    class GenderChoices(models.TextChoices):
+        MALE = 'male', _('Male')
+        FEMALE = 'female', _('Female')
+        OTHER = 'other', _('Other')
+        PREFER_NOT_TO_SAY = 'prefer_not_to_say', _('Prefer Not To Say')
+
     def avatar_path(instance, filename):
-        return generate_upload_path(instance, filename, prefix='uploads/profiles', field_name=instance.user.username)
+        return generate_upload_path(instance, filename, prefix='uploads/profiles', field_name=f"avatar_{instance.user.username}")
 
     user = models.OneToOneField(
-        User,
+        "User",
         on_delete=models.CASCADE,
         related_name="profile",
         blank=False,
@@ -204,6 +218,28 @@ class Profile(models.Model):
                     'The maximum file size is <b>{max_size}MB</b>.').format(allowed_image_extensions=', '.join(settings.ALLOWED_IMAGE_EXTENSIONS),
                                                                             max_size=settings.MAX_IMAGE_SIZE / 1024)
     )
+    gender = models.CharField(
+        max_length=17,
+        choices=GenderChoices.choices,
+        default=GenderChoices.PREFER_NOT_TO_SAY,
+        blank=True,
+        null=True,
+        verbose_name=_('Gender'),
+        help_text=_("Select the user's gender. (Optional)")
+    )
+    birthdate = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name=_("Birth Date"),
+        help_text=_("The user's birth date. (Optional)")
+    )
+    national_code = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+        verbose_name=_("National Code"),
+        help_text=_("The user's national code. (Optional)")
+    )
 
     class Meta:
         verbose_name = _("profile")
@@ -213,24 +249,15 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        if self.avatar:
-            img = Image.open(self.avatar.path)
-            if img.height > 300 or img.width > 300:
-                img.thumbnail((300, 300))
-                img.save(self.avatar.path)
-
     def get_avatar_url(self):
         if self.avatar:
             return self.avatar.url
         return static('assets/images/placeholders/avatar.webp')
 
 
-class Address(models.Model):
+class Address(TimeStampedModel):
     user = models.ForeignKey(
-        User,
+        "User",
         on_delete=models.CASCADE,
         related_name="addresses",
         blank=False,
@@ -305,17 +332,6 @@ class Address(models.Model):
         verbose_name=_("Default Address"),
         help_text=_("Whether this is the default address for the user.")
     )
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-        verbose_name=_("Creation Date"),
-        help_text=_("The date and time when the record was created. (Auto-generated)")
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name=_("Last Update Date"),
-        help_text=_("The date and time when the record was last updated. (Auto-generated)")
-    )
 
     class Meta:
         verbose_name = _("address")
@@ -325,7 +341,78 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.full_name} - {self.city}, {self.country.name}"
 
-    def save(self, *args, **kwargs):
-        if self.is_default:
-            Address.objects.filter(user=self.user, is_default=True).update(is_default=False)
-        super().save(*args, **kwargs)
+
+class Wishlist(TimeStampedModel):
+    user = models.OneToOneField(
+        "User",
+        on_delete=models.CASCADE,
+        related_name='wishlist',
+        blank=False,
+        null=False,
+        verbose_name=_("User"),
+        help_text=_("The user who owns this wishlist."),
+    )
+    products = models.ManyToManyField(
+        'inventory.Product',
+        related_name='wishlists',
+        verbose_name=_("Products"),
+        help_text=_("Products added to this wishlist."),
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = _("Wishlist")
+        verbose_name_plural = _("Wishlists")
+
+    def __str__(self):
+        return f"Wishlist of {self.user.username}"
+
+# class Wallet
+# class Transaction
+
+# @receiver(post_save, sender=User)
+# def create_user_related_models(sender, instance, created, **kwargs):
+#     if created:
+#         Wishlist.objects.create(user=instance)
+#         Wallet.objects.create(user=instance)
+
+
+# ---------- apps ---------
+# cart
+# class Cart
+# class CartItem
+
+# orders
+# class Order
+# class OrderItem
+# class Payment
+# class PaymentMethod
+# class Order(models.Model):
+#     # ... فیلدهای موجود
+#     tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, null=True)
+#     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+#
+#     def save(self, *args, **kwargs):
+#         if self.tax:
+#             self.tax_amount = (self.total_price * self.tax.rate) / 100
+#         super().save(*args, **kwargs)
+# class Invoice(models.Model):
+#     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='invoice')
+#     invoice_number = models.CharField(max_length=50, unique=True)  # مثال: "INV-2023-1001"
+#     issued_date = models.DateTimeField(auto_now_add=True)
+#     due_date = models.DateTimeField()  # تاریخ پرداخت
+#     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+#     total_amount = models.DecimalField(max_digits=12, decimal_places=2)
+#     status = models.CharField(
+#         max_length=20,
+#         choices=[('paid', 'پرداخت شده'), ('pending', 'در انتظار پرداخت'), ('cancelled', 'لغو شده')],
+#         default='pending'
+#     )
+#
+#     def __str__(self):
+#         return f"Invoice #{self.invoice_number}"
+# shipping
+# clsas ShippingMethod
+# clsas ShippingZone
+# clsas ShippingRate
+# clsas DeliveryOption

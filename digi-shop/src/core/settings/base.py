@@ -42,9 +42,11 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "apps.shop",
+    "apps.common",
     "apps.account",
-    # "apps.inventory",
+    "apps.shop",
+    "apps.inventory",
+    "apps.checkout",
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -73,10 +75,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                # "shop.context_processors.default",
+                "apps.checkout.context_processors.cart",
             ],
             # "libraries": {
-            #     "shop_tags": "shop.templatetags.shop_tags",
+            #     "shop_tags": "apps.shop.templatetags.shop_tags",
             # }
         },
     },
@@ -138,6 +140,8 @@ AUTHENTICATION_BACKENDS = [
     'apps.account.backends.EmailBackend',
     'apps.account.backends.PhoneNumberBackend',
 ]
+
+LOGIN_URL = 'account:login'
 
 # Email
 EMAIL_HOST = os.environ.get("EMAIL_HOST")

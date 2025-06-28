@@ -1,0 +1,57 @@
+[
+    {
+        "model": "inventory.pricingtier",
+        "pk": 1,
+        "fields": {
+            "name": "Regular",
+            "description": "Standard pricing for regular customers",
+            "is_default": true,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricingtier",
+        "pk": 2,
+        "fields": {
+            "name": "Premium",
+            "description": "Special pricing for premium members with additional benefits",
+            "is_default": false,
+            "created_at": "2024-01-16T10:00:00Z",
+            "updated_at": "2024-01-16T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricingtier",
+        "pk": 3,
+        "fields": {
+            "name": "Wholesale",
+            "description": "Bulk pricing for business customers",
+            "is_default": false,
+            "created_at": "2024-01-17T10:00:00Z",
+            "updated_at": "2024-01-17T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricingtier",
+        "pk": 4,
+        "fields": {
+            "name": "Educational",
+            "description": "Special pricing for schools and educational institutions",
+            "is_default": false,
+            "created_at": "2024-01-18T10:00:00Z",
+            "updated_at": "2024-01-18T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.pricingtier",
+        "pk": 5,
+        "fields": {
+            "name": "Promotional",
+            "description": null,
+            "is_default": false,
+            "created_at": "2024-01-19T10:00:00Z",
+            "updated_at": "2024-01-19T10:00:00Z"
+        }
+    }
+]

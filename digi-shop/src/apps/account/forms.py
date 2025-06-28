@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import (
@@ -10,7 +11,7 @@ from django.contrib.auth.forms import (
 )
 from phonenumber_field.formfields import PhoneNumberField
 
-from apps.account.models import Address
+from apps.account.models import Address, Profile
 
 User = get_user_model()
 
@@ -415,7 +416,7 @@ class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(
         label=_("First Name"),
         max_length=150,
-        required=False,  # Changed to False to allow partial updates
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "autofocus": True,
@@ -469,25 +470,171 @@ class ProfileForm(forms.ModelForm):
         ),
         help_text=Address._meta.get_field("phone_number").help_text,
     )
+    avatar = forms.ImageField(
+        label=_("Avatar"),
+        required=False,
+        help_text=_('The user\'s avatar. (Optional)<br />'
+                    'The recommended size is <b>256x256px</b>.<br />'
+                    'The supported formats are <b>{allowed_image_extensions}</b>.<br />'
+                    'The maximum file size is <b>{max_size}MB</b>.').format(
+            allowed_image_extensions=', '.join(settings.ALLOWED_IMAGE_EXTENSIONS),
+            max_size=settings.MAX_IMAGE_SIZE / 1024
+        ),
+        widget=forms.ClearableFileInput(
+            attrs={
+                "class": "form-input",
+                "name": "avatar",
+                "id": "avatar",
+            }
+        ),
+    )
+    gender = forms.ChoiceField(
+        choices=Profile.GenderChoices.choices,
+        label=_("Gender"),
+        required=False,
+        widget=forms.Select(
+            attrs={
+                "class": "form-input",
+                "name": "gender",
+                "id": "gender",
+            }
+        ),
+        help_text=_("Select the user's gender. (Optional)")
+    )
+    birthdate = forms.DateField(
+        label=_("Birth Date"),
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                "class": "form-input",
+                "name": "birthdate",
+                "id": "birthdate",
+                "type": "date",
+            }
+        ),
+        help_text=_("The user's birthdate. (Optional)")
+    )
+    national_code = forms.CharField(
+        label=_("National Code"),
+        max_length=10,
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-input",
+                "name": "national_code",
+                "id": "national_code",
+                "placeholder": _("National Code"),
+                "inputmode": "text",
+            }
+        ),
+        help_text=_("The user's national code. (Optional)")
+    )
 
     class Meta:
-        model = User
-        fields = ("first_name", "last_name", "email", "phone_number")
+        model = Profile
+        fields = ("avatar", "gender", "birthdate", "national_code")
 
     def __init__(self, *args, **kwargs):
-        self.partial = kwargs.pop('partial', False) if 'partial' in kwargs else False
         super().__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            self.fields['first_name'].initial = self.instance.user.first_name
+            self.fields['last_name'].initial = self.instance.user.last_name
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['phone_number'].initial = getattr(self.instance.user, 'phone_number', '')
 
     def save(self, commit=True):
-        if self.partial:
-            instance = self.instance
-            for field_name, value in self.cleaned_data.items():
-                if value != '' and value is not None:
-                    setattr(instance, field_name, value)
+        profile = super().save(commit=False)
+        user = self.instance.user
+        if user:
+            user.first_name = self.cleaned_data.get('first_name', user.first_name)
+            user.last_name = self.cleaned_data.get('last_name', user.last_name)
+            user.email = self.cleaned_data.get('email', user.email)
+            if 'phone_number' in self.cleaned_data:
+                setattr(user, 'phone_number', self.cleaned_data['phone_number'])
             if commit:
-                instance.save()
-            return instance
-        return super().save(commit)
+                user.save()
+        if commit:
+            profile.save()
+        return profile
+
+
+# class ProfileForm(forms.ModelForm):
+#     first_name = forms.CharField(
+#         label=_("First Name"),
+#         max_length=150,
+#         required=False,  # Changed to False to allow partial updates
+#         widget=forms.TextInput(
+#             attrs={
+#                 "autofocus": True,
+#                 "class": "form-input",
+#                 "name": "first_name",
+#                 "id": "first_name",
+#                 "placeholder": _("First Name"),
+#                 "inputmode": "text",
+#             }
+#         )
+#     )
+#     last_name = forms.CharField(
+#         label=_("Last Name"),
+#         max_length=150,
+#         required=False,
+#         widget=forms.TextInput(
+#             attrs={
+#                 "class": "form-input",
+#                 "name": "last_name",
+#                 "id": "last_name",
+#                 "placeholder": _("Last Name"),
+#                 "inputmode": "text",
+#             }
+#         )
+#     )
+#     email = forms.EmailField(
+#         label=_("Email"),
+#         required=False,
+#         widget=forms.EmailInput(
+#             attrs={
+#                 "class": "form-input",
+#                 "name": "email",
+#                 "id": "email",
+#                 "pattern": "[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+",
+#                 "placeholder": _("your.email@example.com"),
+#                 "inputmode": "email",
+#             }
+#         )
+#     )
+#     phone_number = PhoneNumberField(
+#         label=_("Phone Number"),
+#         required=False,
+#         widget=forms.TextInput(
+#             attrs={
+#                 "class": "form-input",
+#                 "name": "phone_number",
+#                 "id": "phone_number",
+#                 "placeholder": _("+1xxxxxxxxxx"),
+#                 "inputmode": "tel",
+#             }
+#         ),
+#         help_text=Address._meta.get_field("phone_number").help_text,
+#     )
+#
+#     class Meta:
+#         model = User
+#         fields = ("first_name", "last_name", "email", "phone_number")
+#
+#     def __init__(self, *args, **kwargs):
+#         self.partial = kwargs.pop('partial', False) if 'partial' in kwargs else False
+#         super().__init__(*args, **kwargs)
+#
+#     def save(self, commit=True):
+#         if self.partial:
+#             instance = self.instance
+#             for field_name, value in self.cleaned_data.items():
+#                 if value != '' and value is not None:
+#                     setattr(instance, field_name, value)
+#             if commit:
+#                 instance.save()
+#             return instance
+#         return super().save(commit)
 
 
 class AddressForm(forms.ModelForm):

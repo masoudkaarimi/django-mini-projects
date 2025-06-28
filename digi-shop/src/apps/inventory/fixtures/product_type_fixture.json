@@ -1,0 +1,46 @@
+[
+    {
+        "model": "inventory.producttype",
+        "pk": 1,
+        "fields": {
+            "name": "Smartphone",
+            "slug": "smartphone",
+            "description": "Smartphones including Android and iOS devices",
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.producttype",
+        "pk": 2,
+        "fields": {
+            "name": "Laptop",
+            "slug": "laptop",
+            "description": "Portable computers for work and gaming",
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.producttype",
+        "pk": 3,
+        "fields": {
+            "name": "T-Shirt",
+            "slug": "t-shirt",
+            "description": null,
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "inventory.producttype",
+        "pk": 4,
+        "fields": {
+            "name": "Running Shoes",
+            "slug": "running-shoes",
+            "description": "Footwear designed for athletic use",
+            "created_at": "2024-01-15T10:00:00Z",
+            "updated_at": "2024-01-15T10:00:00Z"
+        }
+    }
+]

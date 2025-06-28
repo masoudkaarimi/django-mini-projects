@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+        {% include 'components/_heading.html' with heading=heading %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {% for brand in brands %}
+                {% include 'shop/brand/_brand_card.html'%}
+                {% empty %}
+                <p class="text-gray-500">{% translate "No brands available at the moment." %}</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock content %}
