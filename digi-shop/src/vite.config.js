@@ -8,7 +8,7 @@ export default defineConfig(config => {
     const env = loadEnv(config.mode, process.cwd(), '');
 
     const INPUT_DIR = './static/assets';
-    const OUTPUT_DIR = './staticfiles/build';
+    const OUTPUT_DIR = './static/assets/build';
 
     return {
         resolve: {
@@ -16,23 +16,29 @@ export default defineConfig(config => {
                 '@': resolve(INPUT_DIR),
             },
         },
-        // css: {},
+        build: {
+            outDir: OUTPUT_DIR,
+            emptyOutDir: true,
+            rollupOptions: {
+                input: [
+                    join(INPUT_DIR, 'js/script.js'),
+                    join(INPUT_DIR, 'css/style.css'),
+                    join(INPUT_DIR, 'js/cart.js'),
+                ],
+            },
+        },
         server: {
             host: '127.0.0.1',
-            // host: env.DJANGO_VITE_DEV_SERVER_HOST,
-            // port: env.DJANGO_VITE_DEV_SERVER_PORT,
-            // cors: {
-            //     origin: '127.0.0.1',
-            // },
+            port: 5173,
         },
         plugins: [
             djangoVitePlugin({
+                root: '.',
                 input: [
                     join(INPUT_DIR, '/js/script.js'),
                     join(INPUT_DIR, '/css/style.css'),
-                    // join(INPUT_DIR, '/js/cart.js'),
+                    join(INPUT_DIR, '/js/cart.js'),
                 ],
-                // root: '.',
             }),
             tailwindcss(),
         ],

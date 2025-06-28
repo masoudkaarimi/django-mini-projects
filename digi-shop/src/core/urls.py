@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('apps.shop.urls', namespace='shop')),
     path('', include('apps.account.urls', namespace='account')),
     path('', include('apps.checkout.urls', namespace='checkout')),
+    path('', include('django_vite_plugin.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

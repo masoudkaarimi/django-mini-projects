@@ -75,8 +75,7 @@
         </ul>
         <div class="mt-4 flex items-center justify-between gap-4">
             <p class="text-2xl font-extrabold leading-tight text-gray-900">{{ product.price }}</p>
-
-            <button type="button"
+            <button type="button" data-product-variant-id="{{ product.get_default_variant.id }}"
                     class="add-to-cart inline-flex items-center gap-x-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 shadow-sm">
                 <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

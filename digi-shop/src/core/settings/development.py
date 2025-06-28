@@ -28,5 +28,11 @@ DATABASES = {
 }
 
 # Django Vite Plugin
-# DJANGO_VITE_PLUGIN["DEV_MODE"] = DEBUG
-# DJANGO_VITE_PLUGIN["BUILD_URL_PREFIX"] = STATIC_URL
+DJANGO_VITE_PLUGIN = {
+    'DEV_MODE': DEBUG,
+    'SERVER': {
+        'HTTPS': False,
+        'HOST': '127.0.0.1',
+        'PORT': 5173
+    },
+}

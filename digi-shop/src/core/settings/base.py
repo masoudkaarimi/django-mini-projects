@@ -154,24 +154,6 @@ DEFAULT_FROM_EMAIL = os.environ.get("DJANGO_DEFAULT_FROM_EMAIL")
 
 SITE_NAME = _("DigiShop")
 
-# Django Vite Plugin
-# DJANGO_VITE_PLUGIN = {
-#     "WS_CLIENT": "@vite/client",
-#     "SERVER": {
-#         "HTTPS": False,
-#         "HOST": "127.0.0.1",
-#         "PORT": 5173
-#     },
-#     "JS_ATTRS": {
-#         "type": "module"
-#     },
-#     "CSS_ATTRS": {
-#         "rel": "stylesheet",
-#         "type": "text/css"
-#     },
-#     "STATIC_LOOKUP": True
-# }
-
 # File Configuration
 ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"]
 MAX_IMAGE_SIZE = 1024  # in KB

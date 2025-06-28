@@ -11,6 +11,8 @@
 
         <title>{% translate 'DigiShop' %}{% if title %} - {{ title }} {% endif %}</title>
 
+        <meta name="csrf-token" content="{{ csrf_token }}">
+
         <!-- SEO Meta Tags -->
         {% with seo=page.page_seo %}
             {% if seo %}
@@ -74,6 +76,7 @@
 
         <!-- Scripts -->
         {% vite 'static/assets/js/script.js' %}
+        {% vite 'static/assets/js/cart.js' %}
         {% block script %}{% endblock script %}
 
         <!-- SEO: JSON-LD -->

@@ -1,11 +1,6 @@
 {% extends "_base.html" %}
 {% load vite static i18n %}
 
-{% block head %}
-    {# Todo: show all page below code #}
-    <meta name="csrf-token" content="{{ csrf_token }}">
-{% endblock head %}
-
 {% block content %}
     <section class="container mx-auto py-8">
         {% include 'components/_breadcrumb.html' with items=breadcrumb %}
@@ -15,7 +10,7 @@
             <!-- Cart Items -->
             <div class="w-full lg:w-8/12">
                 <div class="mb-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Cart Items" %} ({{ cart.item_count }})</h2>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Cart Items" %} (<span class="cart-count">{{ cart.item_count }}</span>)</h2>
 
                     <div class="divide-y divide-gray-200">
                         {% for item in cart.items %}
