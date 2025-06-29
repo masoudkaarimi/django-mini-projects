@@ -75,6 +75,14 @@
         {% include '_footer.html' %}
 
         <!-- Scripts -->
+        <script>
+            window.inventoryCheckUrl = "{% url 'checkout:check_inventory' product_variant_id=0 %}";
+            window.addToCartUrl = "{% url 'checkout:add_to_cart' %}";
+            window.updateCartUrl = "{% url 'checkout:update_cart' %}";
+            window.removeFromCartUrl = "{% url 'checkout:remove_from_cart' %}";
+            window.clearCartUrl = "{% url 'checkout:clear_cart' %}";
+            window.syncCartUrl = "{% url 'checkout:sync_cart' %}";
+        </script>
         {% vite 'static/assets/js/script.js' %}
         {% vite 'static/assets/js/cart.js' %}
         {% block script %}{% endblock script %}

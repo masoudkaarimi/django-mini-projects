@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
+from celery.schedules import crontab
 
 from django.utils.translation import gettext_lazy as _
 
@@ -157,6 +159,18 @@ SITE_NAME = _("DigiShop")
 # File Configuration
 ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"]
 MAX_IMAGE_SIZE = 1024  # in KB
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
+# Celery Beat Schedule
+CELERY_BEAT_SCHEDULE = {
+    'clear-expired-reservations': {
+        'task': 'apps.checkout.tasks.clear_expired_reservations',
+        'schedule': crontab(minute='0', hour='0'),
+    }
+}
 
 # Logging
 LOGGING = {

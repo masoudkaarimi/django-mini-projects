@@ -25,8 +25,6 @@ class CartView(TemplateView):
                 "title": _("Shopping Cart"),
                 "subtitle": _("Review your items before proceeding to checkout."),
             },
-            # "cart_items": cart_items,
-            # "total_price": f"{total_price:.2f}"
         })
 
         return context
@@ -42,12 +40,19 @@ class AddToCartView(View):
             cart_item, error = CartService.add_item(request.user, product_variant_id, quantity)
 
             if error:
-                return JsonResponse({'success': False, 'message': str(error)}, status=400)
+                return JsonResponse({
+                    'success': False,
+                    'message': str(error)
+                }, status=400)
 
             # Get updated cart data
             cart_data = CartService.get_data(request.user)
 
-            return JsonResponse({'success': True, 'message': _('Item added to cart'), 'cart_data': cart_data})
+            return JsonResponse({
+                'success': True,
+                'message': _('Item added to cart'),
+                'cart_data': cart_data
+            })
 
         # For guest users
         try:
@@ -82,21 +87,26 @@ class AddToCartView(View):
             })
 
         except ProductVariant.DoesNotExist:
-            return JsonResponse({'success': False, 'message': _('Product variant not found')}, status=404)
+            return JsonResponse({
+                'success': False,
+                'message': _('Product variant not found')
+            }, status=404)
         except Exception as e:
-            return JsonResponse({'success': False, 'message': _('An error occurred')}, status=500)
+            print(e)
+            return JsonResponse({
+                'success': False,
+                'message': _('An error occurred')
+            }, status=500)
 
 
 class UpdateCartItemView(View):
-    """Update cart item quantity (AJAX endpoint)"""
-
     def post(self, request):
-        variant_id = request.POST.get('variant_id')
+        product_variant_id = request.POST.get('product_variant_id')
         quantity = int(request.POST.get('quantity', 0))
 
         if request.user.is_authenticated:
-            # For logged-in users, update in database
-            success, error = CartService.update_item(request.user, variant_id, quantity)
+            # For logged-in users, update in the database
+            success, error = CartService.update_item(request.user, product_variant_id, quantity)
 
             if error:
                 return JsonResponse({
@@ -117,20 +127,17 @@ class UpdateCartItemView(View):
         # Just check inventory if quantity > 0
         if quantity > 0:
             try:
-                variant = ProductVariant.objects.select_related('inventory').get(
-                    id=variant_id, is_active=True
-                )
+                product_variant = ProductVariant.objects.select_related('inventory').get(id=product_variant_id, is_active=True)
 
                 # Check inventory
                 inventory_available = True
                 inventory_message = ""
 
-                if hasattr(variant, 'inventory'):
-                    inventory = variant.inventory
-                    if inventory.track_quantity and inventory.available_quantity < quantity:
-                        if not inventory.allow_backorders:
-                            inventory_available = False
-                            inventory_message = _("Not enough inventory available")
+                if hasattr(product_variant, 'inventory'):
+                    inventory = product_variant.inventory
+                    if not inventory.has_enough_quantity(quantity):
+                        inventory_available = False
+                        inventory_message = _("Not enough inventory available")
 
                 return JsonResponse({
                     'success': inventory_available,
@@ -155,14 +162,12 @@ class UpdateCartItemView(View):
 
 
 class RemoveFromCartView(View):
-    """Remove item from cart (AJAX endpoint)"""
-
     def post(self, request):
-        variant_id = request.POST.get('variant_id')
+        product_variant_id = request.POST.get('product_variant_id')
 
         if request.user.is_authenticated:
             # For logged-in users, remove from database
-            success, error = CartService.remove_item(request.user, variant_id)
+            success, error = CartService.remove_item(request.user, product_variant_id)
 
             if error:
                 return JsonResponse({
@@ -179,7 +184,7 @@ class RemoveFromCartView(View):
                 'cart_data': cart_data
             })
 
-        # For guest users, the frontend will handle localStorage
+        # For guest users
         return JsonResponse({
             'success': True,
             'message': _('Item removed from cart')
@@ -187,8 +192,6 @@ class RemoveFromCartView(View):
 
 
 class ClearCartView(View):
-    """Clear all items from cart (AJAX endpoint)"""
-
     def post(self, request):
         if request.user.is_authenticated:
             # For logged-in users, clear database cart
@@ -214,8 +217,6 @@ class ClearCartView(View):
 
 
 class SyncCartView(LoginRequiredMixin, View):
-    """Sync cart from local storage to database"""
-
     def post(self, request):
         try:
             data = json.loads(request.body)
@@ -251,16 +252,11 @@ class SyncCartView(LoginRequiredMixin, View):
 
 
 class CheckInventoryView(View):
-    """Check inventory availability (AJAX endpoint)"""
-
-    def get(self, request, variant_id):
+    def get(self, request, product_variant_id):
         quantity = int(request.GET.get('quantity', 1))
 
         try:
-            variant = ProductVariant.objects.select_related('inventory').get(
-                id=variant_id, is_active=True
-            )
-
+            variant = ProductVariant.objects.select_related('inventory').get(id=product_variant_id, is_active=True)
             available = True
             available_quantity = 0
 
@@ -269,15 +265,13 @@ class CheckInventoryView(View):
                 available_quantity = inventory.available_quantity
 
                 if inventory.track_quantity:
-                    available = (not inventory.track_quantity or
-                                 inventory.available_quantity >= quantity or
-                                 inventory.allow_backorders)
+                    available = inventory.has_enough_quantity(quantity)
 
             return JsonResponse({
                 'available': available,
                 'available_quantity': available_quantity,
-                'message': _('Out of stock') if not available else ''
-            })
+                'message': _('Out of stock') if not available else _('In stock')}
+            )
 
         except ProductVariant.DoesNotExist:
             return JsonResponse({

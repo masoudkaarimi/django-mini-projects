@@ -737,7 +737,14 @@ class ProductVariant(TimeStampedModel):
                 product=self.product,
                 is_default=True
             ).exclude(pk=self.pk).update(is_default=False)
+
         super().save(*args, **kwargs)
+
+        # Ensure at least one default variant exists for the product
+        if not self.is_default and not ProductVariant.objects.filter(product=self.product, is_default=True).exists():
+            if self.pk:
+                self.is_default = True
+                ProductVariant.objects.filter(pk=self.pk).update(is_default=True)
 
 
 class ProductVariantAttribute(TimeStampedModel):
@@ -888,6 +895,20 @@ class ProductMedia(TimeStampedModel):
 
     def __str__(self):
         return f"{self.product.name} - {self.type}"
+
+    def save(self, *args, **kwargs):
+        # Ensure only one featured media per product
+        if self.is_featured:
+            ProductMedia.objects.filter(
+                product=self.product,
+                is_featured=True
+            ).exclude(pk=self.pk).update(is_featured=False)
+        super().save(*args, **kwargs)
+
+    def get_file_url(self):
+        if self.file:
+            return self.file.url
+        return static('assets/images/placeholders/product_media.webp')
 
 
 class Inventory(TimeStampedModel):

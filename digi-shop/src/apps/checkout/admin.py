@@ -21,3 +21,8 @@ class CartAdmin(admin.ModelAdmin):
         return obj.item_count
 
     item_count.short_description = 'Items'
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        promotion_prices.delay(obj.promo_reduction, obj.id)
+        promotion_management.delay()

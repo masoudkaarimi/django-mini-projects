@@ -2,61 +2,67 @@
 {% load vite static i18n %}
 
 {% block content %}
-    <section class="container mx-auto py-8">
+    <section class="cart-container">
         {% include 'components/_breadcrumb.html' with items=breadcrumb %}
         {% include 'components/_heading.html' with heading=heading %}
 
-        <div class="flex flex-col lg:flex-row gap-8">
+        <div class="cart-layout">
             <!-- Cart Items -->
-            <div class="w-full lg:w-8/12">
+            <div class="cart-items-section">
                 <div class="mb-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Cart Items" %} (<span class="cart-count">{{ cart.item_count }}</span>)</h2>
-
-                    <div class="divide-y divide-gray-200">
+                    <div class="flex justify-between items-center gap-2">
+                        <h2 class="summary-title">{% translate "Cart Items" %} (<span class="cart-count">{{ cart.item_count }}</span>)</h2>
+                        {% if cart.item_count %}
+                            <button class="clear-cart text-link" onclick="cartManager.clearCart()">Clear Cart</button>
+                        {% endif %}
+                    </div>
+                    <div class="cart-items-list">
                         {% for item in cart.items %}
-                            <div class="py-4 relative flex flex-col md:flex-row">
-                                <div class="relative size-full max-w-32 flex-shrink-0">
-                                    <img class="size-full object-cover rounded-xl" src="{{ item.image.file.url }}" alt="{{ item.name }}">
+                            <div class="cart-item" data-product-variant-id="{{ item.product.variant.id }}">
+                                <div class="cart-item-image-container">
+                                    <img class="cart-item-image" src="{{ item.product.image }}" alt="{{ item.product.name }}">
                                 </div>
-                                <div class="p-4 flex-1">
-                                    <h4 class="text-sm font-medium text-gray-800 mb-2">{{ item.name }}</h4>
-                                    <div class="flex flex-wrap gap-6 mb-3">
-                                        <div>
-                                            <h4 class="text-xs text-gray-500">{% translate 'Color' %}</h4>
-                                            <p class="text-sm font-medium">White</p>
+                                <div class="cart-item-details">
+                                    <h4 class="cart-item-title">{{ item.product.name }}</h4>
+                                    <div class="cart-item-properties">
+                                        {% if item.product.color.value %}
+                                            <div class="cart-item-property">
+                                                <h4 class="property-label">{% translate 'Color' %}</h4>
+                                                <p class="property-value">{{ item.product.color.value }}</p>
+                                            </div>
+                                        {% endif %}
+                                        {% if item.product.size.value %}
+                                            <div class="cart-item-property">
+                                                <h4 class="property-label">{% translate 'Size' %}</h4>
+                                                <p class="property-value">{{ item.product.size.value }}</p>
+                                            </div>
+                                        {% endif %}
+                                        <div class="cart-item-property">
+                                            <h4 class="property-label">{% translate 'Price' %}</h4>
+                                            <p class="property-value">${{ item.product.price }}</p>
                                         </div>
-                                        <div>
-                                            <h4 class="text-xs text-gray-500">{% translate 'Size' %}</h4>
-                                            <p class="text-sm font-medium">US 10</p>
+                                        <div class="cart-item-property">
+                                            <h4 class="property-label">{% translate 'Subtotal' %}</h4>
+                                            <p class="property-value">${{ item.subtotal }}</p>
                                         </div>
-                                        <div>
-                                            <h4 class="text-xs text-gray-500">{% translate 'Price' %}</h4>
-                                            <p class="text-sm font-medium">${{ item.price }}</p>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-xs text-gray-500">{% translate 'Quantity' %}</h4>
-                                            <p class="text-sm font-medium quantity-value">{{ item.quantity }}</p>
-                                        </div>
-                                        <div>
-                                            <h4 class="text-xs text-gray-500">{% translate 'Subtotal' %}</h4>
-                                            <p class="text-sm font-medium">${{ item.subtotal }}</p>
+                                        <div class="cart-item-property">
+                                            <h4 class="property-label">{% translate 'Quantity' %}</h4>
+                                            <p class="property-value quantity-value">{{ item.quantity }}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="p-3 flex items-center gap-2">
-                                    <div class="flex items-center border border-gray-300 rounded-md bg-white">
-                                        <button type="button" onclick="decreaseQuantity(this)"
-                                                class="p-1 inline-flex justify-center items-center text-gray-500 hover:text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <div class="quantity-controls">
+                                    <div class="quantity-control-group">
+                                        <button type="button" onclick="decreaseQuantity(this)" class="quantity-button">
                                             <span class="sr-only">{% translate "Decrease" %}</span>
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                 <path d="M5 12h14"></path>
                                             </svg>
                                         </button>
-                                        <span class="px-2 py-1 text-sm quantity-value">{{ item.quantity }}</span>
-                                        <button type="button" onclick="increaseQuantity(this)"
-                                                class="p-1 inline-flex justify-center items-center text-gray-500 hover:text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                        <span class="quantity-display quantity-value">{{ item.quantity }}</span>
+                                        <button type="button" onclick="increaseQuantity(this)" class="quantity-button">
                                             <span class="sr-only">{% translate "Increase" %}</span>
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -65,8 +71,7 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <button type="button"
-                                            class="p-1 inline-flex justify-center items-center text-gray-500 hover:text-red-600 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    <button type="button" onclick="removeItem(this)" class="remove-button">
                                         <span class="sr-only">{% translate "Remove" %}</span>
                                         <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -78,9 +83,16 @@
                                 </div>
                             </div>
                             {% empty %}
-                            <div class="text-center py-8">
-                                <p class="text-gray-500">{% translate "Your cart is empty." %}</p>
-                                <a href="{% url 'shop:product_list' %}" class="inline-flex mt-4 items-center text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                            <div class="text-center space-y-2">
+                                <svg class="size-14 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                                    <path d="M3 6h18"></path>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                                <h4 class="text-gray-700 font-bold">{% translate "Your cart is empty" %}</h4>
+                                <p class="text-sm text-gray-500">{% translate "Add products while you shop, so they'll be ready for checkout later." %}</p>
+                                <a href="{% url 'shop:product_list' %}" class="btn btn-primary mt-4">
                                     {% translate "Continue Shopping" %}
                                     <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
@@ -95,61 +107,76 @@
             </div>
 
             <!-- Order Summary -->
-            <div class="w-full lg:w-4/12">
-                <div class="sticky top-20">
-                    <div class="rounded-lg border border-gray-200 p-6">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">{% translate "Order Summary" %}</h2>
+            <div class="summary-section">
+                <div class="order-summary">
+                    <div class="summary-card">
+                        <h2 class="summary-title">{% translate "Order Summary" %}</h2>
                         <div class="space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600 font-light">{% translate "Subtotal" %}</span>
-                                {#<span class="text-gray-800">${{ cart.total }}</span>#}
+                            <div class="summary-row">
+                                <span class="summary-label">{% translate "Subtotal" %}</span>
+                                <span class="summary-value">${{ cart.subtotal }}</span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600 font-light">{% translate "Shipping" %}</span>
-                                <span class="text-gray-800">{% translate "Free" %}</span>
+                            <div class="summary-row">
+                                <span class="summary-label">{% translate "Shipping" %}</span>
+                                <span class="summary-value">{% translate "Free" %}</span>
                             </div>
-                            <div class="border-t border-gray-200 pt-3 mt-3 flex justify-between items-center">
+                            <div class="summary-total">
                                 <span class="text-lg font-semibold text-gray-800">{% translate "Total" %}</span>
                                 <span>
-                                    <span class="text-gray-600">{% translate "USD" %}</span>
-                                <span class="text-xl font-bold text-gray-800">${{ cart.total|default:0 }}</span>
-                            </span>
+                                        <span class="text-gray-600">{% translate "USD" %}</span>
+                                    <span class="text-xl font-bold text-gray-800">${{ cart.total|default:0 }}</span>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <button class="mt-5 w-full flex items-center justify-center p-4 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition-all mb-3">
+                    <button class="checkout-button">
                         {% translate "Proceed to Checkout" %}
                     </button>
 
-                    <a href="{% url 'shop:product_list' %}"
-                       class="w-full inline-flex justify-center items-center border border-gray-300 rounded-lg p-4 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-all">
+                    <a href="{% url 'shop:product_list' %}" class="continue-shopping-button">
                         {% translate "Continue Shopping" %}
                     </a>
                 </div>
             </div>
         </div>
     </section>
+{% endblock content %}
 
-
+{% block script %}
     <script>
         function decreaseQuantity(button) {
+            const parentElement = button.closest('.cart-item');
             const quantityElement = button.nextElementSibling;
-            let quantity = parseInt(quantityElement.textContent);
+            const productVariantId = parseInt(parentElement.dataset.productVariantId);
+            const quantity = parseInt(quantityElement.textContent);
+
             if (quantity > 1) {
-                quantityElement.textContent = quantity - 1;
-                button.parentNode.parentNode.parentNode.querySelector(".quantity-value").textContent = quantity - 1;
+                const newQuantity = quantity - 1;
+                quantityElement.textContent = newQuantity;
+                parentElement.querySelector(".quantity-value").textContent = newQuantity;
+
+                cartManager.updateItemQuantity(productVariantId, newQuantity);
             }
         }
 
         function increaseQuantity(button) {
+            const parentElement = button.closest('.cart-item');
             const quantityElement = button.previousElementSibling;
-            let quantity = parseInt(quantityElement.textContent);
-            quantityElement.textContent = quantity + 1;
-            button.parentNode.parentNode.parentNode.querySelector(".quantity-value").textContent = quantity + 1;
+            const productVariantId = parseInt(parentElement.dataset.productVariantId);
+            const quantity = parseInt(quantityElement.textContent);
+
+            const newQuantity = quantity + 1;
+            quantityElement.textContent = newQuantity;
+            button.parentNode.parentNode.parentNode.querySelector(".quantity-value").textContent = newQuantity;
+
+            cartManager.updateItemQuantity(productVariantId, newQuantity);
+        }
+
+        function removeItem(button) {
+            const parentElement = button.closest('.cart-item');
+            const productVariantId = parseInt(parentElement.dataset.productVariantId);
+
+            cartManager.removeItem(productVariantId);
         }
     </script>
-{% endblock content %}
-
-{% block script %}
-    {% vite 'static/assets/js/cart.js' %}
 {% endblock script %}

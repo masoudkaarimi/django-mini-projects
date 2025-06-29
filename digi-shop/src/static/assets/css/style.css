@@ -4,6 +4,7 @@
 
 /* Preline UI */
 @import "../../../node_modules/preline/variants.css";
+@import "./cart.css";
 
 /* Plugins */
 /* @plugin "@tailwindcss/forms"; */

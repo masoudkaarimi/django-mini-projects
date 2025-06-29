@@ -20,7 +20,7 @@ class CartService:
     @staticmethod
     def add_item(user, product_variant_id, quantity=1):
         try:
-            product_variant = ProductVariant.objects.select_related('product_variant').get(id=product_variant_id, is_active=True)
+            product_variant = ProductVariant.objects.select_related('product', 'inventory', 'pricing').get(id=product_variant_id, is_active=True)
 
             # Check inventory
             if hasattr(product_variant, 'inventory'):
@@ -129,7 +129,6 @@ class CartService:
 
     @staticmethod
     def clear_expired_reservations():
-        """Clear expired cart item reservations"""
         now = timezone.now()
         expired_items = CartItem.objects.filter(reserved_until__lt=now)
         count = expired_items.count()
@@ -140,49 +139,78 @@ class CartService:
     def get_data(user):
         try:
             cart = CartService.get_or_create(user)
+            cart_items = cart.items.select_related(
+                'product_variant',
+                'product_variant__product',
+                'product_variant__pricing'
+            ).prefetch_related(
+                'product_variant__attribute_values__attribute',
+                'product_variant__attribute_values__value_option',
+                'product_variant__product__media'
+            )
             items = []
 
-            for item in cart.items.select_related('product_variant', 'product_variant__product', 'product_variant__pricing'):
+            for item in cart_items:
                 product_variant = item.product_variant
                 product = product_variant.product
+
+                # Safely get price and stock
                 price = product_variant.pricing.current_price if hasattr(product_variant, 'pricing') else 0
                 stock = product_variant.inventory.available_quantity if hasattr(product_variant, 'inventory') else 0
 
+                # Get attribute values
+                color_attr = product_variant.attribute_values.filter(attribute__type='color').first()
+                size_attr = product_variant.attribute_values.filter(attribute__type='size').first()
+
+                # Get color and size as serializable values
+                color_value = None
+                if color_attr:
+                    try:
+                        color_value = str(color_attr.get_value())
+                    except:
+                        color_value = str(color_attr)
+
+                size_value = None
+                if size_attr:
+                    try:
+                        size_value = str(size_attr.get_value())
+                    except:
+                        size_value = str(size_attr)
+
+                # Get featured image and its URL
+                featured_image = product.get_featured_image()
+                image_url = None
+                if featured_image:
+                    try:
+                        image_url = featured_image.get_file_url()  # Call the method
+                    except (AttributeError, TypeError):
+                        # Fallback in case get_file_url is a property or doesn't exist
+                        image_url = getattr(featured_image, 'file_url', None)
+
                 items.append({
                     'id': item.id,
-                    'product_variant_id': product_variant.id,
-                    'product_id': product.id,
-                    'name': product.name,
-                    'variant_name': product_variant.name,
                     'quantity': item.quantity,
-                    'price': price,
                     'subtotal': item.subtotal,
-                    'image': product.get_featured_image(),
-                    'stock': stock,
-                    'url': product.get_absolute_url(),
-                    'reserved_until': item.reserved_until,
-
-                    # 'id': item.id,
-                    # 'quantity': item.quantity,
-                    # 'stock': stock,
-                    # 'price': price,
-                    # 'subtotal': item.subtotal,
-                    # 'reserved_until': item.reserved_until,
-                    # 'product': {
-                    #     "id": product.id,
-                    #     'name': product.name,
-                    #     'image': product.get_featured_image(),
-                    #     'url': product.get_absolute_url(),
-                    #     'variant': {
-                    #         "id": product_variant.id,
-                    #         "name": product_variant.name,
-                    #     },
-                    # },
+                    'product': {
+                        "id": product.id,
+                        'name': product.name,
+                        'price': price,
+                        'image': image_url,
+                        'url': product.get_absolute_url(),
+                        'color': color_value,
+                        'size': size_value,
+                        'variant': {
+                            "id": product_variant.id,
+                            "name": product_variant.name,
+                        },
+                        'stock': stock,
+                        'reserved_until': item.reserved_until,
+                    },
                 })
-
             return {
                 'items': items,
                 'total': cart.total,
+                'subtotal': cart.total,
                 'item_count': cart.item_count,
             }
 
@@ -191,5 +219,6 @@ class CartService:
             return {
                 'items': [],
                 'total': 0,
+                'subtotal': 0,
                 'item_count': 0,
             }
