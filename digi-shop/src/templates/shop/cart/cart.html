@@ -145,7 +145,7 @@
 
 {% block script %}
     <script>
-        function decreaseQuantity(button) {
+        async function decreaseQuantity(button) {
             const parentElement = button.closest('.cart-item');
             const quantityElement = button.nextElementSibling;
             const productVariantId = parseInt(parentElement.dataset.productVariantId);
@@ -156,11 +156,15 @@
                 quantityElement.textContent = newQuantity;
                 parentElement.querySelector(".quantity-value").textContent = newQuantity;
 
-                cartManager.updateItemQuantity(productVariantId, newQuantity);
+                const result = await cartManager.updateItemQuantity(productVariantId, newQuantity);
+                if (!result) {
+                    quantityElement.textContent = quantity;
+                    parentElement.querySelector(".quantity-value").textContent = quantity;
+                }
             }
         }
 
-        function increaseQuantity(button) {
+        async function increaseQuantity(button) {
             const parentElement = button.closest('.cart-item');
             const quantityElement = button.previousElementSibling;
             const productVariantId = parseInt(parentElement.dataset.productVariantId);
@@ -170,7 +174,11 @@
             quantityElement.textContent = newQuantity;
             button.parentNode.parentNode.parentNode.querySelector(".quantity-value").textContent = newQuantity;
 
-            cartManager.updateItemQuantity(productVariantId, newQuantity);
+            const result = await cartManager.updateItemQuantity(productVariantId, newQuantity);
+            if (!result) {
+                quantityElement.textContent = quantity;
+                button.parentNode.parentNode.parentNode.querySelector(".quantity-value").textContent = quantity;
+            }
         }
 
         function removeItem(button) {

@@ -12,11 +12,7 @@
             <div class="space-y-4">
                 <!-- Main Image -->
                 <div class="relative overflow-hidden rounded-xl bg-gray-100">
-                    {% with featured_image=product.get_featured_image %}
-                        <img id="mainImage" class="w-full max-h-[42rem] object-cover transition-all duration-300"
-                             src="{% if featured_image.file %}{{ featured_image.file.url }}{% else %}{% static 'assets/images/placeholders/product.webp' %}{% endif %}"
-                             alt="{{ product.name }}">
-                    {% endwith %}
+                    <img id="mainImage" src="{{ product.get_featured_image }}" alt="{{ product.name }}" class="w-full max-h-[42rem] object-cover transition-all duration-300">
 
                     {% if product.get_default_variant.pricing.is_on_sale %}
                         <div class="absolute top-4 right-4 z-10">

@@ -81,7 +81,7 @@ class AddToCartView(View):
                     'name': product.name,
                     'variant_name': product_variant.name,
                     'price': price,
-                    'image': product.get_featured_image().file.url if product.get_featured_image() else None,
+                    'image': product.get_featured_image(),
                     'url': product.get_absolute_url(),
                 }
             })
@@ -291,7 +291,7 @@ class CheckoutView(TemplateView):
 
         for product_id, item in cart.items():
             try:
-                product = Product.objects.get(id=product_id)
+                product = Product.objects.get(id=product_id, is_active=True)
                 quantity = item.get('quantity', 1)
                 price = float(product.price)
                 item_total = price * quantity

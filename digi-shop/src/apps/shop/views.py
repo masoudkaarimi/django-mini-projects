@@ -28,8 +28,8 @@ class HomeView(TemplateView):
 
 
 class ContactView(FormView):
-    template_name = "shop/contact/contact.html"
     form_class = ContactForm
+    template_name = "shop/contact/contact.html"
     success_url = reverse_lazy('shop:contact')
 
     def get_context_data(self, **kwargs):

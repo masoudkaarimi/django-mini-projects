@@ -12,9 +12,9 @@ from django.views.generic import ListView, FormView, TemplateView
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import login, authenticate, logout, get_user_model, update_session_auth_hash
 
-from apps.common.mixins import AnonymousRequiredMixin
 from apps.common.utils import toast
 from apps.account.models import Address, Wishlist
+from apps.common.mixins import AnonymousRequiredMixin
 from apps.account.tokens import account_activation_token
 from apps.account.forms import RegisterForm, LoginForm, AddressForm, ProfileForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 
@@ -396,7 +396,7 @@ class WishlistView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         wishlist = get_object_or_404(Wishlist, user=self.request.user)
-        return wishlist.products.all()
+        return wishlist.products.filter(is_active=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

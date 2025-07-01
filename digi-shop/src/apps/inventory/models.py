@@ -75,6 +75,9 @@ class Brand(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('inventory:brand_detail', kwargs={'slug': self.slug})
+
     def get_logo_url(self):
         if self.logo:
             return self.logo.url
@@ -500,7 +503,10 @@ class Product(TimeStampedModel):
         return self.categories.order_by('order')
 
     def get_featured_image(self):
-        return self.media.filter(is_featured=True).first()
+        featured_media = self.media.filter(is_featured=True, type=ProductMedia.ProductMediaTypeChoices.IMAGE).first()
+        if featured_media:
+            return featured_media.get_file_url()
+        return static('assets/images/placeholders/product.webp')
 
     def get_default_variant(self):
         return self.variants.filter(is_default=True).first()
@@ -730,22 +736,6 @@ class ProductVariant(TimeStampedModel):
     def __str__(self):
         return f"{self.product.name} - {self.name}"
 
-    def save(self, *args, **kwargs):
-        # Ensure only one default variant per product
-        if self.is_default:
-            ProductVariant.objects.filter(
-                product=self.product,
-                is_default=True
-            ).exclude(pk=self.pk).update(is_default=False)
-
-        super().save(*args, **kwargs)
-
-        # Ensure at least one default variant exists for the product
-        if not self.is_default and not ProductVariant.objects.filter(product=self.product, is_default=True).exists():
-            if self.pk:
-                self.is_default = True
-                ProductVariant.objects.filter(pk=self.pk).update(is_default=True)
-
 
 class ProductVariantAttribute(TimeStampedModel):
     variant = models.ForeignKey(
@@ -896,19 +886,16 @@ class ProductMedia(TimeStampedModel):
     def __str__(self):
         return f"{self.product.name} - {self.type}"
 
-    def save(self, *args, **kwargs):
-        # Ensure only one featured media per product
-        if self.is_featured:
-            ProductMedia.objects.filter(
-                product=self.product,
-                is_featured=True
-            ).exclude(pk=self.pk).update(is_featured=False)
-        super().save(*args, **kwargs)
-
     def get_file_url(self):
+        import os.path
+        from django.conf import settings
+
         if self.file:
-            return self.file.url
-        return static('assets/images/placeholders/product_media.webp')
+            file_path = os.path.join(settings.MEDIA_ROOT, self.file.name)
+            if os.path.exists(file_path):
+                return self.file.url
+
+        return static('assets/images/placeholders/product.webp')
 
 
 class Inventory(TimeStampedModel):

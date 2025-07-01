@@ -177,16 +177,6 @@ class CartService:
                     except:
                         size_value = str(size_attr)
 
-                # Get featured image and its URL
-                featured_image = product.get_featured_image()
-                image_url = None
-                if featured_image:
-                    try:
-                        image_url = featured_image.get_file_url()  # Call the method
-                    except (AttributeError, TypeError):
-                        # Fallback in case get_file_url is a property or doesn't exist
-                        image_url = getattr(featured_image, 'file_url', None)
-
                 items.append({
                     'id': item.id,
                     'quantity': item.quantity,
@@ -195,7 +185,7 @@ class CartService:
                         "id": product.id,
                         'name': product.name,
                         'price': price,
-                        'image': image_url,
+                        'image': product.get_featured_image(),
                         'url': product.get_absolute_url(),
                         'color': color_value,
                         'size': size_value,

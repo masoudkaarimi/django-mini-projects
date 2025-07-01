@@ -74,7 +74,10 @@ class ProductDetailView(DetailView):
         variant = product.get_default_variant()
         if variant:
             context["price"] = variant.pricing.current_price if hasattr(variant, 'pricing') else None
-            context["stock_count"] = variant.inventory.quantity if hasattr(variant.inventory, "quantity") else 0
+            try:
+                context["stock_count"] = variant.inventory.quantity if variant.inventory else 0
+            except ProductVariant.inventory.RelatedObjectDoesNotExist:
+                context["stock_count"] = 0
         else:
             context["price"] = None
             context["stock_count"] = 0
@@ -86,7 +89,6 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'shop/category/category_list.html'
     context_object_name = 'categories'
-    paginate_by = 12
     ordering = ['-created_at']
 
     def get_queryset(self):
@@ -104,7 +106,6 @@ class CategoryListView(ListView):
                 "subtitle": _("Browse through our categories to find what you need."),
             },
         })
-
         return context
 
 
@@ -231,18 +232,12 @@ def variant_json(request, variant_id):
     # Get pricing info
     price = variant.pricing.current_price if hasattr(variant, 'pricing') else 0
 
-    # Get featured image
-    image_url = None
-    featured_image = product.get_featured_image()
-    if featured_image:
-        image_url = featured_image.file.url
-
     return JsonResponse({
         'variant_id': variant.id,
         'product_id': product.id,
         'name': product.name,
         'variant_name': variant.name,
         'price': price,
-        'image': image_url,
+        'image': product.get_featured_image(),
         'url': product.get_absolute_url(),
     })
