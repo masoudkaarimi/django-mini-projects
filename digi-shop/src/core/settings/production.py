@@ -34,7 +34,7 @@ DATABASES = {
 
 # Django Vite Plugin
 DJANGO_VITE_PLUGIN = {
-    'DEV_MODE': DEBUG,
-    'BUILD_DIR': STATIC_ROOT / 'build',
-    'BUILD_URL_PREFIX': STATIC_URL + 'build/',
+    'DEV_MODE': False,
+    'BUILD_DIR': BASE_DIR / 'static' / 'assets' / 'build',
+    'BUILD_URL_PREFIX': STATIC_URL + 'static/assets/build/',
 }

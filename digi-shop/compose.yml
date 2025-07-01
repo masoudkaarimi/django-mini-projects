@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   django:
     build:
@@ -9,16 +7,11 @@ services:
     restart: always
     ports:
       - '8000:8000'
-    expose:
-      - 8000
     depends_on:
       - postgres
       - redis
     volumes:
       - ./src/:/usr/src
-      # - type: bind
-      # source: ./src/
-      # target: /usr/src
     networks:
       - django_network
       - nginx_network
@@ -30,24 +23,39 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - '5432:5432'
+      - '5433:5432'
     volumes:
-      - ./database/postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - django_network
-    #    env_file:
-    #      - ./.env
     environment:
-      - POSTGRES_DB=${DB_NAME:-postgres}
-      - POSTGRES_USER=${DB_USER:-postgres}
-      - POSTGRES_PASSWORD=${DB_PASSWORD:-1234}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    ports:
+      - '5050:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    networks:
+      - django_network
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env
 
   adminer:
     image: adminer
     restart: always
     ports:
       - '8080:8080'
-
+    networks:
+      - django_network
 
   nginx:
     build:
@@ -61,18 +69,9 @@ services:
     networks:
       - nginx_network
     volumes:
-      - type: bind
-        source: ./src/staticfiles/
-        target: /src/staticfiles
-
-      - type: bind
-        source: ./src/media/
-        target: /src/media
-
-      - type: bind
-        source: ./src/logs/
-        target: /src/logs
-
+      - ./src/staticfiles/:/usr/src/staticfiles
+      - ./src/media/:/usr/src/media
+      - ./src/logs/:/usr/src/logs
     depends_on:
       - django
 
@@ -86,39 +85,41 @@ services:
       - django_network
     env_file:
       - ./.env
-    environment:
-      - REDIS_DB=${REDIS_DB:-0}
-      - REDIS_PASSWORD=${REDIS_PASSWORD:-12345678}
+    command: redis-server --requirepass ${REDIS_PASSWORD:-12345678}
     volumes:
-      - redis:/data
+      - redis_data:/data
 
   celery:
     build:
-      context: src
-    container_name: celery
+      context: ./src
+    container_name: celery_worker
     restart: always
     command: celery -A core worker -l info
-    environment:
-      - DEBUG=1
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379:0
     depends_on:
       - django
       - redis
     volumes:
-      - ./src/:/src
+      - ./src/:/usr/src
+    networks:
+      - django_network
+    env_file:
+      - ./.env
 
   celery_beat:
     build:
-      context: src
-    container_name: celery
+      context: ./src
+    container_name: celery_beat
     restart: always
-    command: celery -A core worker -l info
+    command: celery -A core beat -l info
     depends_on:
       - redis
       - celery
     volumes:
-      - ./src/:/src
+      - ./src/:/usr/src
+    networks:
+      - django_network
+    env_file:
+      - ./.env
 
   flower:
     image: mher/flower
@@ -126,30 +127,21 @@ services:
     restart: always
     ports:
       - '8888:8888'
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - FLOWER_PORT=8888
     depends_on:
       - redis
       - celery
-      - celery_beat
+    networks:
+      - django_network
+    environment:
+      - FLOWER_BROKER_URL=redis://:${REDIS_PASSWORD:-12345678}@redis:6379/0
+      - FLOWER_PORT=8888
+    env_file:
+      - ./.env
 
-#volumes:
-#  postgres:
-#    external: True
-#  redis:
-#    external: True
+volumes:
+  postgres_data:
+  redis_data:
 
-#networks:
-#  nginx_network:
-#    external: True
-#  django_network:
-#    external: True
-
-
-# on amir dev pv fine -> wsl restrict guid
-# docker-compose up -d --build
-# docker-compose up -d
-# docker-compose ps
-
-# move all env to .env file (Very important)
+networks:
+  nginx_network:
+  django_network:

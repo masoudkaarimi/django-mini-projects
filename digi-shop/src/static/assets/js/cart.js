@@ -376,10 +376,12 @@ class CartManager {
     updateCartUI() {
         // Update UI for all users (based on localStorage for guests)
         const cart = this.getCart();
-        const cartCount = document.querySelector('.cart-count');
+        const cartCountElements = document.querySelectorAll('.cart-count');
 
-        if (!this.isAuthenticated() && cartCount) {
-            cartCount.textContent = cart.itemCount || 0;
+        if (!this.isAuthenticated() && cartCountElements.length > 0) {
+            cartCountElements.forEach(element => {
+                element.textContent = cart.itemCount || 0;
+            });
         }
     }
 

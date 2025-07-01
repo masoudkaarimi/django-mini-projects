@@ -3,8 +3,11 @@ FROM python:3.10-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+
 ENV DEBIAN_FRONTEND=noninteractive
-ENV DJANGO_SETTINGS_MODULE=core.settings.production
+ENV DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+
+EXPOSE 8000
 
 # Set work directory
 WORKDIR /usr/src
@@ -31,12 +34,21 @@ RUN npm install
 # Copy project files
 COPY . .
 
-# Setup Django before building
-RUN python manage.py collectstatic --noinput || echo "Skipping initial collectstatic"
-RUN python manage.py migrate --noinput || echo "Skipping initial migrate"
-
 # Build frontend assets
 RUN npm run build
 
+# Setup Django before building
+#RUN python manage.py collectstatic --noinput || echo "Skipping initial collectstatic"
+#RUN python manage.py migrate --noinput || echo "Skipping initial migrate"
+
+# Copy entrypoint script
+COPY entrypoint.sh /usr/src/
+RUN chmod +x /usr/src/entrypoint.sh
+
+# Run the entrypoint script
+ENTRYPOINT ["/usr/src/entrypoint.sh"]
+
 # Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "core.wsgi:application"]
+#CMD ["gunicorn", "--bind", "0.0.0.0:8000", "core.wsgi:application"]
+# or
+#CMD ["gunicorn", "-c", "core/gunicorn.py", "core.wsgi:application"]

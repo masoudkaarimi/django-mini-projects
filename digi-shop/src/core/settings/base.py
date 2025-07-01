@@ -37,9 +37,12 @@ DEFAULT_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sitemaps',
+    'django.contrib.humanize',
 ]
 
 THIRD_PARTY_APPS = [
+    "rosetta",
     "django_vite_plugin",
 ]
 
@@ -161,7 +164,7 @@ ALLOWED_IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp"]
 MAX_IMAGE_SIZE = 1024  # in KB
 
 # Celery Configuration
-CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 # Celery Beat Schedule
@@ -171,6 +174,13 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute='0', hour='0'),
     }
 }
+
+# Rosetta configuration
+ROSETTA_MESSAGES_PER_PAGE = 100
+ROSETTA_SHOW_AT_ADMIN_PANEL = True
+# ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = "en-us"
+# ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = "English"
+# ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
 
 # Logging
 LOGGING = {

@@ -7,7 +7,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/
 
 # Create necessary directories
-RUN mkdir -p /src/staticfiles /src/media /src/logs
+RUN mkdir -p /usr/src/staticfiles /usr/src/media /usr/src/logs
 
 EXPOSE 80 443
 

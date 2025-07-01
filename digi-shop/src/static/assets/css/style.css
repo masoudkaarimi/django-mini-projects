@@ -246,6 +246,165 @@
     .toast-close-icon {
         @apply size-4;
     }
+
+    /* Navigation */
+    .nav-toggle-button {
+        @apply relative size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .nav-scrollable-container {
+        @apply overflow-hidden overflow-y-auto max-h-[75vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300;
+    }
+
+    .nav-content {
+        @apply py-2 md:py-0 flex flex-col md:flex-row md:items-center gap-0.5 md:gap-1;
+    }
+
+    .nav-links-container {
+        @apply grow relative flex flex-col md:flex-row flex-wrap items-start md:items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5;
+    }
+
+    .nav-link {
+        @apply p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500;
+    }
+
+    .nav-link-active {
+        @apply p-2 flex items-center text-sm font-bold text-indigo-600 focus:outline-hidden focus:text-indigo-600;
+    }
+
+    .nav-icon-mobile {
+        @apply shrink-0 size-4 me-3 md:me-2 block md:hidden;
+    }
+
+    /* Search */
+    .search-container {
+        @apply grow relative flex flex-col md:flex-row flex-wrap items-start md:items-center gap-x-1.5 md:ps-2.5 mt-1 md:mt-0 md:ms-1.5 order-first md:order-none;
+    }
+
+    .search-button {
+        @apply absolute top-1/2 end-2 -translate-y-1/2;
+    }
+
+    /* User menu */
+    .user-menu-button {
+        @apply relative p-2 md:ps-2 md:pe-0 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500;
+    }
+
+    .avatar {
+        @apply size-8 rounded-full object-cover;
+    }
+
+    .user-name {
+        @apply ms-2 font-medium whitespace-nowrap block md:hidden;
+    }
+
+    .dropdown-arrow {
+        @apply ms-2 size-4 hidden md:block;
+    }
+
+    .dropdown-menu {
+        @apply duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 mt-2 after:h-4 after:absolute after:-bottom-4 after:start-0 after:w-full before:h-4 before:absolute before:-top-4 before:start-0 before:w-full;
+    }
+
+    .dropdown-link {
+        @apply w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100;
+    }
+
+    .dropdown-link-active {
+        @apply flex items-center gap-x-3.5 py-2 px-2.5 bg-gray-100 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100;
+    }
+
+    .dropdown-icon {
+        @apply size-4;
+    }
+
+    .badge {
+        @apply ms-auto py-0.5 px-1.5 inline-flex items-center gap-x-1.5 text-xs bg-gray-200 text-gray-800 rounded-full;
+    }
+
+    .logout-button {
+        @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100;
+    }
+
+    /* Sign in button */
+    .signin-button {
+        @apply relative p-2 md:ps-2 md:pe-0 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500;
+    }
+
+    /* Cart and wishlist */
+    .cart-button {
+        @apply relative p-2 md:ps-1 md:pe-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500;
+    }
+
+    .wishlist-button {
+        @apply relative p-2 md:p-2 flex items-center text-sm text-gray-800 hover:text-gray-500 focus:outline-hidden focus:text-gray-500;
+    }
+
+    .cart-count, .item-count {
+        @apply absolute top-0 end-0 inline-flex items-center justify-center shrink-0 w-4 h-4 rounded-full bg-indigo-600 text-white text-xs font-semibold;
+    }
+
+    /* Contact */
+    .contact-section {
+        @apply mt-8 pt-6 border-t border-gray-200;
+    }
+
+    .contact-section-title {
+        @apply text-xl font-semibold mb-4;
+    }
+
+    .contact-grid {
+        @apply grid md:grid-cols-2 gap-6;
+    }
+
+    .contact-item {
+        @apply flex items-start space-x-3;
+    }
+
+    .contact-icon-container {
+        @apply flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600;
+    }
+
+    .contact-info-container {
+        @apply flex flex-col;
+    }
+
+    .contact-info-title {
+        @apply text-sm font-medium text-gray-800;
+    }
+
+    .contact-info-content {
+        @apply text-sm text-gray-600;
+    }
+
+    /* Footer */
+    .footer {
+        @apply flex flex-col items-center gap-3 text-center mt-auto w-full max-w-7xl py-10 px-4 sm:px-6 lg:px-8 mx-auto;
+    }
+
+    .footer-links {
+        @apply text-center;
+    }
+
+    .footer-link-item {
+        @apply inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300;
+    }
+
+    .footer-link {
+        @apply inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-hidden focus:text-gray-800;
+    }
+
+    .footer-copyright {
+        @apply text-gray-500;
+    }
+
+    .footer-social {
+        @apply flex items-center justify-between gap-x-4;
+    }
+
+    .footer-social-link {
+        @apply fill-gray-500 hover:fill-gray-700 transition-colors;
+    }
 }
 
 @keyframes toast-in {
