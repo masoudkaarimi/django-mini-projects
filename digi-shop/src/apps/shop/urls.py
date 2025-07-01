@@ -1,15 +1,12 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from apps.shop import views
 
 app_name = 'shop'
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
-    path('product/', views.ProductListView.as_view(), name='product_list'),
-    path('product/<slug:slug>/', views.ProductDetailView.as_view(), name='product_detail'),
-    path('category/', views.CategoryListView.as_view(), name='category_list'),
-    re_path(r'^category/(?P<path>.+)/$', views.CategoryDetailView.as_view(), name='category_detail'),
-    path('brand/', views.BrandListView.as_view(), name='brand_list'),
-    path('brand/<slug:slug>/', views.BrandDetailView.as_view(), name='brand_detail'),
-    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
+    path('contact/', views.ContactView.as_view(), name='contact'),
+    path('about/', views.AboutView.as_view(), name='about'),
+    path('faq/', views.FAQView.as_view(), name='faq'),
+    path('terms/', views.TermsView.as_view(), name='terms'),
 ]

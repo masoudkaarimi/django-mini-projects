@@ -152,7 +152,7 @@ class Category(MPTTModel, TimeStampedModel):
 
     def get_absolute_url(self):
         path = '/'.join(ancestor.slug for ancestor in self.get_ancestors(include_self=True))
-        return reverse('shop:category_detail', kwargs={'path': path})
+        return reverse('inventory:category_detail', kwargs={'path': path})
 
     def get_image_url(self):
         if self.image:
@@ -494,7 +494,7 @@ class Product(TimeStampedModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', kwargs={'slug': self.slug})
+        return reverse('inventory:product_detail', kwargs={'slug': self.slug})
 
     def get_categories(self):
         return self.categories.order_by('order')

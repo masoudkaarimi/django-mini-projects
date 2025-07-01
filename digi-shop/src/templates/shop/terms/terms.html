@@ -1,0 +1,123 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+
+        <div class="text-center">
+            {% include 'components/_heading.html' with heading=heading %}
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white shadow-sm rounded-lg p-6">
+                <!-- Terms Introduction -->
+                <div class="mb-8">
+                    <p class="text-base text-gray-700">
+                        {% blocktranslate %}
+                            These Terms of Service govern your use of our website and services. Please read these terms carefully before using our platform.
+                            By accessing or using our services, you agree to be bound by these terms.
+                        {% endblocktranslate %}
+                    </p>
+                    <p class="text-sm text-gray-500 mt-4">
+                        {% blocktranslate %}
+                            Last updated: May 1, 2023
+                        {% endblocktranslate %}
+                    </p>
+                </div>
+
+                <!-- Terms Content -->
+                <div class="prose max-w-none space-y-4">
+                    <div>
+                        <h2 class="font-bold">{% trans "1. Acceptance of Terms" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            By accessing or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree
+                            to
+                            these terms, please do not use our services.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "2. User Accounts" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            When you create an account with us, you must provide accurate and complete information. You are responsible for maintaining the security of your account
+                            and
+                            password. The company cannot and will not be liable for any loss or damage from your failure to comply with this security obligation.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "3. Privacy Policy" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            Our Privacy Policy describes how we handle the information you provide to us when you use our services. By using our services, you agree that we can use
+                            such information in accordance with our Privacy Policy.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "4. Products and Services" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            We strive to provide accurate product descriptions, pricing, and availability information. However, errors may occur. We reserve the right to correct
+                            any
+                            errors, inaccuracies, or omissions and to change or update information at any time without prior notice.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "5. Orders and Payments" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            By placing an order, you are making an offer to purchase the products you have selected. We reserve the right to accept or decline your order for any
+                            reason. Payment must be made at the time of order unless otherwise specified.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "6. Shipping and Delivery" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            Shipping times are estimates and not guaranteed. We are not responsible for delays that are beyond our control. Risk of loss and title for items
+                            purchased
+                            pass to you upon delivery of the items to the carrier.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "7. Returns and Refunds" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            Please refer to our Return Policy for information about returns, refunds, and exchanges. By making a purchase, you agree to the terms of our Return
+                            Policy.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "8. Intellectual Property" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            The content, organization, graphics, design, and other matters related to our website are protected under applicable copyrights, trademarks, and other
+                            proprietary rights. Copying, redistribution, use, or publication of any such content is strictly prohibited without our express permission.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "9. Limitation of Liability" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of
+                            profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "10. Changes to Terms" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            We reserve the right to modify these terms at any time. Your continued use of our services following the posting of changes constitutes your acceptance
+                            of
+                            such changes.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "11. Governing Law" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which our company is registered, without regard to its
+                            conflict of law provisions.
+                        {% endblocktranslate %}</p>
+                    </div>
+                    <div>
+                        <h2 class="font-bold">{% trans "12. Contact Information" %}</h2>
+                        <p class="text-base text-gray-700">{% blocktranslate %}
+                            Questions about the Terms of Service should be sent to us through our Contact page.
+                        {% endblocktranslate %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

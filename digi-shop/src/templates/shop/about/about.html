@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+
+        <div class="text-center">
+            {% include 'components/_heading.html' with heading=heading %}
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white shadow-sm rounded-lg p-6">
+                <!-- Company Story Section -->
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold mb-4">{% trans "Our Story" %}</h2>
+                    <div class="prose text-base text-gray-700 max-w-none">
+                        <p>{% blocktranslate %}
+                            Founded in 2010, our company began with a simple mission: to provide high-quality products that make a difference in people's lives. What started as a
+                            small operation has grown into a trusted brand serving customers worldwide.
+                        {% endblocktranslate %}</p>
+
+                        <p>{% blocktranslate %}
+                            Our journey has been defined by innovation, dedication to quality, and an unwavering commitment to customer satisfaction. Through the years, we've
+                            expanded our product line while staying true to our founding principles.
+                        {% endblocktranslate %}</p>
+                    </div>
+                </div>
+
+                <!-- Mission & Values Section -->
+                <div class="mb-10">
+                    <h2 class="text-2xl font-bold mb-4">{% trans "Our Mission & Values" %}</h2>
+                    <div class="prose text-base text-gray-700 max-w-none">
+                        <p>{% blocktranslate %}
+                            Our mission is to deliver exceptional products that enhance our customers' everyday experiences while maintaining the highest standards of quality and
+                            service.
+                        {% endblocktranslate %}</p>
+
+                        <h3 class="text-xl font-semibold mt-4">{% trans "Core Values" %}</h3>
+                        <ul>
+                            <li>{% trans "Quality" %} - {% blocktranslate %}We never compromise on the quality of our products.{% endblocktranslate %}</li>
+                            <li>{% trans "Innovation" %} - {% blocktranslate %}We constantly seek new ways to improve and evolve.{% endblocktranslate %}</li>
+                            <li>{% trans "Integrity" %} - {% blocktranslate %}We conduct business with honesty and transparency.{% endblocktranslate %}</li>
+                            <li>{% trans "Customer Focus" %} - {% blocktranslate %}We put our customers at the center of everything we do.{% endblocktranslate %}</li>
+                            <li>{% trans "Sustainability" %} - {% blocktranslate %}We are committed to environmentally responsible practices.{% endblocktranslate %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -32,7 +32,7 @@ urlpatterns = [
     path('account/address/delete/<int:pk>/', views.AddressDetailView.as_view(), name='address_delete'),
 
     path('account/order', views.OrderListView.as_view(), name='order_list'),
-    path('account/order/<slug:order_slug>/', views.OrderDetailView.as_view(), name='order_detail'),
+    path('account/order/<int:order_number>/', views.OrderDetailView.as_view(), name='order_detail'),
 
     path('account/payment', views.PaymentMethodListView.as_view(), name='payment_list'),
 

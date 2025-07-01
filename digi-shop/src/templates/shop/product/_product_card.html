@@ -1,7 +1,7 @@
 {% load static i18n %}
 <div class="relative rounded-lg border border-gray-200 bg-white p-3 transition-all duration-300 group">
     <div class="h-56 w-full relative overflow-hidden">
-        <a href="{% url 'shop:product_detail' slug=product.slug %}">
+        <a href="{% url 'inventory:product_detail' slug=product.slug %}">
             <img class="mx-auto object-cover rounded-lg size-full" src="{% static 'assets/images/placeholder.svg' %}" alt="{{ product.name }}">
         </a>
     </div>
@@ -15,7 +15,7 @@
             </span>
         </div>
         <div class="flex items-center justify-between gap-1">
-            <a class="text-lg font-semibold leading-tight text-gray-900 hover:underline line-clamp-2" href="{% url 'shop:product_detail' slug=product.slug %}">
+            <a class="text-lg font-semibold leading-tight text-gray-900 hover:underline line-clamp-2" href="{% url 'inventory:product_detail' slug=product.slug %}">
                 {{ product.name }}
             </a>
             <div class="flex items-center justify-end gap-1">

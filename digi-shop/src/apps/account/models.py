@@ -367,52 +367,8 @@ class Wishlist(TimeStampedModel):
     def __str__(self):
         return f"Wishlist of {self.user.username}"
 
-# class Wallet
-# class Transaction
+    @property
+    def item_count(self):
+        return self.products.count()
 
-# @receiver(post_save, sender=User)
-# def create_user_related_models(sender, instance, created, **kwargs):
-#     if created:
-#         Wishlist.objects.create(user=instance)
-#         Wallet.objects.create(user=instance)
-
-
-# ---------- apps ---------
-# cart
-# class Cart
-# class CartItem
-
-# orders
-# class Order
-# class OrderItem
-# class Payment
-# class PaymentMethod
-# class Order(models.Model):
-#     # ... فیلدهای موجود
-#     tax = models.ForeignKey(Tax, on_delete=models.SET_NULL, null=True)
-#     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-#
-#     def save(self, *args, **kwargs):
-#         if self.tax:
-#             self.tax_amount = (self.total_price * self.tax.rate) / 100
-#         super().save(*args, **kwargs)
-# class Invoice(models.Model):
-#     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='invoice')
-#     invoice_number = models.CharField(max_length=50, unique=True)  # مثال: "INV-2023-1001"
-#     issued_date = models.DateTimeField(auto_now_add=True)
-#     due_date = models.DateTimeField()  # تاریخ پرداخت
-#     tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-#     total_amount = models.DecimalField(max_digits=12, decimal_places=2)
-#     status = models.CharField(
-#         max_length=20,
-#         choices=[('paid', 'پرداخت شده'), ('pending', 'در انتظار پرداخت'), ('cancelled', 'لغو شده')],
-#         default='pending'
-#     )
-#
-#     def __str__(self):
-#         return f"Invoice #{self.invoice_number}"
-# shipping
-# clsas ShippingMethod
-# clsas ShippingZone
-# clsas ShippingRate
-# clsas DeliveryOption
+# class Wallet and Transaction

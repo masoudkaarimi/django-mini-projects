@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        <div class="text-center">
+            {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+            {% include 'components/_heading.html' with heading=heading %}
+
+            <a href="{% url 'home' %}" class="btn btn-lg btn-primary">
+                {% translate "Back to Home" %}
+            </a>
+        </div>
+    </section>
+{% endblock content %}

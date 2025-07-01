@@ -605,7 +605,7 @@ class OrderDetailView(LoginRequiredMixin, TemplateView):
             "breadcrumb": [
                 {'title': _('Home'), 'url': reverse('shop:home')},
                 {'title': _('Account'), 'url': reverse('account:dashboard')},
-                {'title': _('Orders'), 'url': reverse('account:order')},
+                {'title': _('Orders'), 'url': reverse('account:order_list')},
                 {'title': _('Order Detail # %(order_id)s') % {'order_id': order["id"]}, 'url': None},
             ],
             "heading": {

@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+{% load static i18n %}
+
+{% block content %}
+    <section class="container mx-auto py-8">
+        {% include 'components/_breadcrumb.html' with items=breadcrumb %}
+
+        <div class="text-center">
+            {% include 'components/_heading.html' with heading=heading %}
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white shadow-sm rounded-lg p-6">
+                <!-- FAQ Introduction -->
+                <div class="mb-8">
+                    <p class="text-gray-600 text-center">
+                        {% blocktranslate %}
+                            Find answers to the most common questions about our products, services, and policies.
+                            If you can't find what you're looking for, please contact our support team.
+                        {% endblocktranslate %}
+                    </p>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="hs-accordion-group">
+                    {% for faq in faqs %}
+                        <div class="hs-accordion border border-gray-200 rounded-lg mb-3" id="faq-accordion-{{ forloop.counter }}">
+                            <button class="hs-accordion-toggle w-full flex justify-between items-center p-4 text-left bg-gray-50 hover:bg-gray-100 focus:outline-none transition-colors"
+                                    id="faq-heading-{{ forloop.counter }}"
+                                    aria-controls="faq-collapse-{{ forloop.counter }}">
+                                <span class="font-medium">{{ faq.question }}</span>
+                                <svg class="hs-accordion-active:rotate-180 w-5 h-5 text-gray-500 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                          clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <div id="faq-collapse-{{ forloop.counter }}" class="hs-accordion-content hidden p-4 border-t border-gray-200"
+                                 aria-labelledby="faq-heading-{{ forloop.counter }}">
+                                <div class="prose prose-blue max-w-none">
+                                    {{ faq.answer|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-center text-gray-500 py-10">{% trans "No FAQ items available at the moment." %}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Contact Section -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <h2 class="text-xl font-semibold mb-4 text-center">{% trans "Didn't Find Your Answer?" %}</h2>
+                    <p class="text-center text-gray-600 mb-6">{% trans "Contact our support team for assistance." %}</p>
+
+                    <div class="flex justify-center">
+                        <a href="{% url 'shop:contact' %}" class="btn btn-primary">
+                            {% trans "Contact Support" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

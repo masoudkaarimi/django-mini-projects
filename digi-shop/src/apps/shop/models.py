@@ -72,3 +72,41 @@ class SliderBanner(TimeStampedModel):
         if self.image:
             return self.image.url
         return static('assets/images/placeholders/banner-placeholder.webp')
+
+
+class FAQ(TimeStampedModel):
+    question = models.CharField(
+        max_length=255,
+        null=False,
+        blank=False,
+        verbose_name=_("Question"),
+        help_text=_("The question being asked in the FAQ.")
+    )
+    answer = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_("Answer"),
+        help_text=_("The answer to the FAQ question.")
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        null=False,
+        blank=False,
+        verbose_name=_("Display Order"),
+        help_text=_("Controls the order FAQs are displayed.")
+    )
+    is_active = models.BooleanField(
+        default=True,
+        null=False,
+        blank=False,
+        verbose_name=_("Visibility"),
+        help_text=_("Determines if the FAQ is visible on the site.")
+    )
+
+    class Meta:
+        verbose_name = _("FAQ")
+        verbose_name_plural = _("FAQs")
+        ordering = ['order', 'question']
+
+    def __str__(self):
+        return self.question

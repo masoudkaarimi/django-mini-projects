@@ -92,7 +92,7 @@
                                 </svg>
                                 <h4 class="text-gray-700 font-bold">{% translate "Your cart is empty" %}</h4>
                                 <p class="text-sm text-gray-500">{% translate "Add products while you shop, so they'll be ready for checkout later." %}</p>
-                                <a href="{% url 'shop:product_list' %}" class="btn btn-primary mt-4">
+                                <a href="{% url 'inventory:product_list' %}" class="btn btn-primary mt-4">
                                     {% translate "Continue Shopping" %}
                                     <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd"
@@ -129,11 +129,12 @@
                             </div>
                         </div>
                     </div>
-                    <button class="checkout-button">
-                        {% translate "Proceed to Checkout" %}
-                    </button>
 
-                    <a href="{% url 'shop:product_list' %}" class="continue-shopping-button">
+                    <a href="{% url 'checkout:checkout' %}" class="btn btn-lg btn-primary w-full my-2">
+                        {% translate "Proceed to Checkout" %}
+                    </a>
+
+                    <a href="{% url 'inventory:product_list' %}" class="btn btn-outline btn-lg btn-outline-light w-full">
                         {% translate "Continue Shopping" %}
                     </a>
                 </div>

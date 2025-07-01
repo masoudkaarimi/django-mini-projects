@@ -13,7 +13,7 @@
                 <div>
                     <div class="mb-2 flex justify-between gap-2">
                         <h2 class="text-xl font-semibold text-gray-800 mb-0">{% translate "Shipping Address" %}</h2>
-                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                        <a href="{% url 'account:address_list' %}" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
                             {% translate "Change address" %} →
                         </a>
                     </div>
@@ -38,7 +38,7 @@
                 <div>
                     <div class="mb-2 flex justify-between gap-2">
                         <h2 class="text-xl font-semibold text-gray-800 mb-0">{% translate "Payment Method" %}</h2>
-                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                        <a href="{% url 'account:payment_list' %}" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
                             {% translate "Change payment method" %} →
                         </a>
                     </div>
@@ -208,12 +208,11 @@
                             </div>
                         </div>
 
-                        <button class="mt-5 w-full flex items-center justify-center p-4 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 transition-all mb-3">
+                        <button class="btn btn-lg btn-primary w-full my-2">
                             {% translate "Place Order" %}
                         </button>
 
-                        <a href="{% url 'shop:product_list' %}"
-                           class="w-full inline-flex justify-center items-center border border-gray-300 rounded-lg p-4 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-all">
+                        <a href="{% url 'checkout:cart' %}" class="btn btn-outline btn-lg btn-outline-light w-full">
                             {% translate "Return to Cart" %}
                         </a>
 

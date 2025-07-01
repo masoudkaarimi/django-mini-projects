@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from apps.checkout.services import CartService
-from apps.inventory.models import ProductVariant
+from apps.inventory.models import ProductVariant, Product
 
 
 class CartView(TemplateView):
@@ -278,3 +278,70 @@ class CheckInventoryView(View):
                 'available': False,
                 'message': _('Product variant not found')
             }, status=404)
+
+
+class CheckoutView(TemplateView):
+    template_name = 'shop/checkout/checkout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = self.request.session.get('cart', {})
+        cart_items = []
+        subtotal = 0
+
+        for product_id, item in cart.items():
+            try:
+                product = Product.objects.get(id=product_id)
+                quantity = item.get('quantity', 1)
+                price = float(product.price)
+                item_total = price * quantity
+                subtotal += item_total
+
+                cart_items.append({
+                    "name": product.name,
+                    "price": f"{price:.2f}",
+                    "quantity": quantity,
+                    "image_url": product.image.url if product.image else "/static/assets/images/placeholder.svg",
+                    "link": product.get_absolute_url(),
+                })
+            except Product.DoesNotExist:
+                continue
+
+        shipping_address = {
+            "name": "John Doe",
+            "address": "123 Main Street, Apt 4B",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10001",
+            "country": "United States"
+        }
+
+        payment = {
+            "card_name": "John Doe",
+            "card_type": "Visa",
+            "card_last4": "4242"
+        }
+
+        tax = subtotal * 0.08
+        shipping = 0.0
+        total = subtotal + tax + shipping
+
+        context.update({
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Checkout'), 'url': None},
+            ],
+            "heading": {
+                "title": _("Checkout"),
+                "subtitle": _("Review your order details before completing your purchase."),
+            },
+            "cart_items": cart_items,
+            "subtotal": f"{subtotal:.2f}",
+            "tax": f"{tax:.2f}",
+            "shipping": f"{shipping:.2f}",
+            "total": f"{total:.2f}",
+            "shipping_address": shipping_address,
+            "payment": payment,
+        })
+
+        return context
