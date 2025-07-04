@@ -30,9 +30,10 @@ class AttributeOptionInline(admin.TabularInline):
 
 @admin.register(AttributeOption)
 class AttributeOptionAdmin(admin.ModelAdmin):
-    list_display = ['attribute', 'value', 'order']
+    list_display = ['attribute', 'value', 'slug', 'order']
     list_filter = ['attribute']
     search_fields = ['value']
+    prepopulated_fields = {'slug': ('value',)}
     ordering = ['attribute', 'order']
 
 
@@ -60,7 +61,7 @@ class ProductTypeAdmin(admin.ModelAdmin):
     inlines = [ProductTypeAttributeInline]
 
 
-class ProductAttributeInline(admin.TabularInline):
+class ProductAttributeInline(admin.StackedInline):
     model = ProductAttribute
     extra = 1
 

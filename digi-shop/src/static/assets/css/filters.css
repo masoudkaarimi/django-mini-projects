@@ -1,0 +1,29 @@
+.noUi-handle {
+    @apply !size-5.5 !-right-3 !-top-2 !rounded-full !bg-white !border-4 !border-indigo-500 !shadow-md;
+}
+
+.noUi-handle:before,
+.noUi-handle:after {
+    @apply !hidden;
+}
+
+.noUi-horizontal {
+    @apply !h-2 !bg-gray-200 !border-0 !rounded-full;
+}
+
+.noUi-connect {
+    @apply !bg-indigo-500 !rounded-full;
+}
+
+.noUi-tooltip {
+    @apply bg-white !rounded-md px-2 py-1 text-xs border border-gray-100 transform !bottom-[150%];
+}
+
+/*
+.noUi-tooltip {
+    @apply transition-opacity duration-200 ease-in-out opacity-0;
+}
+
+.noUi-active .noUi-tooltip {
+    @apply opacity-100;
+}*/

@@ -14,7 +14,9 @@
     "description": "",
     "dependencies": {
         "@preline/overlay": "^3.0.0",
+        "@preline/range-slider": "^3.1.0",
         "@tailwindcss/vite": "^4.1.1",
+        "nouislider": "^15.8.1",
         "preline": "^3.0.1",
         "tailwindcss": "^4.1.1",
         "toastify-js": "^1.12.0",

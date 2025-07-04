@@ -1,0 +1,237 @@
+{% load i18n %}
+
+{% if active_filters %}
+    <form id="filter-form" method="GET" class="w-full lg:w-1/4">
+        <div class="sticky top-4 max-h-[calc(100vh-3rem)] overflow-y-auto bg-white rounded-lg border border-gray-200">
+            <!-- Filter Header -->
+            <div class="bg-white px-5 py-3 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-black">{% translate "Filters" %}</h2>
+                    <button type="button" onclick="window.location.href='{{ request.path }}'"
+                            class="text-sm text-blue-500 hover:text-blue-600 font-medium">{% translate "Reset All" %}</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">{% translate "Refine your results" %}</p>
+            </div>
+
+            {% if active_filters.category and categories %}
+                <!-- Categories Filter -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="categories-collapse" aria-expanded="false" aria-controls="categories-collapse-content"
+                            data-hs-collapse="#categories-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Categories" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="categories-collapse-content" class="hs-collapse hidden p-4 pt-0 overflow-hidden transition-[height] duration-300"
+                         aria-labelledby="categories-collapse">
+                        <div class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                            <div class="space-y-2">
+                                {% for category in categories %}
+                                    <div class="flex items-center">
+                                        <label class="flex items-center cursor-pointer group w-full hover:bg-gray-50 p-2 rounded-md">
+                                            <input type="checkbox" id="category-{{ category.id }}" name="category" value="{{ category.id }}"
+                                                   {% if category.id in selected_categories %}checked{% endif %}
+                                                   class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"> <span
+                                                class="ml-2 text-gray-700 text-sm group-hover:text-blue-600">{{ category.name }}</span>
+                                            <span class="ml-auto text-xs text-gray-400 bg-gray-100 rounded-full py-1 px-2">{{ category.product_count }}</span>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if active_filters.brand and brands %}
+                <!-- Brands Filter -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="brands-collapse" aria-expanded="false" aria-controls="brands-collapse-content"
+                            data-hs-collapse="#brands-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Brands" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="brands-collapse-content" class="hs-collapse hidden p-4 pt-0 overflow-hidden transition-[height] duration-300"
+                         aria-labelledby="brands-collapse">
+                        <div class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                            <div class="space-y-2">
+                                {% for brand in brands %}
+                                    <div class="flex items-center">
+                                        <label class="flex items-center cursor-pointer group w-full hover:bg-gray-50 p-2 rounded-md">
+                                            <input type="checkbox" id="brand-{{ brand.id }}" name="brand" value="{{ brand.id }}"
+                                                   {% if brand.id in selected_brands %}checked{% endif %}
+                                                   class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"> <span
+                                                class="ml-2 text-gray-700 text-sm group-hover:text-blue-600">{{ brand.name }}</span>
+                                            <span class="ml-auto text-xs text-gray-400 bg-gray-100 rounded-full py-1 px-2">{{ brand.product_count }}</span>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if active_filters.price and min_price is not None and max_price is not None %}
+                <!-- Price Range Filter -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="price-collapse" aria-expanded="false" aria-controls="price-collapse-content"
+                            data-hs-collapse="#price-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Price Range" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="price-collapse-content" class="hs-collapse hidden p-4 pt-0 overflow-hidden transition-[height] duration-300" aria-labelledby="price-collapse">
+                        <div class="mb-4">
+                            <div class="pt-10 px-3">
+                                <label class="sr-only">{% translate 'Price range' %}</label>
+                                <input type="hidden" name="price_min" id="price_min_input" value="{{ request.GET.price_min|default:min_price }}">
+                                <input type="hidden" name="price_max" id="price_max_input" value="{{ request.GET.price_max|default:max_price }}">
+                                <div class="slider-container">
+                                    <div class="price-range-slider"
+                                         data-min-price="{{ min_price }}"
+                                         data-max-price="{{ max_price }}"
+                                         data-current-min="{{ request.GET.price_min|default:min_price }}"
+                                         data-current-max="{{ request.GET.price_max|default:max_price }}"></div>
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <span id="display-min-price" class="text-xs text-gray-500">${{ request.GET.price_min|default:min_price }}</span>
+                                    <span id="display-max-price" class="text-xs text-gray-500">${{ request.GET.price_max|default:max_price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if active_filters.color and available_colors %}
+                <!-- Colors Filter -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="colors-collapse" aria-expanded="false" aria-controls="colors-collapse-content"
+                            data-hs-collapse="#colors-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Colors" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="colors-collapse-content" class="hs-collapse hidden p-4 pt-2 overflow-hidden transition-[height] duration-300"
+                         aria-labelledby="colors-collapse">
+                        <div class="flex flex-wrap gap-3">
+                            {% for color in available_colors %}
+                                <div class="color-option">
+                                    <input type="checkbox" id="color-{{ color.value }}" name="color" value="{{ color.value }}"
+                                           {% if color.value in selected_colors %}checked{% endif %} class="sr-only peer">
+                                    <label for="color-{{ color.value }}"
+                                           class="inline-flex size-7 items-center justify-center rounded-full outline-2 outline-offset-2 outline-gray-200 cursor-pointer hover:scale-110 transition-all {% if color.value == 'white' %}bg-white peer-checked:outline-black/50{% else %} peer-checked:outline-indigo-500{% endif %}"
+                                           style="background-color: {% if color.hex_code %}{{ color.hex_code }}{% endif %};"
+                                           title="{{ color.value }}">
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if active_filters.size and available_sizes %}
+                <!-- Sizes Filter -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="sizes-collapse" aria-expanded="false" aria-controls="sizes-collapse-content"
+                            data-hs-collapse="#sizes-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Sizes" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="sizes-collapse-content" class="hs-collapse hidden p-4 pt-2 overflow-hidden transition-[height] duration-300"
+                         aria-labelledby="sizes-collapse">
+                        <div class="flex flex-wrap gap-3">
+                            {% for size in available_sizes %}
+                                <div class="size-option">
+                                    <input type="checkbox" id="size-{{ size.value }}" name="size" value="{{ size.value }}"
+                                           {% if size.value in selected_sizes %}checked{% endif %} class="sr-only peer">
+                                    <label for="size-{{ size.value }}"
+                                           class="inline-flex size-9 items-center justify-center bg-white border border-gray-300 rounded-md outline-2 outline-offset-2 outline-transparent peer-checked:outline-blue-500 peer-checked:bg-blue-50 peer-checked:border-blue-500 cursor-pointer hover:border-gray-500 transition-all">
+                                        {{ size.value|upper }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if active_filters.sorting and sort_options %}
+                <!-- Sorting Options -->
+                <div class="border-b border-gray-200">
+                    <button type="button" class="hs-collapse-toggle w-full flex justify-between items-center text-start p-4 hover:bg-gray-50 transition-colors"
+                            id="sorting-collapse" aria-expanded="false" aria-controls="sorting-collapse-content"
+                            data-hs-collapse="#sorting-collapse-content">
+                        <div class="flex items-center gap-3">
+                            <h3 class="font-medium text-gray-800">{% translate "Sort By" %}</h3>
+                        </div>
+                        <svg class="hs-collapse-open:rotate-180 shrink-0 w-4 h-4 transition-all text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div id="sorting-collapse-content" class="hs-collapse hidden p-4 pt-0 overflow-hidden transition-[height] duration-300"
+                         aria-labelledby="sorting-collapse">
+                        <div class="space-y-2">
+                            {% for option in sort_options %}
+                                <div class="flex items-center">
+                                    <label class="flex items-center cursor-pointer group w-full hover:bg-gray-50 p-2 rounded-md">
+                                        <input type="radio" id="sort-{{ option.value }}" name="sort" value="{{ option.value }}"
+                                               {% if option.value == sort %}checked{% endif %}
+                                               class="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-gray-700 text-sm group-hover:text-blue-600">{{ option.label }}</span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Apply Filters Button -->
+            <div class="p-4 sticky bottom-0 bg-white z-10 border-t border-gray-100">
+                <!-- Reset to page 1 when applying filters -->
+                <input type="hidden" name="page" value="1">
+
+                <!-- Include filter visibility toggles -->
+                {% for filter_name, enabled in active_filters.items %}
+                    <input type="hidden" name="show_{{ filter_name }}" value="{{ enabled|yesno:'true,false' }}">
+                {% endfor %}
+
+                <button type="submit"
+                        class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 shadow-sm">
+                    {% translate "Apply Filters" %}
+                </button>
+            </div>
+        </div>
+    </form>
+{% endif %}

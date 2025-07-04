@@ -274,6 +274,14 @@ class AttributeOption(TimeStampedModel):
         verbose_name=_("Option Value"),
         help_text=_("The value of the option for the attribute. (Required)")
     )
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        null=False,
+        blank=False,
+        verbose_name=_("Option Slug"),
+        help_text=_("URL-friendly version of the option value. Used in URLs. (Required)")
+    )
     hex_code = models.CharField(
         max_length=7,
         null=True,

@@ -1,29 +1,51 @@
-from django.http import Http404
+import math
+
 from django.urls import reverse
 from django.db.models import Count
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.utils.translation import gettext_lazy as _
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+from apps.inventory.mixins import ProductFilterMixin
 from apps.inventory.models import Product, Brand, Category, ProductVariant
 
 
-class ProductListView(ListView):
+class ProductListView(ListView, ProductFilterMixin):
     model = Product
     template_name = 'shop/product/product_list.html'
     context_object_name = 'products'
-    paginate_by = 12
+    paginate_by = 20
     ordering = ['-created_at']
 
+    filters = ('brand', 'category', 'price', 'color', 'size', 'sorting',)
+    sorts = ('default', 'popular', 'newest', 'name', 'price_asc', 'price_desc',)
+
     def get_queryset(self):
-        return Product.objects.filter(is_active=True)
+        queryset = Product.objects.filter(is_active=True)
+        # Apply filters to the queryset
+        return self.filter_products(queryset)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = (Product.objects.values('categories__id', 'categories__name', 'categories__slug').annotate(product_count=Count('id'))).order_by('-product_count')[:6]
-        brands = (Product.objects.values('brand__id', 'brand__name', 'brand__slug').annotate(product_count=Count('id'))).order_by('-product_count')[:6]
+
+        # Important: Get the unfiltered queryset for filter options
+        products_queryset = Product.objects.filter(is_active=True)
+
+        # Get filter context - this handles pagination and filtering
+        filter_context = self.get_filter_context(products_queryset)
+
+        # Add filter context to the main context
+        context.update(filter_context)
+
+        # Additional context data - FIXED: using correct field name 'products' instead of 'product'
+        top_categories = (Category.objects.filter(products__isnull=False)
+                          .annotate(product_count=Count('products', distinct=True))
+                          .order_by('-product_count')[:6])
+
+        top_brands = (Brand.objects.filter(products__isnull=False)
+                      .annotate(product_count=Count('products', distinct=True))
+                      .order_by('-product_count')[:6])
+
         context.update({
             "breadcrumb": [
                 {'title': _('Home'), 'url': reverse('shop:home')},
@@ -33,8 +55,8 @@ class ProductListView(ListView):
                 "title": _("All Products"),
                 "subtitle": _("Discover our collection of high-quality products."),
             },
-            "categories": categories,
-            "brands": brands,
+            "categories": top_categories,
+            "brands": top_brands,
         })
 
         return context
@@ -46,6 +68,12 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if hasattr(self.request, 'product_viewed_signal'):
+            self.request.product_viewed_signal.send(sender=self.__class__, instance=obj, request=self.request)
+        return obj
 
     def get_queryset(self):
         return Product.objects.filter(is_active=True)
@@ -109,17 +137,25 @@ class CategoryListView(ListView):
         return context
 
 
-class CategoryDetailView(DetailView):
-    model = Category
+class CategoryProductListView(ListView, ProductFilterMixin):
+    model = Product
     template_name = 'shop/category/category_detail.html'
-    context_object_name = 'category'
-    paginate_by = 2
+    context_object_name = 'products'
+    paginate_by = 20
+    filters = ('brand', 'price', 'color', 'size', 'sorting',)
+    sorts = ('default', 'popular', 'newest', 'name', 'price_asc', 'price_desc',)
 
-    def get_object(self):
+    def get_queryset(self):
+        category = self.get_category()
+        queryset = Product.objects.filter(
+            categories__in=category.get_descendants(include_self=True),
+            is_active=True
+        ).distinct()
+
+        return self.filter_products(queryset)
+
+    def get_category(self):
         path = self.kwargs.get('path', '').strip('/')
-        if not path:
-            raise Http404("Category path is required.")
-
         slugs = path.split('/')
         category = get_object_or_404(Category, slug=slugs[0], parent=None, is_active=True)
 
@@ -130,33 +166,32 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = self.object
-        sort = self.request.GET.get('sort', 'default')
-        products_queryset = Product.objects.filter(categories__in=category.get_descendants(include_self=True), is_active=True).distinct()
+        category = self.get_category()
 
-        if sort == 'newest':
-            products_queryset = products_queryset.order_by('-created_at')
-        # elif sort == 'popular':
-        # products_queryset = products_queryset.order_by('-popularity')
-        elif sort == 'price_asc':
-            products_queryset = products_queryset.order_by('price')
-        elif sort == 'price_desc':
-            products_queryset = products_queryset.order_by('-price')
-        elif sort == 'name_asc':
-            products_queryset = products_queryset.order_by('name')
-        else:
-            products_queryset = products_queryset.order_by('-id')
+        # Get the base products queryset for this category
+        products_queryset = Product.objects.filter(
+            categories__in=category.get_descendants(include_self=True),
+            is_active=True
+        ).distinct()
 
-        paginator = Paginator(products_queryset, self.paginate_by)
-        page_number = self.request.GET.get('page')
+        # Get filter context with the category-specific queryset
+        filter_context = self.get_filter_context(products_queryset)
+        context.update(filter_context)
 
-        try:
-            products_page = paginator.page(page_number)
-        except PageNotAnInteger:
-            products_page = paginator.page(1)
-        except EmptyPage:
-            products_page = paginator.page(paginator.num_pages)
+        # Additional context for the category
+        context.update({
+            "category": category,
+            "breadcrumb": self.get_breadcrumb(category),
+            "heading": {
+                "title": category.name,
+                "subtitle": _("Explore our collection of %(category)s products") % {"category": category.name},
+            },
+        })
 
+        return context
+
+    @staticmethod
+    def get_breadcrumb(category):
         breadcrumb = [
             {'title': _('Home'), 'url': reverse('shop:home')},
             {'title': _('Categories'), 'url': reverse('inventory:category_list')},
@@ -169,26 +204,14 @@ class CategoryDetailView(DetailView):
                 'url': None if i == len(ancestors) - 1 else ancestor.get_absolute_url()
             })
 
-        context.update({
-            "breadcrumb": breadcrumb,
-            "heading": {
-                "title": category.name,
-                "subtitle": _("Explore our collection of %(category)s products") % {"category": category.name},
-            },
-            "products": products_page,
-            "page_obj": products_page,
-            "is_paginated": products_page.has_other_pages(),
-            "sort": sort,
-        })
-
-        return context
+        return breadcrumb
 
 
 class BrandListView(ListView):
     model = Brand
     template_name = 'shop/brand/brand_list.html'
     context_object_name = 'brands'
-    paginate_by = 12
+    paginate_by = 20
     ordering = ['-created_at']
 
     def get_queryset(self):
@@ -196,12 +219,6 @@ class BrandListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # brands = (Product.objects.values(
-        #     'brand__id',
-        #     'brand__name',
-        #     'brand__logo',
-        #     'brand__slug'
-        # ).annotate(product_count=Count('id'))).order_by('-product_count')[:6]
         context.update({
             "breadcrumb": [
                 {'title': _('Home'), 'url': reverse('shop:home')},
@@ -211,33 +228,62 @@ class BrandListView(ListView):
                 "title": _("All Brands"),
                 "subtitle": _("Browse through our extensive collection of brands."),
             },
-            # "brands": brands,
         })
 
         return context
 
 
-class BrandDetailView(DetailView):
-    model = Brand
+class BrandProductListView(ListView, ProductFilterMixin):
+    model = Product
     template_name = 'shop/brand/brand_detail.html'
-    context_object_name = 'brand'
-    paginate_by = 2
+    context_object_name = 'products'
+    paginate_by = 20
+    filters = ('category', 'price', 'color', 'size', 'sorting',)
+    sorts = ('default', 'popular', 'newest', 'name', 'price_asc', 'price_desc',)
 
+    def get_queryset(self):
+        brand = self.get_brand()
+        queryset = Product.objects.filter(
+            brand=brand,
+            is_active=True
+        ).distinct()
 
-def variant_json(request, variant_id):
-    """API endpoint to get product variant details for cart"""
-    variant = get_object_or_404(ProductVariant, id=variant_id, is_active=True)
-    product = variant.product
+        # Apply filters to the queryset
+        return self.filter_products(queryset)
 
-    # Get pricing info
-    price = variant.pricing.current_price if hasattr(variant, 'pricing') else 0
+    def get_brand(self):
+        return get_object_or_404(Brand, slug=self.kwargs['slug'], is_active=True)
 
-    return JsonResponse({
-        'variant_id': variant.id,
-        'product_id': product.id,
-        'name': product.name,
-        'variant_name': variant.name,
-        'price': price,
-        'image': product.get_featured_image(),
-        'url': product.get_absolute_url(),
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        brand = self.get_brand()
+
+        # Get the brand-specific products queryset for filter options
+        products_queryset = Product.objects.filter(
+            brand=brand,
+            is_active=True
+        ).distinct()
+
+        # Get filter context
+        filter_context = self.get_filter_context(products_queryset)
+        context.update(filter_context)
+
+        # Additional context for the brand
+        context.update({
+            "brand": brand,
+            "breadcrumb": [
+                {'title': _('Home'), 'url': reverse('shop:home')},
+                {'title': _('Brands'), 'url': reverse('inventory:brand_list')},
+                {'title': brand.name, 'url': None},
+            ],
+            "heading": {
+                "title": brand.name,
+                "subtitle": _("Explore our collection of %(brand)s products") % {"brand": brand.name},
+            },
+            "brand_details": {
+                "description": brand.description,
+                "logo": brand.get_logo_url(),
+            }
+        })
+
+        return context

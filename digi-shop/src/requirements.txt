@@ -15,6 +15,7 @@ django-countries==7.6.1
 django-js-asset==3.1.2
 django-mptt==0.17.0
 django-phonenumber-field==8.1.0
+django-redis==6.0.0
 django-rosetta==0.10.2
 django_vite_plugin==4.1.0
 gunicorn==23.0.0

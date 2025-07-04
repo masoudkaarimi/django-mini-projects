@@ -1,7 +1,9 @@
+from django.db.models import F
 from django.dispatch import receiver
 from django.db.models.signals import post_save, pre_save, post_delete
 
-from apps.inventory.models import ProductVariant, ProductMedia
+from apps.inventory.middleware import product_viewed
+from apps.inventory.models import ProductVariant, ProductMedia, Product
 
 
 @receiver(post_save, sender=ProductVariant)
@@ -88,3 +90,22 @@ def maintain_single_featured_image(sender, instance, **kwargs):
             type=ProductMedia.ProductMediaTypeChoices.IMAGE,
             is_featured=True
         ).exclude(pk=instance.pk).update(is_featured=False)
+
+
+@receiver(product_viewed)
+def track_product_view(sender, instance, request, **kwargs):
+    if not request:
+        return
+
+    if 'viewed_products' not in request.session:
+        request.session['viewed_products'] = []
+
+    viewed_products = request.session['viewed_products']
+    product_id = str(instance.pk)
+
+    if product_id not in viewed_products:
+        Product.objects.filter(pk=instance.pk).update(view_count=F('view_count') + 1)
+
+        viewed_products.append(product_id)
+        request.session['viewed_products'] = viewed_products
+        request.session.modified = True

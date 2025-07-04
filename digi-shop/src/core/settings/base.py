@@ -65,6 +65,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # Local middleware
+    'apps.inventory.middleware.ProductViewTrackingMiddleware',
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -181,6 +184,26 @@ ROSETTA_SHOW_AT_ADMIN_PANEL = True
 # ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = "en-us"
 # ROSETTA_MESSAGES_SOURCE_LANGUAGE_NAME = "English"
 # ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+
+# Cache Configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+        'KEY_PREFIX': 'digi_shop',
+    }
+}
+
+# Session Configuration
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
+
+# Redis Session Configuration
+# SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+# SESSION_CACHE_ALIAS = "default"
 
 # Logging
 LOGGING = {

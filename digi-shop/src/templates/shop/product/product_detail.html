@@ -1,6 +1,6 @@
 {% extends "_base.html" %}
 
-{% load static i18n %}
+{% load static i18n humanize %}
 
 {% block content %}
     <section class="container mx-auto py-8">
@@ -63,6 +63,7 @@
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-2">{{ product.name }}</h1>
                         <p class="text-sm text-gray-500">{% translate 'SKU' %}: {{ product.sku }}</p>
+                        <p class="text-sm text-gray-500"> {% translate 'views' %}: {{ product.view_count|default:0|intcomma }}</p>
                     </div>
                     <div class="flex items-center gap-x-2 p-4">
                         <button type="button" class="btn-icon"
