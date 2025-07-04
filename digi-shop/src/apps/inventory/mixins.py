@@ -364,7 +364,7 @@ class ProductFilterMixin:
         ).values_list('value_option__value', flat=True).distinct().order_by('value_option__value')
 
         # Sort sizes in a logical order
-        size_order = {'xxs': 0, 'xs': 1, 's': 2, 'm': 3, 'l': 4, 'xl': 5, 'xxl': 6, '3xl': 7, '4xl': 8}
+        size_order = {'xxs': 0, 'xs': 1, 'sm': 2, 'md': 3, 'lg': 4, 'xl': 5, 'xxl': 6}
         result = []
 
         for value in sizes:

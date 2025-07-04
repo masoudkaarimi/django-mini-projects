@@ -105,7 +105,7 @@ class ProductAdmin(admin.ModelAdmin):
     )
 
 
-class ProductVariantAttributeInline(admin.StackedInline):
+class ProductVariantAttributeInline(admin.TabularInline):
     model = ProductVariantAttribute
     extra = 1
 
@@ -115,7 +115,7 @@ class InventoryInline(admin.StackedInline):
     can_delete = False
 
 
-class PricingInline(admin.StackedInline):
+class PricingInline(admin.TabularInline):
     model = Pricing
     extra = 1
 
