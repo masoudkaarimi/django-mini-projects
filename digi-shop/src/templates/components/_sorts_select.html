@@ -29,9 +29,11 @@
         </div>
 
         <!-- Preserve all other query parameters -->
-        {% for key, value in request.GET.items %}
+        {% for key, values in request.GET.lists %}
             {% if key != 'sort' and key != 'page' %}
-                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% for value in values %}
+                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                {% endfor %}
             {% endif %}
         {% endfor %}
         <input type="hidden" name="page" value="{{ request.GET.page|default:'1' }}">

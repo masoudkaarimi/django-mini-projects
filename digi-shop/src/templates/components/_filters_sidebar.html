@@ -222,11 +222,6 @@
                 <!-- Reset to page 1 when applying filters -->
                 <input type="hidden" name="page" value="1">
 
-                <!-- Include filter visibility toggles -->
-                {% for filter_name, enabled in active_filters.items %}
-                    <input type="hidden" name="show_{{ filter_name }}" value="{{ enabled|yesno:'true,false' }}">
-                {% endfor %}
-
                 <button type="submit"
                         class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 shadow-sm">
                     {% translate "Apply Filters" %}
