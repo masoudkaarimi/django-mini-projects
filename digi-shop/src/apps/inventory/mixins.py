@@ -357,26 +357,25 @@ class ProductFilterMixin:
     def get_available_sizes(products_queryset):
         product_ids = products_queryset.values_list('id', flat=True)
 
-        # Get unique size values
+        # Get unique size values with their order directly from AttributeOption
+        # This uses the built-in order field to properly sort sizes
         sizes = ProductVariantAttribute.objects.filter(
             variant__product_id__in=product_ids,
             attribute__type='size'
-        ).values_list('value_option__value', flat=True).distinct().order_by('value_option__value')
+        ).select_related('value_option').values(
+            'value_option__value',
+            'value_option__order'
+        ).distinct().order_by('value_option__order')
 
-        # Sort sizes in a logical order
-        size_order = {'xxs': 0, 'xs': 1, 'sm': 2, 'md': 3, 'lg': 4, 'xl': 5, 'xxl': 6}
         result = []
+        for size in sizes:
+            if size['value_option__value']:
+                result.append({
+                    'value': size['value_option__value'],
+                    'order': size['value_option__order'] or 99
+                })
 
-        for value in sizes:
-            try:
-                order = float(value.replace(',', '.'))
-            except (ValueError, AttributeError):
-                # Handle potential None values or non-numeric strings
-                order = size_order.get(value.lower() if value else '', 99)
-
-            result.append({'value': value, 'order': order})
-
-        return sorted(result, key=lambda x: x['order'])
+        return result
 
     @staticmethod
     def get_available_categories(products_queryset):

@@ -1,5 +1,3 @@
-import math
-
 from django.urls import reverse
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -7,7 +5,7 @@ from django.views.generic import DetailView, ListView
 from django.utils.translation import gettext_lazy as _
 
 from apps.inventory.mixins import ProductFilterMixin
-from apps.inventory.models import Product, Brand, Category, ProductVariant
+from apps.inventory.models import Product, Brand, Category, ProductVariant, Attribute
 
 
 class ProductListView(ListView, ProductFilterMixin):
@@ -69,48 +67,112 @@ class ProductDetailView(DetailView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
 
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True).prefetch_related('categories', 'variants__attribute_values__value_option')
+
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         if hasattr(self.request, 'product_viewed_signal'):
             self.request.product_viewed_signal.send(sender=self.__class__, instance=obj, request=self.request)
         return obj
 
-    def get_queryset(self):
-        return Product.objects.filter(is_active=True)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.object
-        context.update({
-            "breadcrumb": [
-                {'title': _('Home'), 'url': reverse('shop:home')},
-                {'title': _('Products'), 'url': reverse('inventory:product_list')},
-                {'title': product.name, 'url': None},
-            ],
-            "images": product.media.all(),
-            "specifications": product.attribute_values.select_related('attribute').all(),
-            "brand": product.brand,
-            "categories": Product.objects.values('categories__name', 'categories__slug').annotate(product_count=Count('id')).order_by('-product_count')[:6],
-            "similar_products": Product.objects.filter(categories__in=product.categories.all()).exclude(id=product.id).distinct().order_by('?')[:6],
-            'color_options': product.get_color_options(),
-            'size_options': product.get_size_options(),
-            'pricing': product.get_pricing(),
-            'inventory': product.get_inventory(),
-        })
 
-        # Get pricing and inventory from default variant
-        variant = product.get_default_variant()
-        if variant:
-            context["price"] = variant.pricing.current_price if hasattr(variant, 'pricing') else None
-            try:
-                context["stock_count"] = variant.inventory.quantity if variant.inventory else 0
-            except ProductVariant.inventory.RelatedObjectDoesNotExist:
-                context["stock_count"] = 0
-        else:
-            context["price"] = None
-            context["stock_count"] = 0
+        variant_context = self._get_variant_data(product)
+        context.update(variant_context)
+
+        self._add_default_variant_data(context, product)
+
+        context['breadcrumb'] = [
+            {'title': _('Home'), 'url': reverse('shop:home')},
+            {'title': _('Shop'), 'url': reverse('inventory:product_list')},
+            {'title': product.name, 'url': None}
+        ]
+
+        similar_products = (
+            Product.objects
+            .filter(categories__in=product.categories.all(), type=product.type, is_active=True)
+            .exclude(id=product.id)
+            .select_related('brand')
+            .prefetch_related('categories')
+            .distinct()[:8]
+        )
+        context['similar_products'] = similar_products
 
         return context
+
+    @staticmethod
+    def _get_variant_data(product):
+        color_attr = Attribute.objects.filter(type=Attribute.AttributeTypeChoices.COLOR).first()
+        size_attr = Attribute.objects.filter(type=Attribute.AttributeTypeChoices.SIZE).first()
+
+        active_variants = (
+            product.variants
+            .filter(is_active=True)
+            .select_related('pricing', 'inventory')
+            .prefetch_related('attribute_values__attribute', 'attribute_values__value_option')
+        )
+
+        variants_data = []
+        variant_matrix = {}
+        unique_colors = {}
+        unique_sizes = {}
+
+        for variant in active_variants:
+            attr_values = {
+                av.attribute_id: av for av in variant.attribute_values.all()
+            }
+
+            color_value = attr_values.get(color_attr.id) if color_attr else None
+            size_value = attr_values.get(size_attr.id) if size_attr else None
+
+            if color_value and size_value and color_value.value_option and size_value.value_option:
+                color_id = str(color_value.value_option.id)
+                size_id = str(size_value.value_option.id)
+
+                if color_id not in unique_colors:
+                    unique_colors[color_id] = {
+                        'id': color_value.value_option.id,
+                        'value': color_value.value_option.value,
+                        'hex_code': color_value.value_option.hex_code
+                    }
+
+                if size_id not in unique_sizes:
+                    unique_sizes[size_id] = {
+                        'id': size_value.value_option.id,
+                        'value': size_value.value_option.value
+                    }
+
+                variant_matrix[f"{color_id}_{size_id}"] = variant.id
+
+                variants_data.append({
+                    'id': variant.id,
+                    'name': variant.name,
+                    'sku': variant.sku,
+                    'is_default': variant.is_default,
+                    'base_price': float(variant.pricing.base_price) if hasattr(variant, 'pricing') else 0,
+                    'current_price': float(variant.pricing.current_price) if hasattr(variant, 'pricing') else 0,
+                    'is_on_sale': variant.pricing.is_on_sale if hasattr(variant, 'pricing') else False,
+                    'sale_price': float(variant.pricing.current_price) if hasattr(variant, 'pricing') else 0,
+                    'in_stock': variant.inventory.is_in_stock if hasattr(variant, 'inventory') else False,
+                    'quantity': variant.inventory.available_quantity if hasattr(variant, 'inventory') else 0
+                })
+
+        return {
+            'color_options': list(unique_colors.values()),
+            'size_options': list(unique_sizes.values()),
+            'variants_data': variants_data,
+            'variant_matrix': variant_matrix
+        }
+
+    @staticmethod
+    def _add_default_variant_data(context, product):
+        default_variant = product.get_default_variant()
+        if default_variant:
+            context['pricing'] = getattr(default_variant, 'pricing', None)
+            context['inventory'] = getattr(default_variant, 'inventory', None)
 
 
 class CategoryListView(ListView):

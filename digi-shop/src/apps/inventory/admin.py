@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
+
 from mptt.admin import DraggableMPTTAdmin
-from .models import (Brand, Category, Attribute, AttributeOption, ProductType, ProductTypeAttribute, Product, ProductAttribute, ProductVariant, ProductVariantAttribute,
-                     ProductMedia, Inventory, Pricing)
+
+from apps.inventory.models import (Brand, Category, Attribute, AttributeOption, ProductType, ProductTypeAttribute, Product, ProductAttribute, ProductVariant,
+                                   ProductVariantAttribute, ProductMedia, Inventory, Pricing)
 
 
 @admin.register(Brand)
@@ -122,25 +125,31 @@ class PricingInline(admin.TabularInline):
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display = ['name', 'product', 'sku', 'is_default', 'is_active', 'get_stock_status']
+    list_display = ['name', 'product', 'sku', 'get_current_price', 'is_default', 'is_active', 'get_stock_status']
     list_filter = ['is_default', 'is_active', 'created_at']
     search_fields = ['name', 'sku', 'product__name']
     readonly_fields = ['created_at', 'updated_at']
     raw_id_fields = ('product',)
     inlines = [ProductVariantAttributeInline, InventoryInline, PricingInline]
 
-    def get_stock_status(self, obj):
-        try:
-            # Get the first inventory item (assuming one inventory per variant)
-            inventory = obj.inventory_set.first()
-            if inventory:
-                if inventory.is_in_stock:
-                    return format_html('<span style="color: green;">In Stock ({})</span>', inventory.available_quantity)
-                else:
-                    return format_html('<span style="color: red;">Out of Stock</span>')
-            return 'No Inventory'
-        except Exception as e:
-            return f'Error: {str(e)}'
+    @staticmethod
+    def get_stock_status(obj):
+        inventory = getattr(obj, 'inventory', None)
+
+        if inventory:
+            if inventory.available_quantity > 0:
+                return format_html('<span style="color: green;">In Stock ({})</span>', inventory.available_quantity)
+            else:
+                return format_html('<span style="color: red;"> Out of Stock</span>')
+        return format_html('<span style="color: orange;">Not Available</span>')
+
+    def get_current_price(self, obj):
+        pricing = obj.pricing
+
+        return pricing.current_price if pricing else '-'
+
+    get_stock_status.short_description = _('Stock Status')
+    get_current_price.short_description = _('Current Price')
 
 
 @admin.register(ProductMedia)

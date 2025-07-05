@@ -545,21 +545,14 @@ class Product(TimeStampedModel):
         size_attr = Attribute.objects.filter(type=Attribute.AttributeTypeChoices.SIZE).first()
         if not size_attr:
             return []
-        size_options = (
-            self.variants.filter(is_active=True, attribute_values__attribute=size_attr)
-            .values_list(
-                "attribute_values__value_option__id",
-                "attribute_values__value_option__value"
-            )
-            .distinct()
-        )
-        return [
-            {
-                "id": opt[0],
-                "value": opt[1]
-            }
-            for opt in size_options if opt[0] is not None
-        ]
+
+        size_options = AttributeOption.objects.filter(
+            variant_attribute_values__variant__product=self,
+            variant_attribute_values__variant__is_active=True,
+            variant_attribute_values__attribute=size_attr
+        ).order_by('order').distinct().values('id', 'value')
+
+        return list(size_options)
 
     def get_attributes(self):
         attributes = self.type.attributes.all()
@@ -976,7 +969,9 @@ class Inventory(TimeStampedModel):
     def is_in_stock(self):
         if not self.track_quantity:
             return True
-        return self.available_quantity > 0 or self.allow_backorders
+        if self.available_quantity > 0:
+            return True
+        return self.allow_backorders and self.available_quantity < 0
 
     def has_enough_quantity(self, quantity):
         if not self.track_quantity:

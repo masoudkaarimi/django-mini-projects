@@ -62,7 +62,7 @@
                             </a>
                         </div>
                         <h1 class="text-3xl font-bold text-gray-900 sm:text-4xl mb-2">{{ product.name }}</h1>
-                        <p class="text-sm text-gray-500">{% translate 'SKU' %}: {{ product.sku }}</p>
+                        <p class="text-sm text-gray-500">{% translate 'SKU' %}: <span class="product-sku">{{ product.get_default_variant.sku }}</span></p>
                         <p class="text-sm text-gray-500"> {% translate 'views' %}: {{ product.view_count|default:0|intcomma }}</p>
                     </div>
                     <div class="flex items-center gap-x-2 p-4">
@@ -101,54 +101,57 @@
                     </div>
                 </div>
 
-                <!-- Color -->
-                {% if color_options %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-800 mb-2">Color</label>
-                        <div class="flex gap-4 flex-wrap">
-                            {% for color in color_options %}
-                                <label class="relative flex flex-col items-center cursor-pointer group">
-                                    <input type="radio" name="color" value="{{ color.id }}" class="peer sr-only" {% if forloop.first %}checked{% endif %}>
-                                    <span style="background-color: {{ color.hex_code }};"
-                                          class="size-7 rounded ring-2 ring-offset-2 ring-gray-200 peer-checked:ring-indigo-600 transition-all"></span>
-                                    {#                                    <span class="mt-2 text-xs font-light text-gray-700">{{ color.value }}</span>#}
-                                </label>
-                            {% endfor %}
+                    <!-- Color -->
+                    {% if color_options %}
+                        <div class="color-container space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">{% translate "Color" %}</label>
+                            <div class="flex gap-4 flex-wrap">
+                                {% for color in color_options %}
+                                    <label class="relative flex flex-col items-center cursor-pointer group">
+                                        <input type="radio" name="color" value="{{ color.id }}"
+                                               class="peer sr-only variant-selector"
+                                               {% if forloop.first %}checked{% endif %}>
+                                        <span class="size-7 rounded ring-2 ring-offset-2 ring-gray-200 peer-checked:ring-indigo-600 transition-all flex items-center justify-center text-sm font-medium text-gray-700"
+                                              style="background-color: {{ color.hex_code }}"></span>
+                                        <span class="mt-2 text-xs font-medium text-gray-700">{{ color.value }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
 
-                <!-- Size -->
-                {% if color_options %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-800 mb-2">Size</label>
-                        <div class="flex gap-4 flex-wrap">
-                            {% for size in size_options %}
-                                <label class="relative flex flex-col items-center cursor-pointer group">
-                                    <input type="radio" name="size" value="{{ size.id }}" class="peer sr-only" {% if forloop.first %}checked{% endif %}>
-                                    <span class="size-7 rounded ring-2 ring-offset-2 ring-gray-200 peer-checked:ring-indigo-600 transition-all flex items-center justify-center text-sm font-medium text-gray-700">
-                                        {{ size.value }}
+                    <!-- Size -->
+                    {% if size_options %}
+                        <div class="size-container space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">{% translate "Size" %}</label>
+                            <div class="flex gap-4 flex-wrap">
+                                {% for size in size_options %}
+                                    <label class="relative flex flex-col items-center cursor-pointer group">
+                                        <input type="radio" name="size" value="{{ size.id }}"
+                                               class="peer sr-only variant-selector"
+                                               {% if forloop.first %}checked{% endif %}>
+                                        <span class="size-7 rounded ring-2 ring-offset-2 ring-gray-200 peer-checked:ring-indigo-600 transition-all flex items-center justify-center text-sm font-medium text-gray-700">
+                                        <span class="text-xs font-medium text-gray-700">{{ size.value }}</span>
                                     </span>
-
-                                </label>
-                            {% endfor %}
+                                    </label>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
 
                 <!-- Price -->
                 {% if pricing %}
-                    <div class="flex items-center gap-3">
-                        <span class="text-4xl font-bold text-gray-900">
-                            ${{ pricing.current_price }}
-                        </span>
+                    <div class="product-price-container flex items-center gap-3">
+                            <span class="text-4xl font-bold text-gray-900">
+                                ${{ pricing.current_price|floatformat:2 }}
+                            </span>
                         {% if pricing.is_on_sale %}
                             <span class="text-xl text-gray-500 line-through">
-                                ${{ pricing.base_price }}
-                            </span>
+                                    ${{ pricing.base_price|floatformat:2 }}
+                                </span>
                             <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                {% translate 'Save' %}: ${{ pricing.saved_amount }}
-                            </span>
+                                    {% translate 'Save' %}: ${{ pricing.saved_amount }}
+                                </span>
                         {% endif %}
                     </div>
                 {% endif %}
@@ -157,7 +160,7 @@
                 <div class="space-y-4">
                     <!-- Stock Status -->
                     {% if inventory %}
-                        <div class="flex items-center gap-2">
+                        <div class="stock-info flex items-center gap-2">
                             {% if inventory.is_in_stock %}
                                 <span class="size-2 bg-green-500 rounded-full"></span>
                                 <span class="text-sm font-medium text-green-600">
@@ -197,8 +200,7 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-lg btn-primary grow"
-                                onclick="addToCart()">
+                        <button type="button" class="btn btn-lg btn-primary grow" id="addToCartBtn" onclick="addToCart()">
                             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="8" cy="21" r="1"></circle>
@@ -272,7 +274,9 @@
         <div class="mt-14">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Similar Products</h2>
 
-            <div data-hs-carousel='{
+            {% if similar_products %}
+                {% if similar_products|length >= 2 %}
+                    <div data-hs-carousel='{
                         "loadingClasses": "opacity-0",
                         "isInfiniteLoop": true,
                         "slidesQty": {
@@ -282,126 +286,264 @@
                             "xl": 4
                         }
                     }' class="relative">
-                <div class="hs-carousel relative overflow-hidden w-full min-h-[30rem] max-h-max">
-                    <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
-                        {% for product in similar_products %}
-                            <div class="hs-carousel-slide">
-                                <div class="px-2">
-                                    {% include 'shop/product/_product_card.html' with product=product %}
-                                </div>
+                        <div class="hs-carousel relative overflow-hidden w-full min-h-[30rem] max-h-max">
+                            <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                                {% for product in similar_products %}
+                                    <div class="hs-carousel-slide">
+                                        <div class="px-2">
+                                            {% include 'shop/product/_product_card.html' with product=product %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            {% empty %}
-                            <div class="hs-carousel-slide">
-                                <div class="flex justify-center items-center h-full p-6">
-                                    <p class="text-gray-500">No similar products found.</p>
-                                </div>
+                        </div>
+                        <button type="button"
+                                class="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -start-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 ms-4 z-10">
+                            <span class="sr-only">{% translate 'Previous' %}</span>
+                            <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"></path>
+                            </svg>
+                        </button>
+                        <button type="button"
+                                class="hs-carousel-next hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -end-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 me-4 z-10">
+                            <span class="sr-only">{% translate 'Next' %}</span>
+                            <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {% for product in similar_products %}
+                            <div class="px-2">
+                                {% include 'shop/product/_product_card.html' with product=product %}
                             </div>
                         {% endfor %}
                     </div>
+                {% endif %}
+            {% else %}
+                <div class="col-span-full">
+                    <p class="text-gray-500">{% translate 'No similar products found.' %}</p>
                 </div>
-
-                <button type="button"
-                        class="hs-carousel-prev hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -start-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 ms-4 z-10">
-                    <span class="sr-only">Previous</span>
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m15 18-6-6 6-6"></path>
-                    </svg>
-                </button>
-                <button type="button"
-                        class="hs-carousel-next hs-carousel-disabled:opacity-50 hs-carousel-disabled:pointer-events-none absolute top-1/2 -translate-y-1/2 -end-7 inline-flex justify-center items-center size-10 bg-white rounded-full shadow-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 me-4 z-10">
-                    <span class="sr-only">Next</span>
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                         stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m9 18 6-6-6-6"></path>
-                    </svg>
-                </button>
-            </div>
+            {% endif %}
         </div>
     </section>
 {% endblock content %}
 
 {% block script %}
+    {{ variants_data|json_script:"variants-data" }}
+    {{ variant_matrix|json_script:"variant-matrix" }}
     <script>
-        // Cart functionality
-        function addToCart() {
-            const quantity = document.getElementById('quantity').value;
-
-            // Create notification
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-4 right-4 bg-green-100 border border-green-200 text-green-800 px-4 py-3 rounded-lg shadow-lg z-50';
-            notification.innerHTML = `
-                        <div class="flex items-center gap-x-2">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                                <path d="m9 12 2 2 4-4"></path>
-                            </svg>
-                            <span class="text-sm font-medium">Added ${quantity} item(s) to cart!</span>
-                        </div>
-                    `;
-
-            document.body.appendChild(notification);
-
-            // Remove notification after 3 seconds
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Wishlist functionality
-        function toggleWishlist() {
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-4 right-4 bg-indigo-100 border border-indigo-200 text-indigo-800 px-4 py-3 rounded-lg shadow-lg z-50';
-            notification.innerHTML = `
-                        <div class="flex items-center gap-x-2">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l6 6Z"></path>
-                            </svg>
-                            <span class="text-sm font-medium">Added to wishlist!</span>
-                        </div>
-                    `;
-
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-    </script>
-    <script>
-        function activateThumbnail(clickedImg) {
-            document.getElementById('mainImage').src = clickedImg.src;
-
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            thumbnails.forEach(thumb => {
-                thumb.classList.replace('border-indigo-500', 'border-transparent');
-            });
-
-            const parentDiv = clickedImg.parentElement;
-            parentDiv.classList.replace('border-transparent', 'border-indigo-500');
-        }
-    </script>
-    <script>
-        // در product_detail.js
         document.addEventListener('DOMContentLoaded', function () {
-            const priceElement = document.querySelector('.product-price');
-            const basePrice = parseFloat(priceElement.dataset.basePrice);
+            // Get variant data from context
+            const variantsData = JSON.parse(document.getElementById('variants-data').textContent);
+            const variantMatrix = JSON.parse(document.getElementById('variant-matrix').textContent);
 
-            document.querySelectorAll('input[name="color"]').forEach(radio => {
-                radio.addEventListener('change', function (e) {
-                    updatePrice(e.target.dataset.price);
+            // Elements
+            const colorSelectors = document.querySelectorAll('input[name="color"]');
+            const sizeSelectors = document.querySelectorAll('input[name="size"]');
+            const sizeContainer = document.querySelector('.size-container');
+
+            // Create a map to track unique color values by ID
+            const uniqueColorIds = new Set();
+
+            // Remove duplicate color options from the DOM
+            colorSelectors.forEach(selector => {
+                const colorId = selector.value;
+                if (uniqueColorIds.has(colorId)) {
+                    // Remove duplicate color option
+                    const label = selector.closest('label');
+                    if (label && label.parentNode) {
+                        label.parentNode.removeChild(label);
+                    }
+                } else {
+                    uniqueColorIds.add(colorId);
+
+                    // Add event listener
+                    selector.addEventListener('change', function () {
+                        // Show size container when color is selected
+                        if (sizeContainer) {
+                            sizeContainer.classList.remove('hidden');
+                        }
+
+                        // Update available sizes for the selected color
+                        updateAvailableSizes(this.value);
+
+                        // Update product details
+                        updateProductDetails();
+                    });
+                }
+            });
+
+            // Rest of your code remains the same
+            // When size changes, update product details
+            sizeSelectors.forEach(selector => {
+                selector.addEventListener('change', function () {
+                    updateProductDetails();
                 });
             });
 
-            document.querySelectorAll('input[name="size"]').forEach(radio => {
-                radio.addEventListener('change', function (e) {
-                    updatePrice(e.target.dataset.price);
+            function updateAvailableSizes(colorId) {
+                // Reset all sizes first
+                sizeSelectors.forEach(sizeInput => {
+                    const sizeLabel = sizeInput.closest('label');
+                    sizeLabel.classList.remove('opacity-50', 'pointer-events-none');
+                    sizeInput.disabled = false;
                 });
-            });
 
-            function updatePrice(newPrice) {
-                const price = parseFloat(newPrice) || 0;
-                priceElement.textContent = basePrice + price;
+                // Find available sizes for this color from the variant matrix
+                const availableSizes = new Set();
+                Object.keys(variantMatrix).forEach(key => {
+                    const [matrixColorId, matrixSizeId] = key.split('_');
+                    if (matrixColorId === colorId) {
+                        availableSizes.add(matrixSizeId);
+                    }
+                });
+
+                // Disable sizes that aren't available for this color
+                sizeSelectors.forEach(sizeInput => {
+                    if (!availableSizes.has(sizeInput.value)) {
+                        const sizeLabel = sizeInput.closest('label');
+                        sizeLabel.classList.add('opacity-50', 'pointer-events-none');
+                        sizeInput.disabled = true;
+                    }
+                });
+
+                // If current selected size is not available, select the first available one
+                const currentSelectedSize = document.querySelector('input[name="size"]:checked');
+                if (currentSelectedSize && currentSelectedSize.disabled) {
+                    const firstAvailableSize = document.querySelector('input[name="size"]:not([disabled])');
+                    if (firstAvailableSize) firstAvailableSize.checked = true;
+                }
             }
-        });    </script>
+
+            function updateProductDetails() {
+                // Get selected color and size
+                const selectedColor = document.querySelector('input[name="color"]:checked');
+                const selectedSize = document.querySelector('input[name="size"]:checked');
+
+                if (!selectedColor || !selectedSize) return;
+
+                const colorId = selectedColor.value;
+                const sizeId = selectedSize.value;
+
+                // Look up the variant id from the matrix
+                const variantKey = `${colorId}_${sizeId}`;
+                const variantId = variantMatrix[variantKey];
+
+                if (!variantId) return;
+
+                // Find the variant data
+                const variantData = variantsData.find(v => v.id === variantId);
+
+                if (!variantData) return;
+
+                // Update price display
+                updatePriceDisplay(variantData);
+
+                // Update stock info
+                updateStockInfo(variantData);
+
+                // Update SKU
+                const skuElement = document.querySelector('.product-sku');
+                if (skuElement) {
+                    skuElement.textContent = variantData.sku;
+                }
+            }
+
+            function updatePriceDisplay(variantData) {
+                const priceContainer = document.querySelector('.product-price-container');
+                if (!priceContainer) return;
+
+                if (variantData.is_on_sale && variantData.sale_price) {
+                    priceContainer.innerHTML = `
+                        <span class="text-4xl font-bold text-gray-900">$${variantData.sale_price.toFixed(2)}</span>
+                        <span class="text-xl text-gray-500 line-through">$${variantData.base_price.toFixed(2)}</span>
+                        <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Save: $${(variantData.base_price - variantData.sale_price).toFixed(2)}
+                        </span>
+                    `;
+                } else {
+                    priceContainer.innerHTML = `
+                        <span class="text-4xl font-bold text-gray-900">$${variantData.current_price.toFixed(2)}</span>
+                    `;
+                }
+            }
+
+            function updateStockInfo(variantData) {
+                const stockInfo = document.querySelector('.stock-info');
+                if (!stockInfo) return;
+
+                if (variantData.in_stock) {
+                    stockInfo.innerHTML = `
+                        <span class="size-2 bg-green-500 rounded-full"></span>
+                        <span class="text-sm font-medium text-green-600">
+                            In Stock (${variantData.quantity} available)
+                        </span>
+                    `;
+                    document.getElementById('addToCartBtn').disabled = false;
+                } else {
+                    stockInfo.innerHTML = `
+                        <span class="size-2 bg-red-500 rounded-full"></span>
+                        <span class="text-sm font-medium text-red-600">
+                            Out of Stock
+                        </span>
+                    `;
+                    document.getElementById('addToCartBtn').disabled = true;
+                }
+            }
+
+            function initializeDefaultVariant() {
+                // Find default variant
+                const defaultVariant = variantsData.find(v => v.is_default === true);
+
+                if (!defaultVariant) return;
+
+                // Get default color and size
+                let defaultColorId, defaultSizeId;
+
+                // Find the matching variant key in the matrix
+                for (const key in variantMatrix) {
+                    if (variantMatrix[key] === defaultVariant.id) {
+                        const [colorId, sizeId] = key.split('_');
+                        defaultColorId = colorId;
+                        defaultSizeId = sizeId;
+                        break;
+                    }
+                }
+
+                // Select the default color
+                if (defaultColorId) {
+                    const defaultColorInput = document.querySelector(`input[name="color"][value="${defaultColorId}"]`);
+                    if (defaultColorInput) {
+                        defaultColorInput.checked = true;
+
+                        // Update available sizes based on this color
+                        updateAvailableSizes(defaultColorId);
+
+                        // Show size container
+                        if (sizeContainer) {
+                            sizeContainer.classList.remove('hidden');
+                        }
+                    }
+                }
+
+                // Select the default size
+                if (defaultSizeId) {
+                    const defaultSizeInput = document.querySelector(`input[name="size"][value="${defaultSizeId}"]`);
+                    if (defaultSizeInput) {
+                        defaultSizeInput.checked = true;
+                    }
+                }
+
+                // Update product details based on default selection
+                updateProductDetails();
+            }
+
+            // Call initialization function
+            initializeDefaultVariant();
+        });
+    </script>
 {% endblock script %}
