@@ -1,0 +1,40 @@
+{% include "base/delete-modal.html" %}
+
+{% load i18n %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.deleteUser = (id) => {
+            const modalEl = document.querySelector('#delete-modal')
+            const modalBodyEl = modalEl.querySelector('.modal-body');
+            const modalBtnSubmitEl = modalEl.querySelector('#btn-delete-modal-submit');
+
+            const users = [
+                {% for user in users %}
+                    {
+                        id: {{ user.id }},
+                        name: "{{ user.get_fullname }}",
+                    },
+                {% endfor %}
+            ]
+            const selectedUser = users.find(user => user.id === id)
+
+            new bootstrap.Modal(modalEl, {}).show();
+
+            let output = `<p class="">{% trans "Are you sure you want to delete the selected user?" %}</small>`;
+            output += `<h3 class="fs-5 text-center">${selectedUser.name}</h3>`;
+            output += `
+                    <form action="{% url 'loan:user_delete' %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="user_id" value="${id}" />
+                    </form>
+                `;
+            modalBodyEl.innerHTML = output;
+
+            modalBtnSubmitEl.addEventListener('click', function () {
+                modalBodyEl.querySelector('form').submit();
+            })
+        }
+    })
+</script>

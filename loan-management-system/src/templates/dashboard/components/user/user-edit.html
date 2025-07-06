@@ -1,0 +1,98 @@
+{% extends "_base.html" %}
+
+{% load static i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:user_list" as user_list_url %}
+
+    <section class="container my-5">
+        <article class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                        <h4 class="card-title text-capitalize">{% trans "Update User" %}: {{ user.get_fullname }}</h4>
+                        <a href="{{ user_list_url }}" class="btn btn-secondary">{% trans "Go Back" %}</a>
+                    </div>
+                    <div class="card-body">
+                        <form novalidate action="" method="POST">
+                            {% csrf_token %}
+
+                            <div class="row mb-3">
+                                <label for="{{ form.first_name.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.first_name.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.first_name }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.last_name.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.last_name.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.last_name }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.username.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.username.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.username }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.email.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.email.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.phone.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.phone.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.phone }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.password.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.password.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    <small>{{ form.password.help_text|safe }}</small>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.groups.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.groups.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.groups }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.is_staff.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.is_staff.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    <div class="form-check form-switch">
+                                        {{ form.is_staff }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.is_superuser.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.is_superuser.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    <div class="form-check form-switch">
+                                        {{ form.is_superuser }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="{{ form.is_active.name }}" class="col-sm-3 col-lg-2 col-form-label">{{ form.is_active.label }}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    <div class="form-check form-switch">
+                                        {{ form.is_active }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-9 col-lg-4 offset-sm-3 offset-lg-2">
+                                    <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                                    <button type="reset" class="btn btn-secondary">{% trans "Reset" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}

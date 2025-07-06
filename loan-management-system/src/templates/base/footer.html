@@ -1,0 +1,60 @@
+{% load static i18n %}
+
+{% url "main:home" as home_url %}
+{% url "main:about" as about_url %}
+{% url "main:contact" as contact_url %}
+{% url "main:privacy" as privacy_url %}
+
+<footer>
+    <div class="container">
+        <div class="row py-3 my-4 border-top">
+            <div class="col-lg-4 col-md-6 d-flex align-items-center justify-content-lg-start justify-content-center gap-1">
+                <div class="mb-3 mb-md-0 text-muted text-center">
+                    <span>©</span>
+                    <span id="copyright">
+                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+                    </span>
+                    <span>{% trans "LMS. Design and Coded by" %}</span>
+                    <a href="https://masoudkarimi.dev" target="_blank" title="{% trans "Masoud Karimi" %}" class="text-decoration-none">{% trans "Masoud Karimi" %}</a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 justify-content-lg-center justify-content-end">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-muted px-2 {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">{% trans "Home" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted px-2 {% if request.path == about_url %}active{% endif %}" href="{{ about_url }}">{% trans "About" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted px-2 {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">{% trans "Contact" %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-muted px-2 {% if request.path == privacy_url %}active{% endif %}" href="{{ privacy_url }}">{% trans "Privacy" %}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-12 align-self-center mt-lg-0 mt-3">
+                <ul class="nav list-unstyled d-flex justify-content-lg-end justify-content-center">
+                    <li class="mx-2">
+                        <a class="text-muted" href="https://github.com/masoudkaarimi" target="_blank" title="{% trans "Follow me on GitHub" %}">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a class="text-muted" href="https://t.me/masoudkaarimi" target="_blank" title="{% trans "Follow me on Telegram" %}">
+                            <i class="bi bi-telegram"></i>
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a class="text-muted" href="https://linkedin.com/in/masoudkaarimi/" target="_blank" title="{% trans "Follow me on LinkedIn" %}">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

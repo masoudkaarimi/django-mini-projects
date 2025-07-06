@@ -1,0 +1,50 @@
+{% load static i18n %}
+
+{% get_current_language as LANGUAGE %}
+
+<!doctype html>
+<html lang="{{ LANGUAGE }}" {% if LANGUAGE == 'fa' or LANGUAGE == 'ar' %}dir="rtl" {% else %}dir="ltr"{% endif %}>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{ title }} | LMS</title>
+
+    <!-- Stylesheets -->
+    {% if LANGUAGE == 'fa' or LANGUAGE == 'ar' %}
+        <link href="{% static 'assets/lib/bootstrap/css/bootstrap.rtl.min.css' %}" rel="stylesheet" type="text/css"/>
+    {% else %}
+        <link href="{% static 'assets/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    {% endif %}
+    <link href="{% static 'assets/lib/bootstrap-icons/bootstrap-icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'assets/css/index.css' %}?v={{ static_version }}" rel="stylesheet" type="text/css"/>
+
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+
+<!-- Toast Messages -->
+{% include "base/toast.html" %}
+
+<!-- Header -->
+{% include "base/header.html" %}
+
+<!-- Main -->
+<main class="container-fluid">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+{% include "base/footer.html" %}
+
+<!-- Scripts -->
+<script src="{% static 'assets/lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/index.js' %}?v={{ static_version }}"></script>
+
+{% block script %}{% endblock %}
+</body>
+
+</html>

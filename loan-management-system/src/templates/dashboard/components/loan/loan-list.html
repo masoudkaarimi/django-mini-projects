@@ -1,0 +1,72 @@
+{% load i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:loan_create" as loan_create_url %}
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{% trans "Book Name" %}</th>
+                <th scope="col">{% trans "Installments" %}</th>
+                <th scope="col">{% trans "Payment Status" %}</th>
+                <th scope="col">{% trans "Loan Amount" %}</th>
+                <th scope="col">{% trans "Repayment" %}</th>
+                <th scope="col">{% trans "Paid" %}</th>
+                <th scope="col">{% trans "Balance" %}</th>
+                <th scope="col">{% trans "End Date" %}</th>
+                <th scope="col">{% trans "Actions" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if loans.all.exists %}
+                {% for loan in loans %}
+                    <tr>
+                        <th scope="row">{{ loan.number }}</th>
+                        <td>{{ loan.name }}</td>
+                        <td>{{ loan.get_installment_count }}</td>
+                        <td>
+                            <div class="d-flex align-items-center flex-wrap gap-1" style="max-width: 316px">
+                                {% for installment in loan.loan_installment.all %}
+                                    <span class="d-flex justify-content-center text-white {% if installment.status == 'paid' %}bg-success{% else %}bg-secondary{% endif %}"
+                                          style="width:12px;height:12px;border-radius:4px;">
+                                                    <i class="bi {% if installment.status == 'paid' %}bi-check{% else %}bi-x{% endif %}" style="font-size:13px;line-height:0"></i>
+                                                </span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>{{ loan.get_amount|intcomma_local }}</td>
+                        <td>{{ loan.get_repayment_amount|intcomma_local }}</td>
+                        <td>{{ loan.get_total_paid|intcomma_local }}</td>
+                        <td>{{ loan.get_total_unpaid|intcomma_local }}</td>
+                        <td>{{ loan.get_end_date }}</td>
+                        <td>
+                            <button class="btn btn-link p-0 text-danger mx-1" onclick="deleteLoan({{ loan.id }})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <a href="{% url 'loan:loan_edit' loan.id %}" class="text-primary mx-1 text-decoration-none">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{{ loan.get_absolute_url }}" class="text-secondary mx-1 text-decoration-none">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="10" class="text-center">
+                        {% trans "There is no loan yet." %}
+                        <a href="{{ loan_create_url }}" class="text-primary text-capitalize">{% trans "Add new" %}</a>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {% include "dashboard/components/loan/loan-delete.html" with loans=loans %}
+{% endblock %}

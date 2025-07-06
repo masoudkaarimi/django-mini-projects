@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container my-5">
+        <article class="row">
+            <div class="col-12 col-lg-6 offset-lg-3">
+                <div class="mb-4">
+                    <h1 class="mb-2 text-dark fw-bold">{% trans "Privacy" %}</h1>
+                    <h5 class="font-medium">{% trans "Last updated: 2024-01-20" %}</h5>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            We are committed to protecting your privacy. We will only use the information that we collect about you lawfully (in accordance with the Data Protection
+                            Act 1998 and GDPR).
+                        {% endblocktrans %}
+                    </p>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            We collect information about loan management system users for two reasons: firstly, to process your calculation and second, to provide you with the best
+                        {% endblocktrans %}
+                    </p>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            We will not e-mail you in the future unless you have given us your consent. We will give you the chance to refuse any marketing email from us or from
+                            another trader in the future.
+                        {% endblocktrans %}
+                    </p>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+
+{% load i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:dashboard" as dashboard_url %}
+    {% url "loan:loan_create" as loan_create_url %}
+
+    <section class="container my-5">
+        <article class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                        <h4 class="card-title">{% trans "Loans" %}</h4>
+                        <a href="{{ loan_create_url }}" class="btn btn-primary">{% trans "Add New" %}</a>
+                    </div>
+                    <div class="card-body">
+                        {% include "dashboard/components/loan/loan-list.html" with loans=loans %}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+{% block script %}
+    {% include "dashboard/components/loan/loan-delete.html" with loans=loans %}
+{% endblock %}

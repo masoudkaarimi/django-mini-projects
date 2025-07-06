@@ -1,0 +1,2730 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-31 03:27+0330\n"
+"PO-Revision-Date: 2024-02-23 18:24+0000\n"
+"Last-Translator: Ali Mohammadi <admin@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: .\account\admin.py:21
+msgid "Personal Information"
+msgstr "اطلاعات شخصی"
+
+#: .\account\admin.py:22
+msgid "Permissions"
+msgstr "مجوز ها"
+
+#: .\account\admin.py:23
+msgid "Security"
+msgstr "امنیت"
+
+#: .\account\backends.py:31
+msgid "A database error occurred."
+msgstr "یک خطای پایگاه داده رخ داد."
+
+#: .\account\backends.py:34
+msgid "An unknown error occurred."
+msgstr "یک خطای ناشناخته رخ داد."
+
+#: .\account\forms.py:16 .\account\models.py:15 .\templates\auth\login.html:31
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1904
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+#: .\account\forms.py:26 .\templates\auth\login.html:30
+msgid "Your email here"
+msgstr "ایمیل خود را وارد کنید"
+
+#: .\account\forms.py:38 .\account\forms.py:96 .\account\forms.py:107
+msgid "New password"
+msgstr "رمز عبور جدید"
+
+#: .\account\forms.py:50
+#, fuzzy
+#| msgid "New password"
+msgid "New Password"
+msgstr "رمز عبور جدید"
+
+#: .\account\forms.py:56
+msgid "New password confirmation"
+msgstr "تایید رمز عبور جدید"
+
+#: .\account\forms.py:67 .\account\forms.py:113 .\account\forms.py:124
+msgid "Confirm New Password"
+msgstr "تایید رمز عبور جدید"
+
+#: .\account\forms.py:78 .\account\forms.py:90
+msgid "Old password"
+msgstr "رمز عبور قدیم"
+
+#: .\account\forms.py:139 .\account\forms.py:148 .\account\forms.py:208
+#: .\account\forms.py:217 .\loan\forms.py:187 .\loan\forms.py:197
+#: .\loan\forms.py:371 .\loan\forms.py:381
+#: .\templates\dashboard\components\user\user-detail.html:26
+msgid "First Name"
+msgstr "نام"
+
+#: .\account\forms.py:154 .\account\forms.py:163 .\account\forms.py:223
+#: .\account\forms.py:232 .\loan\forms.py:205 .\loan\forms.py:215
+#: .\loan\forms.py:389 .\loan\forms.py:399
+#: .\templates\dashboard\components\user\user-detail.html:30
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: .\account\forms.py:169 .\account\forms.py:178 .\account\forms.py:253
+#: .\account\forms.py:262 .\loan\forms.py:248 .\loan\forms.py:433
+msgid "Email"
+msgstr "ایمیل"
+
+#: .\account\forms.py:184 .\account\forms.py:193 .\account\forms.py:268
+#: .\account\models.py:21 .\loan\forms.py:255 .\loan\forms.py:440
+#: .\templates\dashboard\components\user\user-detail.html:42
+msgid "Phone Number"
+msgstr "شماره تلفن"
+
+#: .\account\forms.py:238 .\account\forms.py:247 .\loan\forms.py:222
+#: .\loan\forms.py:232 .\loan\forms.py:406 .\loan\forms.py:417
+#: .\templates\dashboard\components\user\user-detail.html:34
+#: .\templates\dashboard\components\user\user-list.html:11
+msgid "Username"
+msgstr "نام کاربری"
+
+#: .\account\forms.py:282 .\loan\forms.py:270 .\loan\forms.py:283
+#: .\templates\auth\login.html:38 .\templates\auth\login.html:40
+msgid "Password"
+msgstr "کلمه عبور"
+
+#: .\account\forms.py:301 .\loan\forms.py:290 .\loan\forms.py:303
+msgid "Confirm Password"
+msgstr "تایید رمز عبور"
+
+#: .\account\forms.py:306 .\loan\forms.py:295
+msgid "Enter the same password as before, for verification."
+msgstr ""
+
+#: .\account\models.py:16
+msgid "Required. This will be used as the user's email address."
+msgstr "اجباری. این فیلد به عنوان آدرس ایمیل کاربر استفاده خواهد شد."
+
+#: .\account\models.py:22
+msgid "Optional. Contact number for the user if provided."
+msgstr "اختیاری. شماره تماس برای کاربر در صورت ارائه."
+
+#: .\account\models.py:27
+msgid "Last IP Address"
+msgstr "آخرین آدرس IP"
+
+#: .\account\models.py:28
+msgid "IP address of the user's last login, if available."
+msgstr "آدرس IP آخرین ورود کاربر، در صورت وجود."
+
+#: .\account\views.py:20 .\account\views.py:53
+#, python-brace-format
+msgid "Welcome {user.username}."
+msgstr "خوش آمدید {user.username}."
+
+#: .\account\views.py:33 .\templates\base\header.html:80
+msgid "Register"
+msgstr "ثبت نام"
+
+#: .\account\views.py:45
+msgid "Email is required."
+msgstr "آدرس ایمیل اجباری می باشد."
+
+#: .\account\views.py:45
+msgid "Password is required."
+msgstr "رمز عبور اجباری می باشد."
+
+#: .\account\views.py:56
+msgid "Email or Password is incorrect."
+msgstr "آدرس ایمیل یا رمز عبور نادرست می باشد."
+
+#: .\account\views.py:59 .\templates\base\header.html:79
+msgid "Login"
+msgstr "ورود"
+
+#: .\account\views.py:66
+msgid "Logout successful."
+msgstr "خروج با موفقیت انجام شد."
+
+#: .\account\views.py:77
+msgid "Your password was successfully updated."
+msgstr "رمز عبور شما با موفقیت به روز شد."
+
+#: .\account\views.py:98
+msgid "Profile updated successfully"
+msgstr "پروفایل با موفقیت به روز شد."
+
+#: .\account\views.py:106
+#, python-brace-format
+msgid "Profile | {request.user}"
+msgstr "پروفایل | {request.user}"
+
+#: .\core\settings\base.py:111
+msgid "English"
+msgstr "انگلیسی"
+
+#: .\core\settings\base.py:112
+msgid "Persian"
+msgstr "فارسی"
+
+#: .\core\settings\base.py:113
+msgid "Arabic"
+msgstr "عربی"
+
+#: .\core\utils.py:17 .\templates\dashboard\components\user\user-detail.html:27
+#: .\templates\dashboard\components\user\user-detail.html:31
+#: .\templates\dashboard\components\user\user-detail.html:45
+#: .\templates\dashboard\components\user\user-detail.html:53
+#: .\templates\dashboard\components\user\user-list.html:34
+msgid "N/A"
+msgstr "تعریف نشده"
+
+#: .\core\utils.py:57
+#, python-brace-format
+msgid "Invalid message level: {level}"
+msgstr "سطح پیام نامعتبر است: {level}"
+
+#: .\core\utils.py:69
+msgid "Unsupported message type: {type(message)}"
+msgstr "نوع پیام پشتیبانی نمی شود: {type(message)}"
+
+#: .\loan\admin.py:15
+#, fuzzy
+#| msgid "Personal Information"
+msgid "Loan Information"
+msgstr "اطلاعات شخصی"
+
+#: .\loan\admin.py:25
+msgid "Installment Information"
+msgstr "اطلاعات قسط"
+
+#: .\loan\forms.py:44 .\loan\forms.py:120 .\loan\models.py:46
+#: .\templates\dashboard\components\loan\loan-create.html:21
+#: .\templates\dashboard\components\loan\loan-edit.html:21
+msgid "Loan Name"
+msgstr "نام وام"
+
+#: .\loan\forms.py:55 .\loan\forms.py:131 .\loan\models.py:53
+#: .\templates\dashboard\components\loan\loan-create.html:27
+#: .\templates\dashboard\components\loan\loan-detail.html:21
+#: .\templates\dashboard\components\loan\loan-edit.html:27
+#: .\templates\dashboard\components\loan\loan-list.html:14
+msgid "Loan Amount"
+msgstr "مبلغ وام"
+
+#: .\loan\forms.py:65 .\loan\forms.py:141 .\loan\models.py:60
+msgid "Interest Rate (%)"
+msgstr "درصد سود (%)"
+
+#: .\loan\forms.py:75 .\loan\forms.py:151 .\loan\models.py:67
+#: .\templates\dashboard\components\loan\loan-create.html:39
+#: .\templates\dashboard\components\loan\loan-edit.html:39
+msgid "Installment Plan"
+msgstr "پلن اقساط"
+
+#: .\loan\forms.py:84 .\loan\forms.py:160 .\loan\models.py:73
+#: .\templates\dashboard\components\loan\loan-create.html:45
+#: .\templates\dashboard\components\loan\loan-edit.html:45
+msgid "Installment Count"
+msgstr "تعداد اقساط"
+
+#: .\loan\forms.py:239 .\loan\forms.py:424
+#: .\templates\dashboard\components\user\user-detail.html:38
+#: .\templates\dashboard\components\user\user-list.html:12
+msgid "Email Address"
+msgstr "آدرس ایمیل"
+
+#: .\loan\forms.py:310 .\loan\forms.py:320 .\loan\forms.py:455
+#: .\loan\forms.py:465 .\templates\dashboard\components\user\user-list.html:13
+msgid "Groups"
+msgstr "گروه‌ها"
+
+#: .\loan\forms.py:326 .\loan\forms.py:471
+#: .\templates\dashboard\components\user\user-detail.html:58
+#: .\templates\dashboard\components\user\user-list.html:14
+msgid "Administrator"
+msgstr "مدیر"
+
+#: .\loan\forms.py:339 .\loan\forms.py:484
+#: .\templates\dashboard\components\user\user-detail.html:68
+#: .\templates\dashboard\components\user\user-list.html:15
+msgid "Super Admin"
+msgstr "مدیرکل"
+
+#: .\loan\forms.py:352 .\loan\forms.py:497
+#: .\templates\dashboard\components\user\user-detail.html:78
+#: .\templates\dashboard\components\user\user-list.html:16
+msgid "Active"
+msgstr "فعال"
+
+#: .\loan\models.py:16
+msgid "Custom"
+msgstr "سفارشی"
+
+#: .\loan\models.py:17
+msgid "3 Monthly"
+msgstr "3 ماهه"
+
+#: .\loan\models.py:18
+msgid "6 Monthly"
+msgstr "6 ماهه"
+
+#: .\loan\models.py:19
+msgid "12 Monthly"
+msgstr "12 ماهه"
+
+#: .\loan\models.py:20
+msgid "24 Monthly"
+msgstr "24 ماهه"
+
+#: .\loan\models.py:21
+msgid "36 Monthly"
+msgstr "36 ماهه"
+
+#: .\loan\models.py:22
+msgid "48 Monthly"
+msgstr "48 ماهه"
+
+#: .\loan\models.py:23
+msgid "60 Monthly"
+msgstr "60 ماهه"
+
+#: .\loan\models.py:32
+msgid "Loan Owner"
+msgstr "مالک وام"
+
+#: .\loan\models.py:33
+msgid "The user to whom this loan belongs."
+msgstr "کاربری که این وام متعلق به اوست."
+
+#: .\loan\models.py:39
+msgid "Loan Number"
+msgstr "شماره وام"
+
+#: .\loan\models.py:40
+msgid "A unique loan identification number."
+msgstr "یک شماره شناسایی وام منحصر به فرد."
+
+#: .\loan\models.py:47
+msgid "A descriptive name for the loan."
+msgstr "یک نام توصیفی برای وام."
+
+#: .\loan\models.py:54
+msgid "The principal amount of the loan."
+msgstr "مبلغ اصل وام."
+
+#: .\loan\models.py:61
+msgid "The interest rate applied to the loan."
+msgstr "درصد سود اعمال شده بر روی وام."
+
+#: .\loan\models.py:68
+msgid "Choose a loan repayment installment plan."
+msgstr "یک پلن اقساط وام را انتخاب کنید."
+
+#: .\loan\models.py:74
+msgid "The number of installments for the loan repayment."
+msgstr "تعداد اقساط برای بازپرداخت وام."
+
+#: .\loan\models.py:78
+#: .\templates\dashboard\components\loan\loan-create.html:51
+#: .\templates\dashboard\components\loan\loan-detail.html:22
+#: .\templates\dashboard\components\loan\loan-edit.html:51
+msgid "Start Date"
+msgstr "تاریخ شروع"
+
+#: .\loan\models.py:79
+msgid "The date when the loan period starts."
+msgstr "تاریخ شروع دوره وام."
+
+#: .\loan\models.py:84 .\loan\models.py:209 .\loan\models.py:272
+msgid "Creation Date"
+msgstr "تاریخ ایجاد"
+
+#: .\loan\models.py:85 .\loan\models.py:210 .\loan\models.py:273
+msgid "The date and time when the record was created."
+msgstr "تاریخ و زمان ایجاد رکورد."
+
+#: .\loan\models.py:89 .\loan\models.py:214 .\loan\models.py:277
+msgid "Last Update Date"
+msgstr "تاریخ آخرین به روز رسانی"
+
+#: .\loan\models.py:90 .\loan\models.py:215 .\loan\models.py:278
+msgid "The date and time when the record was last updated."
+msgstr "تاریخ و زمان آخرین به روز رسانی رکورد."
+
+#: .\loan\models.py:94
+#, fuzzy
+#| msgid "Loans"
+msgid "Loan"
+msgstr "وام ها"
+
+#: .\loan\models.py:95 .\templates\base\header.html:48
+#: .\templates\dashboard\loans.html:14
+msgid "Loans"
+msgstr "وام ها"
+
+#: .\loan\models.py:165 .\templates\dashboard\components\loan\loan-list.html:16
+msgid "Paid"
+msgstr "پرداخت شده"
+
+#: .\loan\models.py:165
+msgid "Unpaid"
+msgstr "پرداخت نشده"
+
+#: .\loan\models.py:173
+msgid "Associated Loan"
+msgstr "وام مرتبط"
+
+#: .\loan\models.py:174
+msgid "The loan to which this installment belongs."
+msgstr "وامی که این قسط متعلق به آن است."
+
+#: .\loan\models.py:179
+#, fuzzy
+#| msgid "Installment Count"
+msgid "Installment Number"
+msgstr "تعداد اقساط"
+
+#: .\loan\models.py:180
+#, fuzzy
+#| msgid "A unique loan identification number."
+msgid "A unique installment identification number."
+msgstr "یک شماره شناسایی وام منحصر به فرد."
+
+#: .\loan\models.py:183
+msgid "Due Date"
+msgstr "تاریخ سررسید"
+
+#: .\loan\models.py:184
+msgid "The date by which the installment must be paid."
+msgstr "تاریخی که باید قسط پرداخت شود."
+
+#: .\loan\models.py:190
+#: .\templates\dashboard\components\loan\loan-detail.html:25
+msgid "Installment Amount"
+msgstr "مبلغ هر قسط"
+
+#: .\loan\models.py:191
+msgid "The specific amount due for this installment."
+msgstr "مبلغ خاصی که بابت این قسط باید پرداخت شود."
+
+#: .\loan\models.py:197 .\templates\dashboard\components\loan\loan-list.html:13
+msgid "Payment Status"
+msgstr "وضعیت پرداخت"
+
+#: .\loan\models.py:198
+msgid "The current payment status of this installment."
+msgstr "وضعیت پرداخت فعلی این قسط."
+
+#: .\loan\models.py:203 .\loan\models.py:262
+#: .\templates\dashboard\components\loan\loan-detail.html:95
+msgid "Description"
+msgstr "توضیحات"
+
+#: .\loan\models.py:204
+msgid "Additional details or information about the installment."
+msgstr "جزئیات یا اطلاعات اضافی در مورد قسط."
+
+#: .\loan\models.py:247
+#, fuzzy
+#| msgid "Loan Owner"
+msgid "Payment Owner"
+msgstr "مالک وام"
+
+#: .\loan\models.py:248
+#, fuzzy
+#| msgid "The user to whom this loan belongs."
+msgid "The user who made the payment."
+msgstr "کاربری که این وام متعلق به اوست."
+
+#: .\loan\models.py:256
+#, fuzzy
+#| msgid "Associated Loan"
+msgid "Associated Installment"
+msgstr "وام مرتبط"
+
+#: .\loan\models.py:257
+#, fuzzy
+#| msgid "The loan to which this installment belongs."
+msgid "The installment to which this payment belongs."
+msgstr "وامی که این قسط متعلق به آن است."
+
+#: .\loan\models.py:263
+#, fuzzy
+#| msgid "Additional details or information about the installment."
+msgid "Additional details or information about the payment."
+msgstr "جزئیات یا اطلاعات اضافی در مورد قسط."
+
+#: .\loan\models.py:266
+#: .\templates\dashboard\components\loan\loan-detail.html:155
+msgid "Payment Date"
+msgstr "تاریخ پرداخت"
+
+#: .\loan\models.py:267
+#, fuzzy
+#| msgid "The date and time when the record was created."
+msgid "The date and time when the payment was made."
+msgstr "تاریخ و زمان ایجاد رکورد."
+
+#: .\loan\views.py:56
+msgid "Total Users"
+msgstr "مجموع تعداد کاربران"
+
+#: .\loan\views.py:57 .\loan\views.py:87
+msgid "Total Loans"
+msgstr "مجموع تعداد وام‌ها"
+
+#: .\loan\views.py:58 .\loan\views.py:88
+msgid "Total Paid Installments"
+msgstr "مجموع تعداد اقساط پرداخت شده"
+
+#: .\loan\views.py:59 .\loan\views.py:89
+msgid "Total Unpaid Installments"
+msgstr "مجموع تعداد اقساط پرداخت نشده"
+
+#: .\loan\views.py:61 .\loan\views.py:91
+msgid "Total Loans Amount"
+msgstr "مجموع مبلغ وام‌ها"
+
+#: .\loan\views.py:61 .\loan\views.py:62 .\loan\views.py:64 .\loan\views.py:66
+#: .\loan\views.py:91 .\loan\views.py:92 .\loan\views.py:94 .\loan\views.py:96
+msgid "Toman"
+msgstr "تومان"
+
+#: .\loan\views.py:62 .\loan\views.py:92
+msgid "Total Paid Installments Amount"
+msgstr "مجموع مبلغ اقساط پرداخت شده"
+
+#: .\loan\views.py:64 .\loan\views.py:94
+msgid "Total Unpaid Installments Amount"
+msgstr "مجموع مبلغ اقساط پرداخت نشده"
+
+#: .\loan\views.py:66
+msgid "Total Interest Rates Amount"
+msgstr "مجموع مبلغ سود‌ها"
+
+#: .\loan\views.py:69
+#, fuzzy
+#| msgid "Dashboard"
+msgid "Admin Dashboard"
+msgstr "داشبورد"
+
+#: .\loan\views.py:96
+msgid "Total Interest Rate Amount"
+msgstr "مجموع مبلغ سود‌ها"
+
+#: .\loan\views.py:99
+#, fuzzy
+#| msgid "Dashboard"
+msgid "User Dashboard"
+msgstr "داشبورد"
+
+#: .\loan\views.py:115
+#, fuzzy
+#| msgid "Loans"
+msgid "Loan List"
+msgstr "وام ها"
+
+#: .\loan\views.py:134
+#, fuzzy
+#| msgid "Loan Name"
+msgid "Loan Detail"
+msgstr "نام وام"
+
+#: .\loan\views.py:166
+#, fuzzy
+#| msgid "Loan Name"
+msgid "Loan Create"
+msgstr "نام وام"
+
+#: .\loan\views.py:197
+#, fuzzy
+#| msgid "Loan Amount"
+msgid "Loan Edit"
+msgstr "مبلغ وام"
+
+#: .\loan\views.py:222
+msgid "Loan deleted successfully."
+msgstr "وام با موفقیت حذف شد."
+
+#: .\loan\views.py:225
+msgid "Loan does not exist!"
+msgstr ""
+
+#: .\loan\views.py:228 .\loan\views.py:361
+msgid "Invalid request method!"
+msgstr ""
+
+#: .\loan\views.py:243
+#, fuzzy
+#| msgid "Email is required."
+msgid "loan id is required!"
+msgstr "آدرس ایمیل اجباری می باشد."
+
+#: .\loan\views.py:246
+msgid "payment date is required!"
+msgstr "تاریخ پرداخت مورد نیاز است!"
+
+#: .\loan\views.py:260
+#, fuzzy
+#| msgid "Loan deleted successfully."
+msgid "Installments paid successfully."
+msgstr "وام با موفقیت حذف شد."
+
+#: .\loan\views.py:263
+msgid "Method not allowed!"
+msgstr ""
+
+#: .\loan\views.py:267
+#, fuzzy
+#| msgid "Installment Amount"
+msgid "Installments payment failed."
+msgstr "مبلغ هر قسط"
+
+#: .\loan\views.py:276
+msgid "User List"
+msgstr ""
+
+#: .\loan\views.py:290
+#, fuzzy
+#| msgid "User Details"
+msgid "User Detail"
+msgstr "مشخصات کاربر"
+
+#: .\loan\views.py:313
+#, fuzzy
+#| msgid "Loan Name"
+msgid "User Create"
+msgstr "نام وام"
+
+#: .\loan\views.py:337
+msgid "User Edit"
+msgstr ""
+
+#: .\loan\views.py:355
+#, fuzzy
+#| msgid "Loan deleted successfully."
+msgid "User deleted successfully."
+msgstr "وام با موفقیت حذف شد."
+
+#: .\loan\views.py:358
+msgid "User does not exist!"
+msgstr ""
+
+#: .\main\forms.py:7
+#, fuzzy
+#| msgid "Your username here"
+msgid "Your Name"
+msgstr "نام کاربری خود را وارد کنید"
+
+#: .\main\forms.py:7
+#, fuzzy
+#| msgid "Your last name here"
+msgid "Your full name"
+msgstr "نام خانوادگی خود را وارد کنید"
+
+#: .\main\forms.py:8
+msgid "Please enter your name."
+msgstr ""
+
+#: .\main\forms.py:9
+#, fuzzy
+#| msgid "Your username here"
+msgid "Your name is too short."
+msgstr "نام کاربری خود را وارد کنید"
+
+#: .\main\forms.py:10
+msgid "Your name is too long."
+msgstr ""
+
+#: .\main\forms.py:12
+#, fuzzy
+#| msgid "Your email here"
+msgid "Your Email"
+msgstr "ایمیل خود را وارد کنید"
+
+#: .\main\forms.py:12
+#, fuzzy
+#| msgid "Your email here"
+msgid "Your email address"
+msgstr "ایمیل خود را وارد کنید"
+
+#: .\main\forms.py:13
+#, fuzzy
+#| msgid "Enter a valid email address."
+msgid "Please enter your email address."
+msgstr "یک آدرس ایمیل معتبر وارد کنید."
+
+#: .\main\forms.py:14
+#, fuzzy
+#| msgid "Enter a valid email address."
+msgid "Please enter a valid email address."
+msgstr "یک آدرس ایمیل معتبر وارد کنید."
+
+#: .\main\forms.py:15
+msgid "Your email address is too long."
+msgstr ""
+
+#: .\main\forms.py:17
+msgid "Subject"
+msgstr ""
+
+#: .\main\forms.py:17
+msgid "Subject of your message"
+msgstr ""
+
+#: .\main\forms.py:18
+msgid "Please enter a subject."
+msgstr ""
+
+#: .\main\forms.py:19
+msgid "Your subject is too long."
+msgstr ""
+
+#: .\main\forms.py:21
+msgid "Message"
+msgstr "پیام"
+
+#: .\main\forms.py:21
+#, fuzzy
+#| msgid "Message"
+msgid "Your message"
+msgstr "پیام"
+
+#: .\main\forms.py:22
+msgid "Please enter a message."
+msgstr ""
+
+#: .\main\forms.py:23
+msgid "Your message is too long."
+msgstr ""
+
+#: .\main\views.py:10 .\templates\base\footer.html:25
+#: .\templates\base\header.html:35
+msgid "Home"
+msgstr "صفحه اصلی"
+
+#: .\main\views.py:15 .\templates\main\about.html:10
+msgid "About Us"
+msgstr "درباره ما"
+
+#: .\main\views.py:39
+#, fuzzy
+#| msgid "Your password was successfully updated."
+msgid "Your message has been sent successfully."
+msgstr "رمز عبور شما با موفقیت به روز شد."
+
+#: .\main\views.py:42 .\templates\main\contact.html:66
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: .\main\views.py:47
+#, fuzzy
+#| msgid "Privacy"
+msgid "Privacy Policy"
+msgstr "حریم خصوصی"
+
+#: .\main\views.py:52 .\templates\404.html:9
+msgid "404: Page Not Found"
+msgstr ""
+
+#: .\main\views.py:57 .\templates\403.html:9
+msgid "403: Forbidden - Access Denied"
+msgstr ""
+
+#: .\main\views.py:62 .\templates\500.html:9
+msgid "500: Internal Server Error"
+msgstr ""
+
+#: .\templates\403.html:10
+msgid "Sorry, you don't have permission to access this page."
+msgstr ""
+
+#: .\templates\404.html:10
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr ""
+
+#: .\templates\500.html:10
+msgid "Sorry, but something went wrong."
+msgstr ""
+
+#: .\templates\auth\login.html:18
+#: .\templates\auth\password-reset-complete.html:14
+#: .\templates\auth\password-reset-confirm.html:18
+#: .\templates\auth\password-reset-done.html:14
+#: .\templates\auth\password-reset.html:17 .\templates\auth\register.html:18
+#: .\templates\base\header.html:21
+msgid "Logo"
+msgstr "لوگو"
+
+#: .\templates\auth\login.html:21 .\templates\auth\login.html:51
+#: .\templates\auth\password-reset-confirm.html:25
+#: .\templates\auth\password-reset.html:24 .\templates\auth\register.html:25
+msgid "Sign In"
+msgstr "ورود"
+
+#: .\templates\auth\login.html:24
+msgid "Don't have an account?"
+msgstr "حساب کاربری ندارید؟"
+
+#: .\templates\auth\login.html:25 .\templates\auth\register.html:21
+#: .\templates\auth\register.html:117
+msgid "Sign Up"
+msgstr "ثبت نام"
+
+#: .\templates\auth\login.html:33 .\templates\auth\password-reset.html:42
+#: .\templates\auth\register.html:78
+msgid "Not valid email format."
+msgstr "فرمت ایمیل معتبر نیست."
+
+#: .\templates\auth\login.html:44
+#: .\templates\auth\password-reset-confirm.html:43
+#: .\templates\auth\password-reset-confirm.html:51
+msgid "Password must be at least 8 characters."
+msgstr "رمز عبور باید حداقل 8 کاراکتر باشد."
+
+#: .\templates\auth\login.html:47
+msgid "Forgot password?"
+msgstr "رمز عبور را فراموش کرده اید؟"
+
+#: .\templates\auth\login.html:50
+#: .\templates\auth\password-reset-complete.html:24
+#: .\templates\auth\password-reset-confirm.html:55
+#: .\templates\auth\password-reset-done.html:27
+#: .\templates\auth\password-reset.html:46 .\templates\auth\register.html:116
+msgid "Go back"
+msgstr "بازگشت"
+
+#: .\templates\auth\login.html:59
+#: .\templates\auth\password-reset-complete.html:33
+#: .\templates\auth\password-reset-confirm.html:64
+#: .\templates\auth\password-reset-done.html:36
+#: .\templates\auth\password-reset.html:55 .\templates\auth\register.html:125
+#: .\templates\base\footer.html:17
+msgid "LMS. Design and Coded by"
+msgstr "LMS. طراحی و کدگذاری توسط"
+
+#: .\templates\auth\login.html:60
+#: .\templates\auth\password-reset-complete.html:34
+#: .\templates\auth\password-reset-confirm.html:65
+#: .\templates\auth\password-reset-done.html:37
+#: .\templates\auth\password-reset.html:56 .\templates\auth\register.html:126
+#: .\templates\base\footer.html:18
+msgid "Masoud Karimi"
+msgstr "مسعود کریمی"
+
+#: .\templates\auth\password-reset-complete.html:17
+msgid "Password Reset Complete"
+msgstr "بازنشانی رمز عبور کامل شد"
+
+#: .\templates\auth\password-reset-complete.html:20
+#, fuzzy
+#| msgid "Your password was successfully updated."
+msgid "Your password has been reset."
+msgstr "رمز عبور شما با موفقیت به روز شد."
+
+#: .\templates\auth\password-reset-complete.html:25
+#: .\templates\auth\password-reset-done.html:28
+msgid "Sing In"
+msgstr "ورود"
+
+#: .\templates\auth\password-reset-confirm.html:21
+#: .\templates\auth\password-reset-confirm.html:56
+#, fuzzy
+#| msgid "Password"
+msgid "Reset Password"
+msgstr "کلمه عبور"
+
+#: .\templates\auth\password-reset-confirm.html:24
+#: .\templates\auth\password-reset.html:23
+msgid "Did you have an account?"
+msgstr "حساب کاربری ندارید؟"
+
+#: .\templates\auth\password-reset-confirm.html:70
+msgid ""
+"\n"
+"                                The password reset link was invalid, "
+"possibly because it has already been used.\n"
+"                                Please request a new password reset.\n"
+"                            "
+msgstr ""
+"\n"
+"پیوند بازنشانی رمز عبور نامعتبر بود، احتمالاً به این دلیل که قبلاً استفاده شده "
+"است.\n"
+"لطفاً بازنشانی رمز عبور جدید را درخواست کنید."
+
+#: .\templates\auth\password-reset-done.html:17
+msgid "Email Sent"
+msgstr "ایمیل ارسال شد"
+
+#: .\templates\auth\password-reset-done.html:20
+msgid ""
+"\n"
+"                            An email containing instruction for resetting "
+"your account password have been sent, if you don't receiving an email, "
+"please make\n"
+"                            sure you've entered the address you registered "
+"with and check your spam folder.\n"
+"                        "
+msgstr ""
+"\n"
+"ایمیلی حاوی دستورالعمل بازنشانی رمز عبور حساب شما ارسال شده است، اگر ایمیلی "
+"دریافت نکردید، لطفا مطمئن شوید که آدرسی را که با آن ثبت نام کرده اید وارد "
+"کرده اید و پوشه اسپم خود را بررسی کنید."
+
+#: .\templates\auth\password-reset-email-template.html:10
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"شما این ایمیل را دریافت می‌کنید زیرا درخواست بازنشانی رمز عبور برای حساب "
+"کاربری خود در %(site_name)s کرده‌اید."
+
+#: .\templates\auth\password-reset-email-template.html:12
+msgid "Please go to the following page and choose a new password:"
+msgstr "لطفا به صفحه زیر بروید و یک رمز عبور جدید انتخاب کنید:"
+
+#: .\templates\auth\password-reset-email-template.html:17
+msgid "Your username, in case you’ve forgotten:"
+msgstr "نام کاربری شما، در صورتی که فراموش کرده باشید:"
+
+#: .\templates\auth\password-reset-email-template.html:19
+msgid "Thanks for using our site!"
+msgstr "با تشکر از استفاده از سایت ما!"
+
+#: .\templates\auth\password-reset-email-template.html:21
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "تیم %(site_name)s"
+
+#: .\templates\auth\password-reset.html:20
+msgid "Forgot Password"
+msgstr "رمز عبور را فراموش کرده اید؟"
+
+#: .\templates\auth\password-reset.html:47
+msgid "Continue"
+msgstr "ادامه"
+
+#: .\templates\auth\register.html:24
+msgid "Already have an account?"
+msgstr "حساب کاربری دارید؟"
+
+#: .\templates\auth\register.html:34
+msgid "Not valid first name format."
+msgstr "فرمت نام معتبر نیست."
+
+#: .\templates\auth\register.html:35 .\templates\auth\register.html:45
+#: .\templates\auth\register.html:57 .\templates\auth\register.html:67
+#: .\templates\auth\register.html:79 .\templates\auth\register.html:90
+#: .\templates\auth\register.html:100
+msgid "Looks good!"
+msgstr ""
+
+#: .\templates\auth\register.html:44
+msgid "Not valid last name format."
+msgstr "فرمت نام خانوادگی معتبر نیست."
+
+#: .\templates\auth\register.html:56
+msgid "Not valid username format."
+msgstr "فرمت نام کاربری معتبر نیست."
+
+#: .\templates\auth\register.html:66
+msgid "Not valid phone number format."
+msgstr "فرمت شماره تلفن معتبر نیست."
+
+#: .\templates\auth\register.html:109
+msgid "I agree"
+msgstr "موافقم با"
+
+#: .\templates\auth\register.html:110
+msgid "terms and conditions"
+msgstr "شرایط و ضوابط"
+
+#: .\templates\base\delete-modal.html:7
+msgid "Are you sure?"
+msgstr ""
+
+#: .\templates\base\delete-modal.html:12
+msgid "Yes, I’m sure"
+msgstr "بله، مطمئن هستم"
+
+#: .\templates\base\delete-modal.html:13
+#: .\templates\dashboard\components\loan\loan-detail.html:168
+msgid "Cancel"
+msgstr "لغو"
+
+#: .\templates\base\footer.html:28 .\templates\base\header.html:59
+msgid "About"
+msgstr "درباره ما"
+
+#: .\templates\base\footer.html:31 .\templates\base\header.html:62
+msgid "Contact"
+msgstr "تماس با ما"
+
+#: .\templates\base\footer.html:34 .\templates\base\header.html:65
+#: .\templates\main\privacy.html:10
+msgid "Privacy"
+msgstr "حریم خصوصی"
+
+#: .\templates\base\footer.html:42 .\templates\main\contact.html:87
+msgid "Follow me on GitHub"
+msgstr "من را در گیت هاب دنبال کنید"
+
+#: .\templates\base\footer.html:47 .\templates\main\contact.html:92
+msgid "Follow me on Telegram"
+msgstr "من را در تلگرام دنبال کنید"
+
+#: .\templates\base\footer.html:52 .\templates\main\contact.html:97
+msgid "Follow me on LinkedIn"
+msgstr "من را در لینکدین دنبال کنید"
+
+#: .\templates\base\header.html:41 .\templates\base\header.html:45
+msgid "Dashboard"
+msgstr "داشبورد"
+
+#: .\templates\base\header.html:52 .\templates\dashboard\users.html:14
+msgid "Users"
+msgstr "کاربران"
+
+#: .\templates\base\header.html:76
+msgid "Logout"
+msgstr "خروج"
+
+#: .\templates\base\toast.html:10
+msgid "Notification"
+msgstr "اعلان"
+
+#: .\templates\dashboard\components\loan\loan-create.html:13
+msgid "Add new loan"
+msgstr "افزودن وام جدید"
+
+#: .\templates\dashboard\components\loan\loan-create.html:14
+#: .\templates\dashboard\components\loan\loan-detail.html:14
+#: .\templates\dashboard\components\loan\loan-edit.html:14
+#: .\templates\dashboard\components\user\user-create.html:14
+#: .\templates\dashboard\components\user\user-detail.html:14
+#: .\templates\dashboard\components\user\user-edit.html:14
+msgid "Go Back"
+msgstr "بازگشت"
+
+#: .\templates\dashboard\components\loan\loan-create.html:33
+#: .\templates\dashboard\components\loan\loan-detail.html:23
+#: .\templates\dashboard\components\loan\loan-edit.html:33
+msgid "Interest Rate"
+msgstr "درصد سود"
+
+#: .\templates\dashboard\components\loan\loan-create.html:59
+#: .\templates\dashboard\components\user\user-create.html:94
+msgid "Add"
+msgstr "افزودن"
+
+#: .\templates\dashboard\components\loan\loan-create.html:60
+#: .\templates\dashboard\components\loan\loan-edit.html:60
+#: .\templates\dashboard\components\user\user-create.html:95
+#: .\templates\dashboard\components\user\user-edit.html:89
+msgid "Reset"
+msgstr "ریست"
+
+#: .\templates\dashboard\components\loan\loan-delete.html:33
+msgid "Are you sure you want to delete the selected loan?"
+msgstr "آیا مطمئن هستید که می خواهید وام انتخاب شده را حذف کنید؟"
+
+#: .\templates\dashboard\components\loan\loan-delete.html:40
+#: .\templates\dashboard\components\loan\loan-detail.html:205
+msgid "Installment"
+msgstr "قسط"
+
+#: .\templates\dashboard\components\loan\loan-delete.html:45
+#: .\templates\dashboard\components\loan\loan-detail.html:94
+msgid "Status"
+msgstr "وضعیت"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:24
+#: .\templates\dashboard\components\loan\loan-list.html:12
+msgid "Installments"
+msgstr "تعداد اقساط "
+
+#: .\templates\dashboard\components\loan\loan-detail.html:26
+#: .\templates\dashboard\components\loan\loan-list.html:15
+msgid "Repayment"
+msgstr "بازپرداخت "
+
+#: .\templates\dashboard\components\loan\loan-detail.html:58
+msgid "Book Number"
+msgstr "شماره دفترچه"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:61
+#: .\templates\dashboard\components\loan\loan-list.html:11
+msgid "Book Name"
+msgstr "نام دفترچه"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:76
+msgid "selected"
+msgstr "مورد انتخاب شده"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:80
+msgid "Payment selected rows"
+msgstr "پرداخت ردیف های انتخاب شده"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:92
+#: .\templates\dashboard\components\loan\loan-detail.html:210
+msgid "Repayment Date"
+msgstr "تاریخ بازپرداخت"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:93
+#: .\templates\dashboard\components\loan\loan-detail.html:215
+msgid "Amount"
+msgstr "مبلغ"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:140
+msgid "Loan installment payment"
+msgstr "پرداخت اقساط وام"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:144
+msgid "Selected installments for payment"
+msgstr "اقساط انتخاب شده برای پرداخت"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:157
+msgid "Please enter payment date"
+msgstr "لطفا تاریخ پرداخت را وارد کنید"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:160
+msgid "Payment Description"
+msgstr "توضیحات پرداخت"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:161
+msgid "Enter payment description"
+msgstr "توضیحات پرداخت را وارد کنید"
+
+#: .\templates\dashboard\components\loan\loan-detail.html:167
+msgid "Submit"
+msgstr "ثبت"
+
+#: .\templates\dashboard\components\loan\loan-edit.html:13
+msgid "Update loan"
+msgstr "به روز رسانی وام"
+
+#: .\templates\dashboard\components\loan\loan-edit.html:59
+#: .\templates\dashboard\components\user\user-edit.html:88
+msgid "Update"
+msgstr "به روز رسانی"
+
+#: .\templates\dashboard\components\loan\loan-list.html:17
+msgid "Balance"
+msgstr "مانده "
+
+#: .\templates\dashboard\components\loan\loan-list.html:18
+msgid "End Date"
+msgstr "تاریخ پایان"
+
+#: .\templates\dashboard\components\loan\loan-list.html:19
+#: .\templates\dashboard\components\user\user-list.html:20
+msgid "Actions"
+msgstr "عملیات"
+
+#: .\templates\dashboard\components\loan\loan-list.html:60
+msgid "There is no loan yet."
+msgstr "هنوز وامی وجود ندارد."
+
+#: .\templates\dashboard\components\loan\loan-list.html:61
+#: .\templates\dashboard\components\user\user-detail.html:104
+#: .\templates\dashboard\components\user\user-list.html:75
+msgid "Add new"
+msgstr "افزودن جدید"
+
+#: .\templates\dashboard\components\user\user-create.html:13
+msgid "Add new user"
+msgstr "افزودن کاربر جدید"
+
+#: .\templates\dashboard\components\user\user-delete.html:24
+msgid "Are you sure you want to delete the selected user?"
+msgstr "آیا مطمئن هستید که می خواهید کاربر انتخاب شده را حذف کنید؟"
+
+#: .\templates\dashboard\components\user\user-detail.html:13
+msgid "User Details"
+msgstr "مشخصات کاربر"
+
+#: .\templates\dashboard\components\user\user-detail.html:48
+msgid "Group"
+msgstr ""
+
+#: .\templates\dashboard\components\user\user-detail.html:88
+#: .\templates\dashboard\components\user\user-list.html:17
+msgid "Date Joined"
+msgstr "تاریخ عضویت"
+
+#: .\templates\dashboard\components\user\user-detail.html:92
+#: .\templates\dashboard\components\user\user-list.html:18
+msgid "Last Login"
+msgstr "تاریخ آخرین ورود"
+
+#: .\templates\dashboard\components\user\user-detail.html:96
+#: .\templates\dashboard\components\user\user-list.html:19
+msgid "Last Login IP"
+msgstr "آخرین آدرس IP ورود"
+
+#: .\templates\dashboard\components\user\user-detail.html:102
+#: .\templates\dashboard\components\user\user-list.html:74
+#, fuzzy
+#| msgid "There is no loan yet."
+msgid "There is no user yet."
+msgstr "هنوز وامی وجود ندارد."
+
+#: .\templates\dashboard\components\user\user-edit.html:13
+#, fuzzy
+#| msgid "Update"
+msgid "Update User"
+msgstr "به روز رسانی"
+
+#: .\templates\dashboard\components\user\user-list.html:10
+msgid "ID"
+msgstr "شناسه"
+
+#: .\templates\dashboard\dashboard.html:25
+#: .\templates\dashboard\dashboard.html:54
+msgid "Latest Loans"
+msgstr "آخرین وام ها"
+
+#: .\templates\dashboard\dashboard.html:27
+#: .\templates\dashboard\dashboard.html:41
+#: .\templates\dashboard\dashboard.html:56
+msgid "View All"
+msgstr "مشاهده همه"
+
+#: .\templates\dashboard\dashboard.html:28
+#: .\templates\dashboard\dashboard.html:42
+#: .\templates\dashboard\dashboard.html:57 .\templates\dashboard\loans.html:15
+#: .\templates\dashboard\users.html:15
+msgid "Add New"
+msgstr "افزودن جدید"
+
+#: .\templates\dashboard\dashboard.html:39
+msgid "Latest Users"
+msgstr "آخرین کاربران"
+
+#: .\templates\main\about.html:11
+msgid "Empowering Financial Management through Open Source Innovation"
+msgstr "توانمندسازی مدیریت مالی از طریق نوآوری منبع باز"
+
+#: .\templates\main\about.html:13
+msgid ""
+"\n"
+"                            Welcome to our loan management project, a "
+"digital haven designed to simplify the complexities of loan tracking and "
+"financial planning. As a team\n"
+"                            committed to transparency and accessibility, "
+"we're proud to present a platform built on the foundational principles of "
+"open-source software.\n"
+"                        "
+msgstr ""
+"\n"
+"به پروژه مدیریت وام ما خوش آمدید، یک پناهگاه دیجیتال که برای ساده کردن "
+"پیچیدگی های ردیابی وام و برنامه ریزی مالی طراحی شده است. به عنوان یک تیم "
+"متعهد به شفافیت و دسترسی، ما مفتخریم که پلتفرمی را ارائه کنیم که بر اساس "
+"اصول اساسی نرم افزار منبع باز ساخته شده است."
+
+#: .\templates\main\about.html:19
+msgid ""
+"\n"
+"                            Our project addresses the core needs of "
+"individuals managing various loans by offering a suite of tools that "
+"facilitate an intuitive understanding of\n"
+"                            your financial landscape. With features such as "
+"total loan amount summaries, detailed payment tracking, and interest\n"
+"                            calculations, you can gain a comprehensive "
+"overview of your financial commitments.\n"
+"                        "
+msgstr ""
+"\n"
+"پروژه ما با ارائه مجموعه ای از ابزارها که درک شهودی را تسهیل می کند، به "
+"نیازهای اصلی افرادی که وام های مختلف را مدیریت می کنند، می پردازد. چشم انداز "
+"مالی شما با ویژگی هایی مانند خلاصه کل مبلغ وام، پیگیری دقیق پرداخت و بهره با "
+"محاسبات، می توانید یک نمای کلی از تعهدات مالی خود به دست آورید."
+
+#: .\templates\main\about.html:26
+msgid ""
+"\n"
+"                            Join us in our mission to demystify loan "
+"management and foster a community where financial tools are accessible, "
+"inclusive, and\n"
+"                            designed for everyone.\n"
+"                        "
+msgstr ""
+"\n"
+"در مأموریت ما برای ابهام زدایی از مدیریت وام و ایجاد جامعه ای که در آن "
+"ابزارهای مالی در دسترس، فراگیر و قابل دسترس هستند به ما بپیوندید. برای همه "
+"طراحی شده است"
+
+#: .\templates\main\about.html:34
+msgid "View on GitHub"
+msgstr "در GitHub مشاهده کنید"
+
+#: .\templates\main\about.html:45
+msgid "Total Loan Amount Calculation"
+msgstr "محاسبه مبلغ کل وام"
+
+#: .\templates\main\about.html:46
+msgid "Represents calculation of total loan amounts."
+msgstr "نشان دهنده محاسبه مبلغ کل وام است."
+
+#: .\templates\main\about.html:56
+msgid "Payment Tracking"
+msgstr "پیگیری پرداخت"
+
+#: .\templates\main\about.html:57
+msgid "Symbolizes tracking of payments made and due."
+msgstr "نماد ردیابی پرداخت های انجام شده و سررسید است."
+
+#: .\templates\main\about.html:67
+msgid "Interest Rate Summaries"
+msgstr "خلاصه درصد سود (%)"
+
+#: .\templates\main\about.html:68
+msgid "Suggests calculation of interest on loans."
+msgstr "محاسبه سود وام را پیشنهاد می کند."
+
+#: .\templates\main\about.html:78
+msgid "User-Friendly Dashboard"
+msgstr "داشبورد کاربر پسند"
+
+#: .\templates\main\about.html:79
+msgid "Indicates an easy-to-navigate user interface."
+msgstr "یک رابط کاربری آسان برای پیمایش را نشان می دهد."
+
+#: .\templates\main\about.html:89
+msgid "Open Source Collaboration"
+msgstr "همکاری منبع باز"
+
+#: .\templates\main\about.html:90
+msgid "Indicates the open-source nature of the project."
+msgstr "ماهیت متن باز بودن پروژه را نشان می دهد."
+
+#: .\templates\main\about.html:100
+msgid "Real-time Notifications"
+msgstr "اعلان های زمان واقعی"
+
+#: .\templates\main\about.html:101
+msgid "For notifying users about loan updates."
+msgstr "برای اطلاع رسانی به کاربران در مورد به روز رسانی وام."
+
+#: .\templates\main\about.html:111
+msgid "Secure Login System"
+msgstr "سیستم ورود امن"
+
+#: .\templates\main\about.html:112
+msgid "Represents security and privacy."
+msgstr "نشان دهنده امنیت و حریم خصوصی است."
+
+#: .\templates\main\about.html:122
+msgid "Flexible Payment Schedules"
+msgstr "برنامه های پرداخت انعطاف پذیر"
+
+#: .\templates\main\about.html:123
+msgid "Suggests customizable payment scheduling."
+msgstr "برنامه ریزی پرداخت قابل تنظیم را پیشنهاد می کند."
+
+#: .\templates\main\contact.html:12
+msgid "Contact Form"
+msgstr "فرم تماس"
+
+#: .\templates\main\contact.html:58
+msgid "Send Message"
+msgstr "ارسال پیام"
+
+#: .\templates\main\contact.html:67
+msgid "To contact us please fill out the form below."
+msgstr "برای تماس با ما لطفا فرم زیر را پر کنید."
+
+#: .\templates\main\contact.html:72
+msgid "Phone:"
+msgstr "تلفن:"
+
+#: .\templates\main\contact.html:79
+msgid "E-mail:"
+msgstr "ایمیل:"
+
+#: .\templates\main\home.html:12
+msgid "Loan Management System"
+msgstr "سیستم مدیریت وام"
+
+#: .\templates\main\home.html:13
+msgid ""
+"A digital haven designed to simplify the complexities of loan tracking and "
+"financial planning."
+msgstr ""
+"یک پناهگاه دیجیتال که برای ساده کردن پیچیدگی های ردیابی وام و برنامه ریزی "
+"مالی طراحی شده است."
+
+#: .\templates\main\home.html:15
+msgid ""
+"\n"
+"                            The Loan Management System is a web application "
+"that allows users to track and manage their loans. Our goal is to\n"
+"                            provide a simple and intuitive interface that "
+"allows users to easily understand their financial commitments and\n"
+"                            make informed decisions.\n"
+"                        "
+msgstr ""
+"\n"
+"سیستم مدیریت وام یک برنامه وب است که به کاربران اجازه می دهد وام های خود را "
+"پیگیری و مدیریت کنند. هدف ما این است که ارائه یک رابط کاربری ساده و شهودی که "
+"به کاربران اجازه می دهد به راحتی تعهدات مالی خود را درک کنند و تصمیم گیری "
+"آگاهانه"
+
+#: .\templates\main\home.html:24
+msgid "Go to dashboard"
+msgstr "ورود به داشبورد"
+
+#: .\templates\main\home.html:24
+msgid "Get Started"
+msgstr "شروع کنید"
+
+#: .\templates\main\privacy.html:11
+msgid "Last updated: 2024-01-20"
+msgstr "آخرین به روز رسانی: 2024-01-20"
+
+#: .\templates\main\privacy.html:13
+msgid ""
+"\n"
+"                            We are committed to protecting your privacy. We "
+"will only use the information that we collect about you lawfully (in "
+"accordance with the Data Protection\n"
+"                            Act 1998 and GDPR).\n"
+"                        "
+msgstr ""
+"\n"
+"ما متعهد به حفظ حریم شما می باشیم. ما فقط از اطلاعاتی استفاده خواهیم کرد که "
+"به طور قانونی در مورد شما جمع آوری می کنیم (مطابق با حفاظت از داده ها). "
+"قانون 1998 و GDPR)."
+
+#: .\templates\main\privacy.html:19
+msgid ""
+"\n"
+"                            We collect information about loan management "
+"system users for two reasons: firstly, to process your calculation and "
+"second, to provide you with the best\n"
+"                        "
+msgstr ""
+"\n"
+"ما اطلاعات مربوط به کاربران سیستم مدیریت وام را به دو دلیل جمع آوری می کنیم: "
+"اول، پردازش محاسبات شما و دوم، ارائه بهترین ها به شما"
+
+#: .\templates\main\privacy.html:24
+msgid ""
+"\n"
+"                            We will not e-mail you in the future unless you "
+"have given us your consent. We will give you the chance to refuse any "
+"marketing email from us or from\n"
+"                            another trader in the future.\n"
+"                        "
+msgstr ""
+"\n"
+"ما در آینده به شما ایمیل نخواهیم داد مگر اینکه رضایت خود را به ما داده "
+"باشید. ما به شما این فرصت را می‌دهیم که هرگونه ایمیل بازاریابی از طرف ما یا "
+"از طرف ما را رد کنید معامله گر دیگری در آینده"
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr "پیام ها"
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr "نقشه های سایت"
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr "فایل های استاتیک"
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:104
+#: .\venv\Lib\site-packages\django\forms\fields.py:760
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:165
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:176
+msgid "Enter a valid email address."
+msgstr "یک آدرس ایمیل معتبر وارد کنید."
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:259
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:267
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:279
+#: .\venv\Lib\site-packages\django\core\validators.py:306
+msgid "Enter a valid IPv4 address."
+msgstr "یک آدرس IPv4 معتبر وارد کنید."
+
+#: .\venv\Lib\site-packages\django\core\validators.py:286
+#: .\venv\Lib\site-packages\django\core\validators.py:307
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:298
+#: .\venv\Lib\site-packages\django\core\validators.py:305
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:341
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:347
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:382
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:391
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:400
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:407
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:439
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:457
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:480
+#: .\venv\Lib\site-packages\django\forms\fields.py:355
+#: .\venv\Lib\site-packages\django\forms\fields.py:394
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:482
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:487
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:492
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:563
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:624
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1465
+#: .\venv\Lib\site-packages\django\forms\models.py:902
+msgid "and"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1467
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:20
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:133
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:140
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:179
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1150
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1151
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1153
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1203
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1205
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1309
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1410
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1414
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1549
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1418
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1545
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1553
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1558
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1685
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1687
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1848
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1852
+msgid "Duration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1929
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2007
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2009
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2049
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2051
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2147
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2164
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2172
+msgid "IPv4 address"
+msgstr "آدرس IPv4"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2203
+msgid "IP address"
+msgstr "آدرس آی پی"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2296
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2297
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2299
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2350
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2365
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2380
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2396
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2432
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2507
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2511
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2515
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2623
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2647
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2712
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2714
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:28
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:939
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:941
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1235
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1292
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1294
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1342
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:304
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:475
+#: .\venv\Lib\site-packages\django\forms\fields.py:1252
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:498
+#: .\venv\Lib\site-packages\django\forms\fields.py:1253
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:525
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:559
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:560
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:629
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:630
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:631
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:633
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:638
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:702
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:874
+#: .\venv\Lib\site-packages\django\forms\fields.py:960
+#: .\venv\Lib\site-packages\django\forms\models.py:1581
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:962
+#: .\venv\Lib\site-packages\django\forms\fields.py:1081
+#: .\venv\Lib\site-packages\django\forms\models.py:1579
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1082
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1321
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1351
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:94
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:231
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:895
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:900
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:907
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:916
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1353
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1444
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1583
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:457
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:458
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:459
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:796
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:797
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:798
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:875
+msgid "yes,no,maybe"
+msgstr "بله، نه، شاید"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:905
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:932
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:73
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:79
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:152
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:154
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr "این یک آدرس IPv6 معتبر نیست."
+
+#: .\venv\Lib\site-packages\django\utils\text.py:70
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:270
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:289
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:48
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:50
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:67
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:220
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:221
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:229
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:230
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:238
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:239
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:247
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:248
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#~ msgid "Staff Status"
+#~ msgstr "وضعیت کارمندی"
+
+#~ msgid "What’s your name"
+#~ msgstr "نام شما چیست"
+
+#, fuzzy
+#~ msgid "Not valid name format."
+#~ msgstr "فرمت نام کاربری معتبر نیست."
+
+#~ msgid "Write your message here..."
+#~ msgstr "پیام خود را اینجا بنویسید..."
+
+#, fuzzy
+#~ msgid "Not valid message format."
+#~ msgstr "فرمت ایمیل معتبر نیست."
+
+#~ msgid "My Loans"
+#~ msgstr "وام های من"
+
+#~ msgid "Total Disbursements"
+#~ msgstr "مجموع پرداخت ها"
+
+#~ msgid "Total Outstanding Balances"
+#~ msgstr "مجموع مانده‌ها"
+
+#, fuzzy, python-brace-format
+#~ msgid "${installment.status}"
+#~ msgstr "تعداد اقساط "
+
+#, python-format
+#~ msgid "Interest Rate (%%)"
+#~ msgstr "درصد سود (%)"
+
+#~ msgid "Number of Installments"
+#~ msgstr "تعداد اقساط "
+
+#~ msgid "mohammad"
+#~ msgstr "محمد"
+
+#, fuzzy
+#~ msgid "Loan Delete"
+#~ msgstr "نام وام"
+
+#, fuzzy
+#~ msgid "Name"
+#~ msgstr "نام خانوادگی"
+
+#~ msgid "Refund"
+#~ msgstr "بازپرداخت"
+
+#~ msgid "Remaining"
+#~ msgstr "باقی مانده"
+
+#, python-brace-format
+#~ msgid "{self.loan.name}:Installment - {status}"
+#~ msgstr "{self.loan.name}:قسط - {status}"
+
+#, python-brace-format
+#~ msgid "Invalid value for the number of installments: {value}"
+#~ msgstr "مقدار نامعتبر برای تعداد اقساط: {value}"
+
+#~ msgid "********"
+#~ msgstr "********"
+
+#~ msgid "© 2023 LMS, Inc"
+#~ msgstr "© 2023 LMS, Inc"
+
+#~ msgid "Your first name here"
+#~ msgstr "نام خود را وارد کنید"
+
+#~ msgid "Your phone number here"
+#~ msgstr "شماره تلفن خود را وارد کنید"
+
+#, fuzzy
+#~ msgid "Phone number"
+#~ msgstr "شماره تلفن"
+
+#~ msgid "Email address of the user."
+#~ msgstr "آدرس ایمیل کاربر"

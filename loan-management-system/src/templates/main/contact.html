@@ -1,0 +1,107 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container my-5">
+        <div class="row">
+            <div class="col-12 col-lg-10 offset-lg-2">
+                <div class="row d-flex align-items-center gap-4">
+                    <div class="col-lg-6 order-2 order-lg-0">
+                        <div class="rounded-4 p-4 p-lg-5" style="background-color: #efefef">
+                            <h3 class="mb-3 text-dark fw-bold">{% trans "Contact Form" %}</h3>
+                            <form novalidate method="post" action=".">
+                                 {% csrf_token %}
+                                
+                                <div class="row">
+                                    <!-- Name -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="{{ form.name.help_text }}" required
+                                                   inputmode="text"/>
+                                            <label for="name">{{ form.name.label }}</label>
+                                        </div>
+                                        <div class="text-danger">{{ form.name.errors }}</div>
+                                    </div>
+
+                                    <!-- Subject -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="subject" name="subject" placeholder="{{ form.subject.help_text }}" required
+                                                   inputmode="text"/>
+                                            <label for="subject">{{ form.subject.label }}</label>
+                                        </div>
+                                        <div class="text-danger">{{ form.subject.errors }}</div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="{{ form.email.help_text }}" required
+                                                   inputmode="email"/>
+                                            <label for="email">{{ form.email.label }}</label>
+                                        </div>
+                                        <div class="text-danger">{{ form.email.errors }}</div>
+                                    </div>
+
+                                    <!-- Message -->
+                                    <div class="col-12 mb-3">
+                                        <div class="form-floating">
+                                                    <textarea class="form-control" id="message" name="message" placeholder="{{ form.message.help_text }}" required
+                                                              inputmode="text" style="height: 150px"></textarea>
+                                            <label for="message" class="form-label">{{ form.message.label }}</label>
+                                            <div class="text-danger">{{ form.message.errors }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mb-0">
+                                        <button class="btn btn-lg btn-primary" type="submit">{% trans "Send Message" %}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 order-1 order-lg-0">
+                        <div class="mb-4">
+                            <h1 class="mb-0 text-dark fw-bold">{% trans "Contact Us" %}</h1>
+                            <small class="text-muted">{% trans "To contact us please fill out the form below." %}</small>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="bi bi-telephone fs-4"></i>
+                            <div class="ms-2">
+                                <h5 class="mb-0">{% trans "Phone:" %}</h5>
+                                <small class="text-muted">(+98) 901 590 6120</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="bi bi-envelope-at fs-4"></i>
+                            <div class="ms-2">
+                                <h5 class="mb-0">{% trans "E-mail:" %}</h5>
+                                <small class="text-muted">
+                                    <a href="mailto:masoud.develop@gmail.com" class="text-reset">masoud.develop@gmail.com</a>
+                                </small>
+                            </div>
+                        </div>
+                        <ul class="nav list-unstyled">
+                            <li class="mx-2">
+                                <a class="text-muted" href="https://github.com/masoudkaarimi" target="_blank" title="{% trans "Follow me on GitHub" %}">
+                                    <i class="bi bi-github fs-4"></i>
+                                </a>
+                            </li>
+                            <li class="mx-2">
+                                <a class="text-muted" href="https://t.me/masoudkaarimi" target="_blank" title="{% trans "Follow me on Telegram" %}">
+                                    <i class="bi bi-telegram fs-4"></i>
+                                </a>
+                            </li>
+                            <li class="mx-2">
+                                <a class="text-muted" href="https://linkedin.com/in/masoudkaarimi/" target="_blank" title="{% trans "Follow me on LinkedIn" %}">
+                                    <i class="bi bi-linkedin fs-4"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

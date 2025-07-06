@@ -1,0 +1,13 @@
+{% load i18n custom_tags %}
+
+<div class="card bg-white shadow-sm border-0">
+    <div class="card-header text-center border-0 {{ stat.bg_color }} {{ stat.color }}">
+        <h2 class="card-title py-2 fs-4 d-flex align-items-center justify-content-center gap-1 flex-wrap">
+            <span>{{ stat.value|intcomma_local }}</span>
+            <small class="fs-6">{{ stat.unit }}</small>
+        </h2>
+    </div>
+    <h3 class="card-body text-center fs-6 text-capitalize fw-medium">
+        {{ stat.title }}
+    </h3>
+</div>

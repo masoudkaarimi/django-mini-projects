@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    {% url "loan:dashboard" as dashboard_url %}
+
+    <section class="container my-5">
+        <article class="row">
+            <div class="col-12 col-lg-6 offset-lg-3">
+                <div class="mb-4">
+                    <h1 class="mb-2 text-dark fw-bold">{% trans "Loan Management System" %}</h1>
+                    <h5 class="font-medium">{% trans "A digital haven designed to simplify the complexities of loan tracking and financial planning." %}</h5>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            The Loan Management System is a web application that allows users to track and manage their loans. Our goal is to
+                            provide a simple and intuitive interface that allows users to easily understand their financial commitments and
+                            make informed decisions.
+                        {% endblocktrans %}
+                    </p>
+                </div>
+                <a href="{{ dashboard_url }}" class="btn btn-primary">
+                    <i class="bi bi-arrow-right me-1"></i>
+                    <span>{% if user.is_authenticated %}{% trans "Go to dashboard" %}{% else %}{% trans "Get Started" %}{% endif %}</span>
+                </a>
+            </div>
+        </article>
+    </section>
+{% endblock %}

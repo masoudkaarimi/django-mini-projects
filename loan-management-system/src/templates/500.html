@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>{% trans "500: Internal Server Error" %}</h1>
+                <p>{% trans "Sorry, but something went wrong." %}</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

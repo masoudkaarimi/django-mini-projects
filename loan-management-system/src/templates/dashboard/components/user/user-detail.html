@@ -1,0 +1,117 @@
+{% extends "_base.html" %}
+
+{% load i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:user_list" as user_list_url %}
+
+    <section class="container my-5">
+        <article class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                        <h4 class="card-title text-capitalize">{% trans "User Details" %}</h4>
+                        <a href="{{ user_list_url }}" class="btn btn-secondary">{% trans "Go Back" %}</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                {% if user %}
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <td scope="row">{{ user.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "First Name" %}</th>
+                                        <td>{{ user.first_name|default:_("N/A") }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Last Name" %}</th>
+                                        <td>{{ user.last_name|default:_("N/A") }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Username" %}</th>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Email Address" %}</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Phone Number" %}</th>
+                                        {#<td>{% if user.phone %}{{ user.phone }}{% else %}{% trans "N/A" %}{% endif %}</td>#}
+                                        {#<td>{% if user.phone %}{{ user.phone }}{% else %}<i class="text-danger">{% trans "N/A" %}</i>{% endif %}</td>#}
+                                        <td>{{ user.phone|default:_("N/A") }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Group" %}</th>
+                                        <td>
+                                            {% for group in user.groups.all %}
+                                                {{ group.name }}{% if user.groups.all|length > 1 and group.name != user.groups.last.name %},{% endif %}
+                                                {% empty %}
+                                                {% trans "N/A" %}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Administrator" %}</th>
+                                        <td>
+                                            <span class="d-flex justify-content-center text-white {% if user.is_staff %}bg-success{% else %}bg-secondary{% endif %}"
+                                                  style="width:12px;height:12px;border-radius:4px;">
+                                                <i class="bi {% if user.is_staff %}bi-check{% else %}bi-x{% endif %}"
+                                                   style="font-size:13px;line-height:0"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Super Admin" %}</th>
+                                        <td>
+                                            <span class="d-flex justify-content-center text-white {% if user.is_superuser %}bg-success{% else %}bg-secondary{% endif %}"
+                                                  style="width:12px;height:12px;border-radius:4px;">
+                                                <i class="bi {% if user.is_superuser %}bi-check{% else %}bi-x{% endif %}"
+                                                   style="font-size:13px;line-height:0"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Active" %}</th>
+                                        <td>
+                                            <span class="d-flex justify-content-center text-white {% if user.is_active %}bg-success{% else %}bg-secondary{% endif %}"
+                                                  style="width:12px;height:12px;border-radius:4px;">
+                                                <i class="bi {% if user.is_active %}bi-check{% else %}bi-x{% endif %}"
+                                                   style="font-size:13px;line-height:0"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Date Joined" %}</th>
+                                        <td>{{ user.date_joined|to_jalali }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Last Login" %}</th>
+                                        <td>{{ user.last_login|to_jalali }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{% trans "Last Login IP" %}</th>
+                                        <td>{{ user.last_ip }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="2" class="text-center">
+                                            {% trans "There is no user yet." %}
+                                            <a href="{{ user_create_url }}"
+                                               class="text-primary text-capitalize">{% trans "Add new" %}</a>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+=

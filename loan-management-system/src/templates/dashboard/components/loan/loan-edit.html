@@ -1,0 +1,74 @@
+{% extends "_base.html" %}
+
+{% load static i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:loan_list" as loan_list_url %}
+
+    <section class="container my-5">
+        <article class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                        <h4 class="card-title text-capitalize">{% trans "Update loan" %}: {{ loan.name }}</h4>
+                        <a href="{{ loan_list_url }}" class="btn btn-secondary">{% trans "Go Back" %}</a>
+                    </div>
+                    <div class="card-body">
+                        <form novalidate action="" method="POST">
+                            {% csrf_token %}
+
+                            <div class="row mb-3">
+                                <label for="name" class="col-sm-3 col-lg-2 col-form-label">{% trans "Loan Name" %}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="amount" class="col-sm-3 col-lg-2 col-form-label">{% trans "Loan Amount" %}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.amount }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="interest_rate" class="col-sm-3 col-lg-2 col-form-label">{% trans "Interest Rate" %} (%)</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.interest_rate }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="installment_choice" class="col-sm-3 col-lg-2 col-form-label">{% trans "Installment Plan" %}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.installment_choice }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="installment_count" class="col-sm-3 col-lg-2 col-form-label">{% trans "Installment Count" %}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {{ form.installment_count }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="start_date" class="col-sm-3 col-lg-2 col-form-label">{% trans "Start Date" %}</label>
+                                <div class="col-sm-9 col-lg-4">
+                                    {#{{ form.start_date }}#}
+                                    <input type="datetime-local" class="form-control" id="start_date" name="start_date" required value="{{ loan.start_date|date:'Y-m-d\TH:i' }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-9 col-lg-4 offset-sm-3 offset-lg-2">
+                                    <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                                    <button type="reset" class="btn btn-secondary">{% trans "Reset" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'assets/js/loan.js' %}?v={{ static_version }}"></script>
+{% endblock %}

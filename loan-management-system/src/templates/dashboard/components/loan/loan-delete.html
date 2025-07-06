@@ -1,0 +1,66 @@
+{% include "base/delete-modal.html" %}
+
+{% load i18n %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.deleteLoan = (id) => {
+            const modalEl = document.querySelector('#delete-modal')
+            const modalBodyEl = modalEl.querySelector('.modal-body');
+            const modalBtnSubmitEl = modalEl.querySelector('#btn-delete-modal-submit');
+
+            const loans = [
+                {% for loan in loans %}
+                    {
+                        id: {{ loan.id }},
+                        name: "{{ loan.name }}",
+                        installment: [
+                            {% for installment in loan.loan_installment.all %}
+                                {
+                                    number: "{{ installment.number }}",
+                                    status: "{{ installment.status }}",
+                                    status_label: "{{ installment.get_status_display }}",
+                                },
+                            {% endfor %}
+                        ]
+                    },
+                {% endfor %}
+            ]
+            const selectedLoan = loans.find(loan => loan.id === id)
+
+            new bootstrap.Modal(modalEl, {}).show();
+
+            let output = `<p class="">{% trans "Are you sure you want to delete the selected loan?" %}</small>`;
+            output += `<h3 class="fs-5">${selectedLoan.name}</h3>`;
+            output += `<ul class="small pt-2" style="max-height: 250px;overflow-y: auto;padding: 0 10px !important">`
+            selectedLoan.installment.forEach(installment => {
+                output += `
+                        <li class="d-flex align-items-center gap-2 my-2">
+                            <div>
+                                <b class="fw-bold">{% trans "Installment" %}:</b>
+                                <span>${installment.number}</span>
+                            </div>
+                            <span class="vr"></span>
+                            <div>
+                                <b class="fw-bold">{% trans "Status" %}:</b>
+                                <span class="badge ${installment.status === 'paid' ? 'bg-success' : 'bg-secondary'}">${installment.status_label}</span>
+                            </div>
+                        </li>
+                    `;
+            })
+            output += `</ul>`
+            output += `
+                    <form action="{% url 'loan:loan_delete' %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="loan_id" value="${id}" />
+                    </form>
+                `;
+            modalBodyEl.innerHTML = output;
+
+            modalBtnSubmitEl.addEventListener('click', function () {
+                modalBodyEl.querySelector('form').submit();
+            })
+        }
+    })
+</script>

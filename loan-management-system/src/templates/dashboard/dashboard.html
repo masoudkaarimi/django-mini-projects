@@ -1,0 +1,72 @@
+{% extends "_base.html" %}
+
+{% load i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:dashboard" as dashboard_url %}
+    {% url "loan:loan_create" as loan_create_url %}
+    {% url "loan:loan_list" as loan_list_url %}
+    {% url "loan:user_create" as user_create_url %}
+    {% url "loan:user_list" as user_list_url %}
+
+    <section class="container my-5">
+        <article class="row g-3">
+            {% for stat in stats %}
+                <div class="col-12 col-sm-6 col-lg-3">
+                    {% include "dashboard/components/stats.html" with stat=stat %}
+                </div>
+            {% endfor %}
+        </article>
+        <article class="row mt-5 g-3">
+            {% if request.user|is_admin %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">{% trans "Latest Loans" %}</h4>
+                            <div>
+                                <a href="{{ loan_list_url }}" class="btn btn-secondary">{% trans "View All" %}</a>
+                                <a href="{{ loan_create_url }}" class="btn btn-primary">{% trans "Add New" %}</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% include "dashboard/components/loan/loan-list.html" with loans=loans %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">{% trans "Latest Users" %}</h4>
+                            <div>
+                                <a href="{{ user_list_url }}" class="btn btn-secondary">{% trans "View All" %}</a>
+                                <a href="{{ user_create_url }}" class="btn btn-primary">{% trans "Add New" %}</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% include "dashboard/components/user/user-list.html" with users=users %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between">
+                            <h4 class="card-title">{% trans "Latest Loans" %}</h4>
+                            <div>
+                                <a href="{{ loan_list_url }}" class="btn btn-secondary">{% trans "View All" %}</a>
+                                <a href="{{ loan_create_url }}" class="btn btn-primary">{% trans "Add New" %}</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% include "dashboard/components/loan/loan-list.html" with loans=loans %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </article>
+    </section>
+{% endblock %}
+
+{% block script %}
+    {% include "dashboard/components/loan/loan-delete.html" with loans=loans %}
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container my-5">
+        <article class="row">
+            <div class="col-12 col-lg-6">
+                <div class="mb-4">
+                    <h1 class="mb-2 text-dark fw-bold">{% trans "About Us" %}</h1>
+                    <h5 class="font-medium">{% trans "Empowering Financial Management through Open Source Innovation" %}</h5>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            Welcome to our loan management project, a digital haven designed to simplify the complexities of loan tracking and financial planning. As a team
+                            committed to transparency and accessibility, we're proud to present a platform built on the foundational principles of open-source software.
+                        {% endblocktrans %}
+                    </p>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            Our project addresses the core needs of individuals managing various loans by offering a suite of tools that facilitate an intuitive understanding of
+                            your financial landscape. With features such as total loan amount summaries, detailed payment tracking, and interest
+                            calculations, you can gain a comprehensive overview of your financial commitments.
+                        {% endblocktrans %}
+                    </p>
+                    <p class="text-muted">
+                        {% blocktrans %}
+                            Join us in our mission to demystify loan management and foster a community where financial tools are accessible, inclusive, and
+                            designed for everyone.
+                        {% endblocktrans %}
+                    </p>
+                </div>
+                <a href="https://github.com/masoudkaarimi/loan-management-system/" class="btn btn-dark">
+                    <i class="bi bi-github me-1"></i>
+                    <span>{% trans "View on GitHub" %}</span>
+                </a>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="row mt-4 g-4">
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-calculator fs-5 text-warning-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Total Loan Amount Calculation" %}</h6>
+                                <small class="text-muted">{% trans "Represents calculation of total loan amounts." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-cash-stack fs-5 text-danger-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Payment Tracking" %}</h6>
+                                <small class="text-muted">{% trans "Symbolizes tracking of payments made and due." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-percent fs-5 text-success-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Interest Rate Summaries" %}</h6>
+                                <small class="text-muted">{% trans "Suggests calculation of interest on loans." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-info bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-ui-checks-grid fs-5 text-info-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "User-Friendly Dashboard" %}</h6>
+                                <small class="text-muted">{% trans "Indicates an easy-to-navigate user interface." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-code-slash fs-5 text-primary-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Open Source Collaboration" %}</h6>
+                                <small class="text-muted">{% trans "Indicates the open-source nature of the project." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-bell fs-5 text-warning-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Real-time Notifications" %}</h6>
+                                <small class="text-muted">{% trans "For notifying users about loan updates." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-shield-lock-fill fs-5 text-secondary-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Secure Login System" %}</h6>
+                                <small class="text-muted">{% trans "Represents security and privacy." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="d-flex">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10" style="min-width: 40px;height: 40px">
+                                <i class="bi bi-calendar-check fs-5 text-success-emphasis"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-medium">{% trans "Flexible Payment Schedules" %}</h6>
+                                <small class="text-muted">{% trans "Suggests customizable payment scheduling." %}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% if messages %}
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            {% for message in messages %}
+                <div class="toast align-items-center border-0 {% if message.tags == 'error' %} bg-danger {% elif message.tags == 'info' %} bg-primary {% elif message.tags == 'success' %} bg-success {% else %} bg-primary {% endif %}"
+                     role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header {% if message.tags == 'error' %} text-danger {% elif message.tags == 'info' %} text-primary {% elif message.tags == 'success' %} text-success {% else %} text-primary {% endif %}">
+                        <strong class="me-auto">{% trans "Notification" %}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body text-white">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

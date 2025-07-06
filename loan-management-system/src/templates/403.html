@@ -1,0 +1,14 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>{% trans "403: Forbidden - Access Denied" %}</h1>
+                <p>{% trans "Sorry, you don't have permission to access this page." %}</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

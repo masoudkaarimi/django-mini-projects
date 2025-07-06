@@ -1,0 +1,133 @@
+{% extends "auth/_base.html" %}
+
+{% load static i18n %}
+
+{% block content %}
+    {% url "main:home" as home_url %}
+    {% url "main:privacy" as privacy_url %}
+    {% url "account:login" as login_url %}
+
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-auth w-100 m-auto">
+                    <form novalidate method="post" action="." class="needs-validation">
+                        {% csrf_token %}
+
+                        <a href="{{ home_url }}" class="d-flex justify-content-center mb-4">
+                            <img src="{% static 'assets/images/logo.svg' %}" alt="{% trans 'Logo' %}" width="200"/>
+                        </a>
+
+                        <h1 class="h4 mb-3 text-dark">{% trans "Sign Up" %}</h1>
+
+                        <div class="mb-3 pb-3 small border-bottom">
+                            <span>{% trans "Already have an account?" %} </span>
+                            <a href="{{ login_url }}" class="text-decoration-none">{% trans "Sign In" %}</a>
+                        </div>
+
+                        <div class="row">
+                            <!-- First Name -->
+                            <div class="col col-md-6 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.first_name }}
+                                    <label for="{{ form.first_name.name }}">{{ form.first_name.label }}</label>
+                                    <div class="invalid-feedback">{% trans "Not valid first name format." %}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="col col-md-6 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.last_name }}
+                                    <label for="{{ form.last_name.name }}">{{ form.last_name.label }}</label>
+                                    <div class="invalid-feedback">{% trans "Not valid last name format." %}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Username -->
+                            <div class="col col-6 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.username }}
+                                    <label for="{{ form.username.name }}">{{ form.username.label }}</label>
+                                    <div class="invalid-feedback">{% trans "Not valid username format." %}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col col-6 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.phone }}
+                                    <label for="{{ form.phone.name }}">{{ form.phone.label }}</label>
+                                    <div class="invalid-feedback">{% trans "Not valid phone number format." %}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Email -->
+                            <div class="col mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.email }}
+                                    <label for="{{ form.email.name }}">{{ form.email.label }}</label>
+                                    <div class="invalid-feedback">{% trans "Not valid email format." %}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Password -->
+                            <div class="col col-12 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.password1 }}
+                                    <label for="{{ form.password1.name }}">{{ form.password1.label }}</label>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="col col-12 mb-3">
+                                <div class="form-floating has-validation">
+                                    {{ form.password2 }}
+                                    <label for="{{ form.password2.name }}">{{ form.password2.label }}</label>
+                                    <div class="invalid-feedback">{{ form.password1.help_text }}</div>
+                                    <div class="valid-feedback">{% trans "Looks good!" %}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" id="accept-term" class="form-check-input">
+                                <label for="accept-term">
+                                    <span>{% trans "I agree" %}</span>
+                                    <a href="{{ privacy_url }}" class="small text-decoration-none">{% trans "terms and conditions" %}</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 pb-3 d-flex gap-2 border-bottom">
+                            <a href="{{ home_url }}" class="btn btn-lg bg-secondary bg-opacity-10" type="button">{% trans "Go back" %}</a>
+                            <button class="flex-grow-1 btn btn-lg btn-primary" type="submit">{% trans "Sign Up" %}</button>
+                        </div>
+
+                        <div class="mb-3 mb-md-0 text-muted text-center">
+                            <span>©</span>
+                            <span id="copyright">
+                                <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+                            </span>
+                            <span>{% trans "LMS. Design and Coded by" %}</span>
+                            <a href="https://masoudkarimi.dev" target="_blank" title="{% trans "Masoud Karimi" %}" class="text-decoration-none">{% trans "Masoud Karimi" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

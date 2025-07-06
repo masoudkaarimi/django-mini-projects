@@ -1,0 +1,86 @@
+{% load i18n custom_tags %}
+
+{% block content %}
+    {% url "loan:user_create" as user_create_url %}
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">{% trans "ID" %}</th>
+                <th scope="col">{% trans "Username" %}</th>
+                <th scope="col">{% trans "Email Address" %}</th>
+                <th scope="col">{% trans "Groups" %}</th>
+                <th scope="col">{% trans "Administrator" %}</th>
+                <th scope="col">{% trans "Super Admin" %}</th>
+                <th scope="col">{% trans "Active" %}</th>
+                <th scope="col">{% trans "Date Joined" %}</th>
+                <th scope="col">{% trans "Last Login" %}</th>
+                <th scope="col">{% trans "Last Login IP" %}</th>
+                <th scope="col">{% trans "Actions" %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if users.all.exists %}
+                {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for group in user.groups.all %}
+                                {{ group.name }}{% if user.groups.all|length > 1 and group.name != user.groups.last.name %},{% endif %}
+                                {% empty %}
+                                {% trans "N/A" %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <span class="d-flex justify-content-center text-white {% if user.is_staff %}bg-success{% else %}bg-secondary{% endif %}"
+                                  style="width:12px;height:12px;border-radius:4px;">
+                                <i class="bi {% if user.is_staff %}bi-check{% else %}bi-x{% endif %}" style="font-size:13px;line-height:0"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="d-flex justify-content-center text-white {% if user.is_superuser %}bg-success{% else %}bg-secondary{% endif %}"
+                                  style="width:12px;height:12px;border-radius:4px;">
+                                <i class="bi {% if user.is_superuser %}bi-check{% else %}bi-x{% endif %}" style="font-size:13px;line-height:0"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="d-flex justify-content-center text-white {% if user.is_active %}bg-success{% else %}bg-secondary{% endif %}"
+                                  style="width:12px;height:12px;border-radius:4px;">
+                                <i class="bi {% if user.is_active %}bi-check{% else %}bi-x{% endif %}" style="font-size:13px;line-height:0"></i>
+                            </span>
+                        </td>
+                        <td>{{ user.date_joined|to_jalali }}</td>
+                        <td>{{ user.last_login|to_jalali }}</td>
+                        <td>{{ user.last_ip }}</td>
+                        <td>
+                            <button class="btn btn-link p-0 text-danger mx-1" onclick="deleteUser({{ user.id }})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <a href="{% url 'loan:user_edit' user.id %}" class="text-primary mx-1 text-decoration-none">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{{ user.get_absolute_url }}" class="text-secondary mx-1 text-decoration-none">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="10" class="text-center">
+                        {% trans "There is no user yet." %}
+                        <a href="{{ user_create_url }}" class="text-primary text-capitalize">{% trans "Add new" %}</a>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {% include "dashboard/components/user/user-delete.html" with users=users %}
+{% endblock %}
