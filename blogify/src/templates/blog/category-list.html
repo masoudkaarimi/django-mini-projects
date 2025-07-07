@@ -1,0 +1,59 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        {% include "blog/components/breadcrumb.html" %}
+        <div class="block-heading">
+            <h1 class="h1 mb-3 text-white capitalize">{{ category.name }}</h1>
+            <p class="body2 text-slate-200">
+                <span>{{ posts.count }}</span>
+                <span class="capitalize">{% trans "articles" %}</span>
+            </p>
+        </div>
+
+        {% with categories=categories %}
+            {% include "blog/components/filter.html" %}
+        {% endwith %}
+
+        {% if posts.count > 0 %}
+            <div class="py-5 sm:py-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8">
+                {% for post in posts.all %}
+                    {% with post=post %}
+                        {% include "blog/components/post/post-thumbnail.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            {% if posts.count > 8 %}
+                <div class="max-w-44 mx-auto">
+                    <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+                </div>
+            {% endif %}
+        {% else %}
+            {% include "blog/components/empty.html" %}
+        {% endif %}
+    </section>
+
+    {% if category.children.all %}
+        <section class="container my-20">
+            <div class="p-5 sm:p-10 rounded-2xl bg-white shadow dark:bg-gray-800">
+                <h2 class="h2 sm:text-center capitalize">{% trans "Related categories" %}</h2>
+                <p class="body1 sm:text-center mt-3">
+                    {% blocktranslate %}
+                        Explore more related categories.
+                    {% endblocktranslate %}
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2.5 gap-y-4 sm:gap-6 mt-10">
+                    {% for category in category.children.all %}
+                        {% with category=category %}
+                            {% include "blog/components/category/category-item.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}

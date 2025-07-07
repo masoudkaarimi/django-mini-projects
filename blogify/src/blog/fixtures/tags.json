@@ -1,0 +1,302 @@
+[
+  {
+    "model": "blog.tag",
+    "pk": 1,
+    "fields": {
+      "name": "Django",
+      "slug": "django",
+      "description": "All about Django framework.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 2,
+    "fields": {
+      "name": "Python",
+      "slug": "python",
+      "description": "Programming in Python.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 3,
+    "fields": {
+      "name": "Web Development",
+      "slug": "web-development",
+      "description": "Everything about building websites.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 4,
+    "fields": {
+      "name": "JavaScript",
+      "slug": "javascript",
+      "description": "Scripts on the client side.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 5,
+    "fields": {
+      "name": "Frontend",
+      "slug": "frontend",
+      "description": "Frontend development topics.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 6,
+    "fields": {
+      "name": "Backend",
+      "slug": "backend",
+      "description": "Backend development matters.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 7,
+    "fields": {
+      "name": "Databases",
+      "slug": "databases",
+      "description": "Database management systems.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 8,
+    "fields": {
+      "name": "DevOps",
+      "slug": "devops",
+      "description": "DevOps practices and tools.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 9,
+    "fields": {
+      "name": "Cloud Computing",
+      "slug": "cloud-computing",
+      "description": "Cloud computing services and platforms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 10,
+    "fields": {
+      "name": "Linux",
+      "slug": "linux",
+      "description": "Linux operating system.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 11,
+    "fields": {
+      "name": "Windows",
+      "slug": "windows",
+      "description": "Windows operating system.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 12,
+    "fields": {
+      "name": "MacOS",
+      "slug": "macos",
+      "description": "MacOS operating system.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 13,
+    "fields": {
+      "name": "Networking",
+      "slug": "networking",
+      "description": "Networking topics.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 14,
+    "fields": {
+      "name": "Security",
+      "slug": "security",
+      "description": "Security topics.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 15,
+    "fields": {
+      "name": "Artificial Intelligence",
+      "slug": "artificial-intelligence",
+      "description": "Artificial Intelligence topics.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 16,
+    "fields": {
+      "name": "Machine Learning",
+      "slug": "machine-learning",
+      "description": "Machine Learning topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 17,
+    "fields": {
+      "name": "Data Science",
+      "slug": "data-science",
+      "description": "Data Science topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 18,
+    "fields": {
+      "name": "Big Data",
+      "slug": "big-data",
+      "description": "Big Data topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 19,
+    "fields": {
+      "name": "Blockchain",
+      "slug": "blockchain",
+      "description": "Blockchain topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 20,
+    "fields": {
+      "name": "Quantum Computing",
+      "slug": "quantum-computing",
+      "description": "Quantum Computing topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 21,
+    "fields": {
+      "name": "Internet of Things",
+      "slug": "internet-of-things",
+      "description": "Internet of Things topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 22,
+    "fields": {
+      "name": "Mobile Development",
+      "slug": "mobile-development",
+      "description": "Mobile Development topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 23,
+    "fields": {
+      "name": "Game Development",
+      "slug": "game-development",
+      "description": "Game Development topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 24,
+    "fields": {
+      "name": "Embedded Systems",
+      "slug": "embedded-systems",
+      "description": "Embedded Systems topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "blog.tag",
+    "pk": 25,
+    "fields": {
+      "name": "Robotics",
+      "slug": "robotics",
+      "description": "Robotics topics and algorithms.",
+      "is_active": true,
+      "create_at": "2024-01-01T00:00:00Z",
+      "update_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

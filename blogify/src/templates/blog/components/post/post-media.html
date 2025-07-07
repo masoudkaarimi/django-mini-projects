@@ -1,0 +1,36 @@
+{% load static i18n blog_tags %}
+
+<div class="relative flex flex-col group rounded-3xl overflow-hidden h-full shadow-xl">
+    <a href="#" class="relative flex items-start w-full aspect-w-5 aspect-h-5">
+        <div class="absolute inset-0 overflow-hidden">
+            <img src="{{ post.get_post_thumbnail }}" alt=""
+                 class="object-cover absolute inset-0 size-full group-hover:scale-105 duration-500 transition-transform"/>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
+    </a>
+
+    <div class="absolute top-4 inset-x-4 sm:top-5 sm:inset-x-5">
+        <div class="flex flex-wrap gap-x-2">
+            {% for tag in post.tags.all %}
+                <a href="{{ post.get_absolute_url }}" class="badge {{ tag|random_badge_class }}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex flex-col flex-grow absolute bottom-4 inset-x-4 sm:bottom-5 sm:inset-x-5">
+        <h4 class="block h4 text-white">
+            <a href="#" class="line-clamp-2" title="">{{ post.title }}</a>
+        </h4>
+
+        <div class="flex items-center gap-2 p-2 sm:p-2.5 mt-4 sm:mt-5 bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full">
+            <a href="{{ post.author.get_absolute_url }}" class="relative flex items-center space-x-2">
+                <div class="overflow-hidden rounded-full size-7 ring-2 ring-white">
+                    <img src="{{ post.author.user_profile.get_avatar }}" alt="" class="object-cover w-full h-full"/>
+                </div>
+                <span class="body2 text-white font-medium truncate">{{ post.author }}</span>
+            </a>
+            <span class="text-xl text-white">·</span>
+            <span class="caption text-white line-clamp-1">{{ post.updated_at|date:"M d, Y" }}</span>
+        </div>
+    </div>
+</div>

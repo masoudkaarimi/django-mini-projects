@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        {% include "blog/components/breadcrumb.html" %}
+        <div class="block-heading">
+            <h1 class="h1 mb-3 text-white capitalize">{% trans "Authors" %}</h1>
+            <p class="body2 text-slate-200">
+                <span>{{ authors.count }}</span>
+                <span class="capitalize">{% trans "authors" %}</span>
+            </p>
+        </div>
+
+        {% include "blog/components/filter.html" %}
+
+        {% if authors.count > 0 %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 mt-10">
+                {% for author in authors.all %}
+                    {% with author=author %}
+                        {% include "blog/components/author/author-grid.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            <div class="max-w-44 mt-10 mx-auto">
+                <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+            </div>
+        {% else %}
+            {% include "blog/components/empty.html" %}
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    {% url "account:register" as register_url %}
+    {% url "password_reset" as password_reset_url %}
+
+    <section class="auth-block">
+        <!-- Form -->
+        <form action="." method="post">
+            {% csrf_token %}
+
+            <div class="lg:max-w-lg lg:mx-auto">
+                <!-- Card -->
+                <div class="auth-card">
+                    <div class="text-center">
+                        <h1 class="auth-title capitalize">{% trans "Sign in" %}</h1>
+                        <p class="body2">
+                            {% trans "Don't have an account yet?" %}
+                            <a class="text-link" href="{{ register_url }}">{% trans "Sign up here" %}</a>
+                        </p>
+                    </div>
+
+                    <div class="mt-5">
+                        <!-- Signup with Google -->
+                        <button type="button" class="btn btn-lg btn-outline-light w-full">
+                            <svg class="w-4 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
+                                <path d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
+                                      fill="#4285F4"></path>
+                                <path d="M23.4694 47C29.8061 47 35.1161 44.9144 39.0179 41.3012L31.625 35.5437C29.6301 36.9244 26.9898 37.8937 23.4987 37.8937C17.2793 37.8937 12.0281 33.7812 10.1505 28.1412L9.88649 28.1706L2.61097 33.7812L2.52296 34.0456C6.36608 41.7125 14.287 47 23.4694 47Z"
+                                      fill="#34A853"></path>
+                                <path d="M10.1212 28.1413C9.62245 26.6725 9.32908 25.1156 9.32908 23.5C9.32908 21.8844 9.62245 20.3275 10.0918 18.8588V18.5356L2.75765 12.8369L2.52296 12.9544C0.909439 16.1269 0 19.7106 0 23.5C0 27.2894 0.909439 30.8731 2.49362 34.0456L10.1212 28.1413Z"
+                                      fill="#FBBC05"></path>
+                                <path d="M23.4694 9.07688C27.8699 9.07688 30.8622 10.9863 32.5344 12.5725L39.1645 6.11C35.0867 2.32063 29.8061 0 23.4694 0C14.287 0 6.36607 5.2875 2.49362 12.9544L10.0918 18.8588C11.9987 13.1894 17.25 9.07688 23.4694 9.07688Z"
+                                      fill="#EB4335"></path>
+                            </svg>
+                            {% trans "Sign in with Google" %}
+                        </button>
+
+                        <div class="divider-centered">{% trans "Or" %}</div>
+
+                        <!-- Grid -->
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="relative">
+                                {{ form.identity }}
+                            </div>
+                            <div>
+                                <div class="relative">
+                                    {{ form.password }}
+                                    <button type="button" data-hs-toggle-password='{"target": "#{{ form.password.id_for_label }}"}'
+                                            class="absolute top-0 end-0 p-3.5 rounded-e-md dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                        <svg class="flex-shrink-0 size-3.5 text-gray-400 dark:text-neutral-600" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path class="hs-password-active:hidden" d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                            <path class="hs-password-active:hidden" d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                            <path class="hs-password-active:hidden" d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                            <line class="hs-password-active:hidden" x1="2" x2="22" y1="2" y2="22"/>
+                                            <path class="hidden hs-password-active:block" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                            <circle class="hidden hs-password-active:block" cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <a href="{{ password_reset_url }}" class="block text-right text-sm mt-2 text-link">{% trans "Forgot password?" %}</a>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-x-2 mt-4">
+                            <input type="checkbox" class="form-check" id="remember-me" name="remember-me">
+                            <label for="remember-me" class="form-label">{% trans "Remember me" %}</label>
+                        </div>
+
+                        <div class="mt-5">
+                            <button type="submit" class="btn btn-lg btn-primary w-full capitalize">{% trans "Sign in" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+        </form>
+        <!-- End Form -->
+    </section>
+{% endblock %}

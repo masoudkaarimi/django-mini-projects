@@ -1,0 +1,175 @@
+{% extends "_base.html" %}
+
+{% load static i18n %}
+
+{% block content %}
+    <section class="container pt-0 sm:pt-20">
+        <h1 class="h1 text-center capitalize">
+            {% trans "Django" %}
+            <span class="text-highlight">
+                {% trans "Blog" %}
+            </span>
+        </h1>
+        <p class="body1 text-center mt-3">
+            {% blocktranslate %}
+                Welcome to the Django blog. This is a simple blog system that uses Django and Tailwind CSS.
+            {% endblocktranslate %}
+        </p>
+        {% include "blog/components/search.html" %}
+    </section>
+
+    <section class="container mt-10 sm:mt-32">
+        <div class="p-5 sm:p-10 rounded-3xl bg-white shadow dark:bg-gray-800">
+            <h2 class="h2 sm:text-center capitalize">{% trans "Discover top 10 topics 👑" %}</h2>
+            <p class="body1 sm:text-center mt-3">
+                {% blocktranslate %}
+                    Explore the top 10 topics that are trending on the blog.
+                {% endblocktranslate %}
+            </p>
+
+            {% if categories.count > 0 %}
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-2.5 gap-y-4 sm:gap-6 mt-10">
+                    {% for category in categories.all %}
+                        {% with category=category %}
+                            {% include "blog/components/category/category-item.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% include "blog/components/empty.html" %}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="container mt-10 sm:mt-32">
+        <h2 class="h2 capitalize">{% trans "Discover top 6 posts ✨" %}</h2>
+        <p class="body1 mt-3">
+            {% blocktranslate %}
+                Explore the top 6 posts that are trending on the blog.
+            {% endblocktranslate %}
+        </p>
+
+        {% if posts.count > 0 %}
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 mt-10">
+                {% for post in posts.all %}
+                    {% with post=post %}
+                        {% include "blog/components/post/post-detailed.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            {% if  posts.count > 6 %}
+                <div class="max-w-44 mt-10 mx-auto">
+                    <button type="button" class="btn btn-lg btn-primary w-full" onclick="window.location.href=''">{% trans "Show more" %}</button>
+                </div>
+            {% endif %}
+        {% else %}
+            {% include "blog/components/empty.html" %}
+        {% endif %}
+    </section>
+
+    <section class="container mt-10 sm:mt-32">
+        <div class="p-5 sm:p-10 rounded-3xl bg-white shadow dark:bg-gray-800">
+            <h2 class="h2 sm:text-center capitalize">{% trans "Discover top 10 authors 🥉" %}</h2>
+            <p class="body1 sm:text-center mt-3">
+                {% blocktranslate %}
+                    Discover the newest authors on our platform.
+                {% endblocktranslate %}
+            </p>
+
+            {% if authors.count > 0 %}
+                <!-- Slider -->
+                <div class="splide mt-10" id="splide-authors">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            {% for author in authors.all %}
+                                <li class="splide__slide">
+                                    {% with author=author %}
+                                        {% include "blog/components/author/author-grid.html" %}
+                                    {% endwith %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                {% include "blog/components/empty.html" %}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="container mt-10 sm:mt-32">
+        <div class="flex flex-col lg:flex-row">
+            <div class="w-full lg:w-3/5 xl:w-2/3 xl:pe-14">
+                <h2 class="h2 capitalize">{% trans "Latest pots 🎈" %}</h2>
+                <p class="body1 mt-3">
+                    {% blocktranslate %}
+                        Here you can find the latest posts from our blog.
+                    {% endblocktranslate %}
+                </p>
+
+
+                {% if latest_posts %}
+                    <div class="grid sm:grid-cols-2 gap-6 md:gap-8 mt-10">
+                        {% for post in latest_posts.all %}
+                            {% with post=post %}
+                                {% include "blog/components/post/post-media.html" %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+
+                    {% if latest_posts.count > 6 %}
+                        <div class="max-w-44 mt-10 mx-auto">
+                            <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% include "blog/components/empty.html" %}
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            {% with posts=posts categories=categories tags=tags authors=authors %}
+                {% include "blog/components/sidebar/sidebar.html" %}
+            {% endwith %}
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'assets/lib/splide/css/splide.min.css' %}">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'assets/lib/splide/js/splide.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new Splide('#splide-authors', {
+                pagination: false,
+                perPage: 5,
+                perMove: 1,
+                focus: "center",
+                padding: {left: '2rem', right: '2rem'},
+                gap: 10,
+                breakpoints: {
+                    640: {
+                        perPage: 1,
+                    },
+                    768: {
+                        perPage: 2,
+                    },
+                    1024: {
+                        perPage: 3,
+                    },
+                    1280: {
+                        perPage: 4,
+                    },
+                    1536: {
+                        perPage: 5,
+                    },
+                },
+            }).mount();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+[
+  {
+    "model": "blog.post",
+    "pk": 1,
+    "fields": {
+      "author": 1,
+      "title": "Sample Post 1",
+      "slug": "sample-post-1",
+      "content": "<p>This is the first sample post content.</p>",
+      "excerpt": "This is the first sample post.",
+      "image": "",
+      "category": 1,
+      "status": "published",
+      "comment_status": "open",
+      "comment_count": 0,
+      "publish_at": "2024-03-20T12:00:00Z"
+    }
+  },
+  {
+    "model": "blog.post",
+    "pk": 2,
+    "fields": {
+      "author": 2,
+      "title": "Sample Post 2",
+      "slug": "sample-post-2",
+      "content": "<p>This is the second sample post content.</p>",
+      "excerpt": "This is the second sample post.",
+      "image": "",
+      "category": 2,
+      "status": "draft",
+      "comment_status": "closed",
+      "comment_count": 0,
+      "publish_at": null
+    }
+  }
+]

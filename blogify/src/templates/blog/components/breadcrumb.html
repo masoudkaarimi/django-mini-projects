@@ -1,0 +1,45 @@
+{% load i18n %}
+
+{% url "blog:archive_post_list" as home_url %}
+
+<ol class="flex items-center whitespace-nowrap mb-8 overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+    <li class="inline-flex items-center">
+        <a href="{{ home_url }}"
+           class="flex items-start text-sm {% if dark_mode %}text-gray-400 hover:text-blue-300 focus:text-blue-400{% else %}text-gray-500 hover:text-blue-600 focus:text-blue-600{% endif %} focus:outline-none dark:focus:text-blue-400">
+            <svg class="flex-shrink-0 me-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            {% trans "Home" %}
+            <svg class="flex-shrink-0 mx-1.5 overflow-visible size-4 text-gray-400 dark:text-neutral-600 rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" width="24"
+                 height="24"
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"></path>
+            </svg>
+        </a>
+    </li>
+
+    {% for item in items %}
+        {% if not forloop.last %}
+            <li class="inline-flex items-center">
+                <a href="{{ item.url }}"
+                   class="capitalize flex items-center text-sm {% if dark_mode %}text-gray-400 hover:text-blue-300 focus:text-blue-400{% else %}text-gray-500 hover:text-blue-600 focus:text-blue-600{% endif %} focus:outline-none dark:focus:text-blue-400">
+                    {% trans item.title %}
+                    <svg class="flex-shrink-0 mx-1.5 overflow-visible size-4 text-gray-400 dark:text-neutral-600 rtl:-rotate-180" xmlns="http://www.w3.org/2000/svg" width="24"
+                         height="24"
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if forloop.last %}
+            <li class="capitalize inline-flex items-center text-sm font-semibold {% if dark_mode %}text-gray-200{% else %}text-gray-500{% endif %} truncate dark:text-gray-200"
+                aria-current="page">
+                {{ item.title }}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ol>

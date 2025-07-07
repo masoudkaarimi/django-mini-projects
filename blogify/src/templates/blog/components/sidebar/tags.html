@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="rounded-xl shadow overflow-hidden px-5 bg-white dark:bg-black/80">
+    <div class="flex items-center justify-between py-4 xl:py-5 border-b border-dashed border-gray-200 dark:border-gray-700 ">
+        <h2 class="h5">{% trans "💡 More tags" %}</h2>
+        <a href="#" class="text-sm text-link">{% trans "View all" %}</a>
+    </div>
+    {% if tags.count > 0 %}
+        <div class="flex items-center flex-wrap gap-0.5 pt-3 pb-2">
+            {% for tag in tags.all %}
+                {% with tag=tag %}
+                    {% include "blog/components/tag/tag-item.html" %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        {% include "blog/components/empty.html" %}
+    {% endif %}
+</div>

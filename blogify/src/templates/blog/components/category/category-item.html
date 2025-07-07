@@ -1,0 +1,12 @@
+{% load static i18n %}
+
+<a href="{{ category.get_absolute_url }}" class="flex items-center p-1 sm:p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+    <div class="relative flex-shrink-0 size-12 rounded-lg me-4 overflow-hidden">
+        <img src="{{ category.get_category_thumbnail }}" alt="" class="object-cover absolute inset-0 w-full h-full">
+    </div>
+    <div class="overflow-hidden">
+        <h2 class="h6 truncate text-sm sm:text-base lg:text-lg capitalize">{{ category.name }}</h2>
+        <span class="caption">{{ category.category_post.all|length }} {% trans "Articles" %}</span>
+        <!--<span class="caption">{{ category.category_post.count }} {% trans "Articles" %}</span>-->
+    </div>
+</a>

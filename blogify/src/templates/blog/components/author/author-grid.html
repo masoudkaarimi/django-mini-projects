@@ -1,0 +1,36 @@
+{% load static i18n %}
+
+<div class="group border border-slate-200 relative inline-block w-full rounded-xl md:rounded-2xl overflow-hidden">
+    <a href="{{ author.get_absolute_url }}" class="absolute inset-0 z-20"></a>
+
+    <div class="flex flex-col overflow-hidden bg-slate-50 dark:bg-neutral-800">
+        <div class="relative flex-shrink-0">
+            <div class="flex aspect-w-7 aspect-h-4 w-full h-0 overflow-hidden">
+                <span class="absolute md:inset-0 z-10 bg-gradient-to-b from-transparent to-black/50"></span>
+                <img src="{{ author.user_profile.get_cover_photo }}" alt="Cover Photo"
+                     class="object-cover absolute inset-0 size-full group-hover:scale-110 transform transition-transform duration-300"/>
+            </div>
+            <div class="absolute top-3 inset-x-3 flex">
+                <a href="{{ author.get_absolute_url }}" class="badge">
+                    <span>{{ author.user_post.count }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" class="size-4 rtl:-rotate-180">
+                        <path d="M5 12h14"/>
+                        <path d="m12 5 7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <a href="#" class="-mt-8 m-4 text-center z-10">
+            <div class="relative flex-shrink-0 inline-flex items-center justify-center overflow-hidden rounded-full size-16 ring-2 ring-white">
+                <img src="{{ author.user_profile.get_avatar }}" class="object-cover absolute inset-0 w-full h-full" alt="">
+            </div>
+            <h2 class="h5">
+                <span class="line-clamp-1">{{ author.get_full_name }}</span>
+            </h2>
+            <span class="body2">@{{ author.username }}</span>
+        </a>
+    </div>
+</div>

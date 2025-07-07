@@ -1,0 +1,200 @@
+[
+  {
+    "model": "account.user",
+    "pk": 1,
+    "fields": {
+      "first_name": "Admin",
+      "last_name": "User",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "phone": "+989015906120",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-02-29T14:12:00Z",
+      "date_joined": "2024-02-29T14:12:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 2,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "username": "johndoe",
+      "email": "johndoe@example.com",
+      "phone": "+12345678910",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": true,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-03-30T14:30:00Z",
+      "date_joined": "2024-03-30T14:30:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 3,
+    "fields": {
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "username": "janesmith",
+      "email": "janesmith@example.com",
+      "phone": "+12345678911",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": true,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-03-31T02:20:00Z",
+      "date_joined": "2024-03-31T02:20:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 4,
+    "fields": {
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "username": "alicejohnson",
+      "email": "alicejohnson@example.com",
+      "phone": "+12345678912",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": true,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-01T14:00:00Z",
+      "date_joined": "2024-04-01T14:00:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 5,
+    "fields": {
+      "first_name": "Bob",
+      "last_name": "Williams",
+      "username": "bobwilliams",
+      "email": "bobwilliams@example.com",
+      "phone": "+12345678913",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-02T15:20:00Z",
+      "date_joined": "2024-04-02T15:20:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 6,
+    "fields": {
+      "first_name": "Charlie",
+      "last_name": "Brown",
+      "username": "charliebrown",
+      "email": "charliebrown@example.com",
+      "phone": "+12345678914",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-03T16:10:00Z",
+      "date_joined": "2024-04-03T16:10:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 7,
+    "fields": {
+      "first_name": "David",
+      "last_name": "Miller",
+      "username": "davidmiller",
+      "email": "davidmiller@example.com",
+      "phone": "+12345678915",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-04T05:15:00Z",
+      "date_joined": "2024-04-04T05:15:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 8,
+    "fields": {
+      "first_name": "Evelyn",
+      "last_name": "Garcia",
+      "username": "evelyngarcia",
+      "email": "evelyngarcia@example.com",
+      "phone": "+12345678916",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-05T09:12:00Z",
+      "date_joined": "2024-04-05T09:12:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 9,
+    "fields": {
+      "first_name": "Frank",
+      "last_name": "Wilson",
+      "username": "frankwilson",
+      "email": "frankwilson@example.com",
+      "phone": "+12345678917",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-06T10:10:00Z",
+      "date_joined": "2024-04-06T10:10:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 10,
+    "fields": {
+      "first_name": "Grace",
+      "last_name": "Martinez",
+      "username": "gracemartinez",
+      "email": "gracemartinez@example.com",
+      "phone": "+12345678918",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-07T19:25:00Z",
+      "date_joined": "2024-04-07T19:25:00Z"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 11,
+    "fields": {
+      "first_name": "Henry",
+      "last_name": "Davis",
+      "username": "henrydavis",
+      "email": "henrydavis@example.com",
+      "phone": "+12345678919",
+      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "last_login_ip": "127.0.0.1",
+      "last_login": "2024-04-08T23:45:00Z",
+      "date_joined": "2024-04-08T23:45:00Z"
+    }
+  }
+]

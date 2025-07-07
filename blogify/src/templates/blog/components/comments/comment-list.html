@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="my-5 ">
+    {% if comments %}
+        <ul class="space-y-5">
+            {% for comment in comments %}
+                {% with comment=comment %}
+                    {% include "blog/components/comments/comment-item.html" %}
+                {% endwith %}
+            {% endfor %}
+        </ul>
+
+        {% if comments.count > 5 %}
+            <div class="max-w-44 mx-auto mt-5">
+                <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+            </div>
+        {% endif %}
+    {% else %}
+        <p class="body1 text-center capitalize">{% trans "No comments yet." %}</p>
+        {#{% include "blog/components/empty.html" %}#}
+    {% endif %}
+</div>

@@ -1,0 +1,26 @@
+{% load static i18n %}
+
+<div class="relative flex flex-row justify-between items-center group p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700">
+    <a href="{{ post.get_absolute_url }}" class="absolute z-10 inset-0" title=""></a>
+
+    <div class="relative space-y-2">
+        <a href="{{ post.author.get_absolute_url }}" class="inline-flex items-center flex-wrap text-gray-800 dark:text-gray-200 leading-none text-xs">
+            <span class="flex items-center gap-2">
+                <img src="{{ post.author.user_profile.get_avatar }}" alt="" class="size-6 me-1 rounded-full ring-1 ring-offset-2 ring-slate-300">
+                <span class="caption font-medium truncate text-slate-700 dark:text-slate-300">{{ post.author }}</span>
+                <span class="text-slate-500 text-xl">·</span>
+                <span class="caption line-clamp-1">{{ post.updated_at|date:"M d, Y" }}</span>
+            </span>
+        </a>
+        <h6 class="h6">
+            <span class="line-clamp-2" title="">{{ post.title }}</span>
+        </h6>
+    </div>
+
+    <div class="block w-20 flex-shrink-0 relative rounded-lg overflow-hidden z-0 ms-4">
+        <div class="w-full h-0 aspect-w-1 aspect-h-1">
+            <img src="{{ post.get_post_thumbnail }}" alt=""
+                 class="group-hover:scale-110 transform transition-transform duration-300 object-cover absolute inset-0 size-full"/>
+        </div>
+    </div>
+</div>

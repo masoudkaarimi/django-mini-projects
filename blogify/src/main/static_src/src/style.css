@@ -1,0 +1,337 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Vazirmatn';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        font-stretch: 100%;
+        src: url('../fonts/vazirmant/Vazirmatn[wght].woff2') format('woff2 supports variations'),
+        url('../fonts/vazirmant/Vazirmatn[wght].woff2') format('woff2-variations');
+    }
+
+    html {
+        @apply font-vazirmatn;
+        @apply bg-white;
+    }
+
+    html.dark {
+        @apply text-neutral-50;
+        @apply bg-black;
+    }
+
+    p {
+        @apply leading-[1.6];
+    }
+}
+
+
+@layer components {
+
+    /* ---------- Global ---------- */
+    .text-link {
+        @apply text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .text-highlight {
+        @apply bg-clip-text bg-gradient-to-tl from-primary-600 to-secondary-400 text-transparent;
+    }
+
+    .divider-centered {
+        @apply py-3 flex items-center text-xs text-slate-400 uppercase before:flex-[1_1_0%] before:border-t before:border-slate-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-slate-200 after:ms-6 dark:text-slate-500 dark:before:border-slate-700 dark:after:border-slate-700;
+    }
+
+    /* ---------- Button ---------- */
+    .btn {
+        @apply p-2 inline-flex justify-center items-center gap-x-2 border-transparent text-sm font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .btn-lg {
+        @apply p-3;
+    }
+
+    .btn-outline-light {
+        @apply bg-white text-slate-800 border border-slate-200 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-700 dark:text-white dark:hover:bg-slate-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .btn-primary {
+        @apply bg-primary-600 text-white hover:bg-primary-700;
+    }
+
+    /* btn-ghost */
+    .btn-ghost {
+        @apply flex items-center gap-2 py-1.5 px-3 text-xs font-normal rounded-full transition-all duration-200 bg-slate-100;
+    }
+
+    .btn-ghost-light {
+        @apply text-slate-600 bg-transparent hover:bg-slate-100 hover:text-slate-700 focus:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700;
+    }
+
+    .btn-ghost-danger {
+        @apply hover:bg-red-100 hover:text-red-400;
+    }
+
+    .btn-ghost-info {
+        @apply hover:bg-blue-100 hover:text-blue-400;
+    }
+
+    .btn-ghost-success {
+        @apply hover:bg-emerald-100 hover:text-emerald-600;
+    }
+
+    .btn-icon {
+        @apply py-2 px-2;
+    }
+
+    .btn-icon.btn-lg svg {
+        @apply size-6;
+    }
+
+    .btn-ghost svg,
+    .btn-icon svg {
+        @apply size-4;
+    }
+
+    /* ---------- Typography ---------- */
+    .body1 {
+        @apply text-base font-normal text-slate-600 dark:text-slate-200;
+    }
+
+    .body2 {
+        @apply text-sm font-light text-slate-500 dark:text-slate-200;
+    }
+
+    .caption {
+        @apply text-xs font-normal text-slate-500 dark:text-slate-200;
+    }
+
+    .subtitle1 {
+        @apply text-2xl sm:text-3xl font-semibold text-slate-700 dark:text-slate-200;
+    }
+
+    .subtitle2 {
+        @apply text-xl sm:text-2xl font-medium text-slate-700 dark:text-slate-200;
+    }
+
+    .h1 {
+        @apply text-4xl sm:text-6xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .h2 {
+        @apply text-3xl sm:text-4xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .h3 {
+        @apply text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .h4 {
+        @apply text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .h5 {
+        @apply text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .h6 {
+        @apply text-base sm:text-lg font-bold text-slate-800 dark:text-slate-200;
+    }
+
+
+    /* ---------- List ---------- */
+    .list-items {
+        @apply space-y-1.5 sm:space-y-4;
+    }
+
+    .list-items li {
+        @apply flex items-center gap-x-3;
+    }
+
+    .list-items li span {
+        @apply text-sm font-normal text-slate-500 dark:text-slate-200;
+    }
+
+    .list-items li i {
+        @apply mt-0.5 size-5 flex justify-center items-center rounded-full bg-secondary-50 text-secondary-600 dark:bg-secondary-800/30 dark:text-secondary-500;
+    }
+
+
+    /* ---------- Modal ---------- */
+    .modal {
+        @apply z-[80] size-full fixed top-0 start-0 overflow-x-hidden overflow-y-auto pointer-events-none;
+    }
+
+    .modal-dialog {
+        @apply m-3 mt-0 lg:mx-auto opacity-0 ease-out transition-all;
+    }
+
+    .modal-lg {
+        @apply lg:max-w-7xl lg:w-full;
+    }
+
+    .modal-content {
+        @apply flex flex-col bg-white shadow-sm rounded-2xl pointer-events-auto dark:bg-slate-800 dark:border-slate-700 dark:shadow-slate-700/[.7];
+    }
+
+    .modal-header {
+        @apply flex justify-between items-center py-4 px-4 border-b dark:border-gray-700;
+    }
+
+    .modal-title {
+        @apply text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-200;
+    }
+
+    .modal-btn-close {
+        @apply flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700;
+    }
+
+    .modal-body {
+        @apply p-5;
+    }
+
+
+    /* ---------- Badge ---------- */
+    .badge {
+        @apply inline-flex items-center capitalize gap-x-1.5 my-1 py-1 px-2 rounded-full text-xs font-medium text-slate-500 bg-white transition-colors duration-300 dark:bg-white/[.05] dark:text-white;
+    }
+
+    .badge-light {
+        @apply text-slate-800 bg-slate-100 hover:text-white hover:bg-slate-500 dark:bg-white/10 dark:text-white;
+    }
+
+    .badge-success {
+        @apply text-emerald-800 bg-teal-100 hover:text-white hover:bg-emerald-500 dark:bg-emerald-800/30 dark:text-emerald-500;
+    }
+
+    .badge-info {
+        @apply text-blue-800 bg-blue-100 hover:text-white hover:bg-blue-500 dark:bg-blue-800/30 dark:text-blue-500;
+    }
+
+    .badge-danger {
+        @apply text-red-800 bg-red-100 hover:text-white hover:bg-red-500 dark:bg-red-800/30 dark:text-red-500;
+    }
+
+    .badge-warning {
+        @apply text-yellow-800 bg-yellow-100 hover:text-white hover:bg-yellow-500 dark:bg-yellow-800/30 dark:text-yellow-500;
+    }
+
+
+    /* ---------- Form ---------- */
+    .form-control {
+        @apply py-3 px-4 block w-full border-slate-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-slate-700 dark:text-slate-400 dark:focus:ring-slate-600;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium mb-2 text-slate-700 dark:text-white;
+    }
+
+    .form-check {
+        @apply shrink-0 mt-0.5 border-slate-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-800 dark:border-slate-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-slate-800
+    }
+
+    .input-has-icon {
+        @apply relative;
+    }
+
+    .input-has-icon .form-control {
+        @apply ps-10;
+    }
+
+    .input-icon {
+        @apply absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none;
+    }
+
+    .input-icon svg {
+        @apply flex-shrink-0 size-4 text-slate-500 dark:text-slate-400;
+    }
+
+    /* ---------- Header ---------- */
+    .header {
+        @apply sticky -top-px flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full shadow-sm bg-white text-sm py-3 md:py-0 dark:bg-slate-800;
+    }
+
+    .nav-item {
+        @apply text-slate-800 hover:text-primary py-3 md:py-6 dark:text-slate-200 dark:hover:text-slate-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .nav-item.active {
+        @apply font-medium text-primary;
+    }
+
+    .dropdown-megamenu-btn {
+        @apply flex items-center w-full text-slate-800 hover:text-primary dark:text-slate-200 dark:hover:text-slate-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .dropdown-megamenu-title {
+        @apply mb-2 text-xs font-semibold uppercase text-slate-800 dark:text-slate-200;
+    }
+
+    .dropdown-megamenu-item {
+        @apply flex gap-x-4 text-xs text-slate-800 hover:text-primary dark:text-slate-200 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .dropdown-item {
+        @apply flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-slate-800 hover:bg-slate-100 focus:ring-2 focus:ring-blue-500 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-slate-600;
+    }
+
+    .dropdown-item svg {
+        @apply flex-shrink-0 size-4;
+    }
+
+    .dropdown-item.active {
+        @apply text-slate-950 bg-slate-100;
+    }
+
+    .dropdown-menu {
+        @apply z-20 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 mt-2 divide-y divide-slate-100 dark:bg-slate-800 dark:border dark:border-slate-700 dark:divide-slate-700;
+    }
+
+    /* ---------- Footer ---------- */
+    .footer-title {
+        @apply font-semibold text-gray-300 uppercase dark:text-gray-300;
+    }
+
+    .footer-item {
+        @apply text-gray-400 hover:text-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:focus:outline-none;
+    }
+
+    .footer-social {
+        @apply inline-block fill-gray-500 hover:fill-gray-400 dark:hover:fill-gray-500;
+    }
+
+    /* ---------- Auth ---------- */
+    .auth-block {
+        @apply my-10;
+    }
+
+    .auth-card {
+        @apply p-4 sm:p-7 flex flex-col bg-white rounded-none lg:rounded-xl shadow-lg dark:bg-slate-800;
+    }
+
+    .auth-title {
+        @apply block text-2xl font-bold text-slate-800 dark:text-white;
+    }
+
+    /* ---------- Heading ---------- */
+    .block-heading {
+        @apply max-w-full min-h-40 py-8 shadow-xl flex flex-col items-center justify-center rounded-3xl text-center bg-gradient-to-tr from-slate-900 to-slate-700;
+    }
+
+    /* ---------- Customization ---------- */
+    /* Splide */
+    .splide__arrow.splide__arrow--prev,
+    .splide__arrow.splide__arrow--next {
+        @apply bg-white size-9 xl:size-12 shadow;
+    }
+
+    .splide__arrow.splide__arrow--prev {
+        @apply !-left-5 sm:!left-0;
+    }
+
+    .splide__arrow.splide__arrow--next {
+        @apply !-right-5 sm:!right-0;
+    }
+}

@@ -1,0 +1,19 @@
+{% load static i18n %}
+
+<aside class="w-full space-y-7 mt-16 lg:mt-0 lg:w-2/5 lg:ps-10 xl:ps-0 xl:w-1/3">
+    {% with tags=tags %}
+        {% include "blog/components/sidebar/tags.html" %}
+    {% endwith %}
+
+    {% with categories=categories %}
+        {% include "blog/components/sidebar/categories.html" %}
+    {% endwith %}
+
+    {% with authors=authors %}
+        {% include "blog/components/sidebar/authors.html" %}
+    {% endwith %}
+
+    {% with posts=posts %}
+        {% include "blog/components/sidebar/posts.html" %}
+    {% endwith %}
+</aside>

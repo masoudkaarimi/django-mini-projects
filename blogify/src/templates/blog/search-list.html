@@ -1,0 +1,34 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        {% include "blog/components/breadcrumb.html" %}
+        <div class="block-heading">
+            <h1 class="h1 mb-3 text-white capitalize">{% trans "Search" %}</h1>
+            <div class="w-4/12">
+                {% include "blog/components/search.html" %}
+            </div>
+        </div>
+
+        {% include "blog/components/filter.html" %}
+
+        {% if posts.count > 0 %}
+            <div class="py-5 sm:py-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8">
+                {% for post in posts.all %}
+                    {% with post=post %}
+                        {% include "blog/components/post/post-thumbnail.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            <div class="max-w-44 mt-10 mx-auto">
+                <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+            </div>
+        {% else %}
+            {% include "blog/components/empty.html" %}
+        {% endif %}
+
+    </section>
+{% endblock %}

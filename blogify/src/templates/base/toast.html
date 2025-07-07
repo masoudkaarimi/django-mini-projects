@@ -1,0 +1,142 @@
+{% load i18n %}
+
+{% if messages %}
+    <!--<div class="fixed top-0 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 w-full sm:max-w-sm p-3 z-[51] space-y-1">-->
+    <div class="fixed top-0 end-12 w-full sm:max-w-sm p-3 z-[51] space-y-1 zoom-in-once">
+        {% for message in messages %}
+            <div id="dismiss-toast-{{ forloop.counter }}"
+                 class="hs-removing:translate-x-5 hs-removing:opacity-0 transition duration-300 bg-white border border-gray-200 rounded-xl shadow-2xl dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden"
+                 role="alert">
+                <div class="flex p-4">
+                    <div class="flex-shrink-0">
+                        {% if message.tags == 'success' %}
+                            <svg class="flex-shrink-0 size-4 text-teal-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
+                            </svg>
+                        {% elif message.tags == 'info' %}
+                            <svg class="flex-shrink-0 size-4 text-blue-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
+                            </svg>
+                        {% elif message.tags == 'error' %}
+                            <svg class="flex-shrink-0 size-4 text-red-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
+                            </svg>
+                        {% elif message.tags == 'warning' %}
+                            <svg class="flex-shrink-0 size-4 text-yellow-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                            </svg>
+                        {% else %}
+                            <svg class="flex-shrink-0 size-4 text-primary-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                            </svg>
+                        {% endif %}
+                    </div>
+
+                    <div class="mx-3 text-sm text-gray-700 dark:text-neutral-400">
+                        {{ message }}
+                    </div>
+
+                    <div class="ms-auto">
+                        <button type="button"
+                                class="inline-flex flex-shrink-0 justify-center items-center size-5 rounded-lg text-gray-800 opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100 dark:text-white"
+                                data-hs-remove-element="#dismiss-toast-{{ forloop.counter }}">
+                            <span class="sr-only">{% trans "Close" %}</span>
+                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 6 6 18"></path>
+                                <path d="m6 6 12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-x-3">
+                    <div class="flex w-full h-1 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar">
+                        <div class="progressbar-thumb flex flex-col justify-center overflow-hidden bg-primary-600 text-xs text-white text-center whitespace-nowrap dark:bg-neutral-200"></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% block style %}
+        <style>
+            .zoom-in-once {
+                animation: zoomInOnce 0.8s ease forwards;
+            }
+
+            @keyframes zoomInOnce {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            .dismiss-toast-animate {
+                animation: fadeOut 0.8s ease forwards;
+            }
+
+            @keyframes fadeOut {
+                0% {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateX(5px);
+                    height: 0;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+
+            .progressbar-thumb {
+                width: 0;
+                animation: progressbar 10s linear forwards;
+                animation-play-state: running;
+            }
+
+            @keyframes progressbar {
+                100% {
+                    width: 100%;
+                }
+            }
+
+        </style>
+    {% endblock %}
+
+    {% block script %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let dismissDelay = 10000;
+                let messages = document.querySelectorAll('[id^="dismiss-toast-"]');
+
+                if (messages.length > 0) {
+                    messages.forEach(function (message) {
+                        let messageId = message.id;
+
+                        setTimeout(function () {
+                            let element = document.getElementById(messageId);
+
+                            if (element) {
+                                element.remove();
+                            }
+                        }, dismissDelay);
+                    });
+                }
+            });
+        </script>
+    {% endblock %}
+{% endif %}
+
+

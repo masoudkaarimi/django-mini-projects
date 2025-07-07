@@ -1,0 +1,361 @@
+{% extends "_base.html" %}
+
+{% load static i18n blog_tags %}
+
+{% block content %}
+    <section class="relative bg-gradient-to-tr from-slate-900 to-slate-700 -mt-10">
+        <div class="container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 sm:gap-x-2.5 gap-y-4 sm:gap-6">
+                <div class="col-span-2">
+                    <div class="w-full py-5 sm:py-10">
+                        {% with dark_mode=True items=breadcrumb_items %}
+                            {% include "blog/components/breadcrumb.html" %}
+                        {% endwith %}
+
+                        {% if post.category %}
+                            <a href="{{ post.category.get_absolute_url }}" class="badge {{ post.category|random_badge_class }}">
+                                {{ post.category.name }}
+                            </a>
+                        {% endif %}
+
+                        <h1 class="h1 my-4 text-white capitalize leading-tight">{{ post.title }}</h1>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-2.5 gap-y-4 mt-5 py-2 border-t border-slate-700">
+                            <div class="col-span-1">
+                                <a href="{{ post.author.get_absolute_url }}" class="flex items-start p-3">
+                                    <div class="relative flex-shrink-0 size-10 ring ring-offset-1 ring-slate-100 rounded-full me-4 overflow-hidden">
+                                        <img src="{{ post.author.user_profile.get_avatar }}" alt="avatar" class="object-cover absolute inset-0 size-full">
+                                    </div>
+                                    <div>
+                                        <h2 class="body2 font-bold text-white">{{ post.author.get_full_name }}</h2>
+                                        <span class="caption text-slate-400">{{ post.publish_at|date:'M d, Y' }}</span>
+                                        <span class="caption text-white text-xl mx-1">.</span>
+                                        <span class="caption text-slate-400">2 {% trans "min read" %}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-span-2">
+                                <div class="flex items-center flex-wrap sm:justify-end mt-5">
+                                    <div class="flex items-center gap-2 relative">
+                                        <button type="button" class="btn-ghost btn-ghost-info" title="Views">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                            {# Todo: add view count #}
+                                            <span>{{ post.comments_count }}</span>
+                                        </button>
+                                        <button type="button" class="btn-ghost btn-ghost-danger" title="Likes">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round">
+                                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                                            </svg>
+                                            {# Todo: add like count #}
+                                            <span>{{ post.comments_count }}</span>
+                                        </button>
+                                        <button type="button" class="btn-ghost btn-ghost-success" title="Comments">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round"
+                                                 stroke-linejoin="round">
+                                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                                <path d="M8 10h.01"></path>
+                                                <path d="M12 10h.01"></path>
+                                                <path d="M16 10h.01"></path>
+                                            </svg>
+                                            <span>{{ post.comments_count }}</span>
+                                        </button>
+                                        <div class="border-l border-slate-600 dark:border-slate-700 h-6"></div>
+                                        <button type="button" class="btn-ghost btn-icon btn-ghost" title="Share with">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark">
+                                                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                                            </svg>
+                                        </button>
+                                        <div class="hs-dropdown relative inline-flex">
+                                            <button type="button" id="hs-dropdown-share" class="hs-dropdown-toggle btn-ghost btn-icon btn-ghost" title="Share with">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round">
+                                                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                                    <polyline points="16 6 12 2 8 6"></polyline>
+                                                    <line x1="12" x2="12" y1="2" y2="15"></line>
+                                                </svg>
+                                            </button>
+                                            <div class="dropdown-menu hs-dropdown-menu hs-dropdown-open:opacity-100 transition-[opacity, margin] duration"
+                                                 aria-labelledby="hs-dropdown-share">
+                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                             stroke-width="2"
+                                                             stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                                        </svg>
+                                                        {% trans "Copy link" %}
+                                                    </a>
+                                                </div>
+                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg viewBox="0 0 64 64" width="24" height="24" class="!size-6">
+                                                            <circle cx="32" cy="32" r="31" fill="#3b5998"></circle>
+                                                            <path d="M34.1,47V33.3h4.6l0.7-5.3h-5.3v-3.4c0-1.5,0.4-2.6,2.6-2.6l2.8,0v-4.8c-0.5-0.1-2.2-0.2-4.1-0.2 c-4.1,0-6.9,2.5-6.9,7V28H24v5.3h4.6V47H34.1z"
+                                                                  fill="white"></path>
+                                                        </svg>
+                                                        <span>{% trans "Facebook" %}</span>
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg viewBox="0 0 64 64" width="24" height="24" class="!size-6">
+                                                            <circle cx="32" cy="32" r="31" fill="#00aced"></circle>
+                                                            <path d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z"
+                                                                  fill="white"></path>
+                                                        </svg>
+                                                        <span>{% trans "Twitter" %}</span>
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg viewBox="0 0 64 64" width="24" height="24" class="!size-6">
+                                                            <circle cx="32" cy="32" r="31" fill="#37aee2"></circle>
+                                                            <path d="m45.90873,15.44335c-0.6901,-0.0281 -1.37668,0.14048 -1.96142,0.41265c-0.84989,0.32661 -8.63939,3.33986 -16.5237,6.39174c-3.9685,1.53296 -7.93349,3.06593 -10.98537,4.24067c-3.05012,1.1765 -5.34694,2.05098 -5.4681,2.09312c-0.80775,0.28096 -1.89996,0.63566 -2.82712,1.72788c-0.23354,0.27218 -0.46884,0.62161 -0.58825,1.10275c-0.11941,0.48114 -0.06673,1.09222 0.16682,1.5716c0.46533,0.96052 1.25376,1.35737 2.18443,1.71383c3.09051,0.99037 6.28638,1.93508 8.93263,2.8236c0.97632,3.44171 1.91401,6.89571 2.84116,10.34268c0.30554,0.69185 0.97105,0.94823 1.65764,0.95525l-0.00351,0.03512c0,0 0.53908,0.05268 1.06412,-0.07375c0.52679,-0.12292 1.18879,-0.42846 1.79109,-0.99212c0.662,-0.62161 2.45836,-2.38812 3.47683,-3.38552l7.6736,5.66477l0.06146,0.03512c0,0 0.84989,0.59703 2.09312,0.68132c0.62161,0.04214 1.4399,-0.07726 2.14229,-0.59176c0.70766,-0.51626 1.1765,-1.34683 1.396,-2.29506c0.65673,-2.86224 5.00979,-23.57745 5.75257,-27.00686l-0.02107,0.08077c0.51977,-1.93157 0.32837,-3.70159 -0.87096,-4.74991c-0.60054,-0.52152 -1.2924,-0.7498 -1.98425,-0.77965l0,0.00176zm-0.2072,3.29069c0.04741,0.0439 0.0439,0.0439 0.00351,0.04741c-0.01229,-0.00351 0.14048,0.2072 -0.15804,1.32576l-0.01229,0.04214l-0.00878,0.03863c-0.75858,3.50668 -5.15554,24.40802 -5.74203,26.96472c-0.08077,0.34417 -0.11414,0.31959 -0.09482,0.29852c-0.1756,-0.02634 -0.50045,-0.16506 -0.52679,-0.1756l-13.13468,-9.70175c4.4988,-4.33199 9.09945,-8.25307 13.744,-12.43229c0.8218,-0.41265 0.68483,-1.68573 -0.29852,-1.70681c-1.04305,0.24584 -1.92279,0.99564 -2.8798,1.47502c-5.49971,3.2626 -11.11882,6.13186 -16.55882,9.49279c-2.792,-0.97105 -5.57873,-1.77704 -8.15298,-2.57601c2.2336,-0.89555 4.00889,-1.55579 5.75608,-2.23009c3.05188,-1.1765 7.01687,-2.7042 10.98537,-4.24067c7.94051,-3.06944 15.92667,-6.16346 16.62028,-6.43037l0.05619,-0.02283l0.05268,-0.02283c0.19316,-0.0878 0.30378,-0.09658 0.35471,-0.10009c0,0 -0.01756,-0.05795 -0.00351,-0.04566l-0.00176,0zm-20.91715,22.0638l2.16687,1.60145c-0.93418,0.91311 -1.81743,1.77353 -2.45485,2.38812l0.28798,-3.98957"
+                                                                  fill="white"></path>
+                                                        </svg>
+                                                        <span>{% trans "Telegram" %}</span>
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg viewBox="0 0 64 64" width="24" height="24" class="!size-6">
+                                                            <circle cx="32" cy="32" r="31" fill="#25D366"></circle>
+                                                            <path d="m42.32286,33.93287c-0.5178,-0.2589 -3.04726,-1.49644 -3.52105,-1.66732c-0.4712,-0.17346 -0.81554,-0.2589 -1.15987,0.2589c-0.34175,0.51004 -1.33075,1.66474 -1.63108,2.00648c-0.30032,0.33658 -0.60064,0.36247 -1.11327,0.12945c-0.5178,-0.2589 -2.17994,-0.80259 -4.14759,-2.56312c-1.53269,-1.37217 -2.56312,-3.05503 -2.86603,-3.57283c-0.30033,-0.5178 -0.03366,-0.80259 0.22524,-1.06149c0.23301,-0.23301 0.5178,-0.59547 0.7767,-0.90616c0.25372,-0.31068 0.33657,-0.5178 0.51262,-0.85437c0.17088,-0.36246 0.08544,-0.64725 -0.04402,-0.90615c-0.12945,-0.2589 -1.15987,-2.79613 -1.58964,-3.80584c-0.41424,-1.00971 -0.84142,-0.88027 -1.15987,-0.88027c-0.29773,-0.02588 -0.64208,-0.02588 -0.98382,-0.02588c-0.34693,0 -0.90616,0.12945 -1.37736,0.62136c-0.4712,0.5178 -1.80194,1.76053 -1.80194,4.27186c0,2.51134 1.84596,4.945 2.10227,5.30747c0.2589,0.33657 3.63497,5.51458 8.80262,7.74113c1.23237,0.5178 2.1903,0.82848 2.94111,1.08738c1.23237,0.38836 2.35599,0.33657 3.24402,0.20712c0.99159,-0.15534 3.04985,-1.24272 3.47963,-2.45956c0.44013,-1.21683 0.44013,-2.22654 0.31068,-2.45955c-0.12945,-0.23301 -0.46601,-0.36247 -0.98382,-0.59548m-9.40068,12.84407l-0.02589,0c-3.05503,0 -6.08417,-0.82849 -8.72495,-2.38189l-0.62136,-0.37023l-6.47252,1.68286l1.73463,-6.29129l-0.41424,-0.64725c-1.70875,-2.71846 -2.6149,-5.85116 -2.6149,-9.07706c0,-9.39809 7.68934,-17.06155 17.15993,-17.06155c4.58253,0 8.88029,1.78642 12.11655,5.02268c3.23625,3.21036 5.02267,7.50812 5.02267,12.06476c-0.0078,9.3981 -7.69712,17.06155 -17.14699,17.06155m14.58906,-31.58846c-3.93529,-3.80584 -9.1133,-5.95471 -14.62789,-5.95471c-11.36055,0 -20.60848,9.2065 -20.61625,20.52564c0,3.61684 0.94757,7.14565 2.75211,10.26282l-2.92557,10.63564l10.93337,-2.85309c3.0136,1.63108 6.4052,2.4958 9.85634,2.49839l0.01037,0c11.36574,0 20.61884,-9.2091 20.62403,-20.53082c0,-5.48093 -2.14111,-10.64081 -6.03239,-14.51915"
+                                                                  fill="white"></path>
+                                                        </svg>
+                                                        <span>{% trans "Whatsapp" %}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="hs-dropdown relative inline-flex">
+                                            <button type="button" id="hs-dropdown-more" class="hs-dropdown-toggle btn-ghost btn-icon btn-ghost" title="Share with">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis">
+                                                    <circle cx="12" cy="12" r="1"/>
+                                                    <circle cx="19" cy="12" r="1"/>
+                                                    <circle cx="5" cy="12" r="1"/>
+                                                </svg>
+                                            </button>
+                                            <div class="dropdown-menu hs-dropdown-menu hs-dropdown-open:opacity-100 transition-[opacity, margin] duration"
+                                                 aria-labelledby="hs-dropdown-more">
+                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="!size-5">
+                                                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                                                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                                            <path d="m9 14 2 2 4-4"/>
+                                                        </svg>
+                                                        {% trans "Copy link" %}
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="!size-5">
+                                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                                            <path d="M12 7v6"/>
+                                                            <path d="M9 10h6"/>
+                                                        </svg>
+                                                        <span>{% trans "Comment this article" %}</span>
+                                                    </a>
+                                                    <a href="#" class="dropdown-item">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="!size-5">
+                                                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                                                            <line x1="4" x2="4" y1="22" y2="15"/>
+                                                        </svg>
+                                                        <span>{% trans "Report this article" %}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <div class="sm:mt-8 md:mt-0 md:absolute md:top-0 md:right-0 md:rtl:left-0 md:rtl:right-auto md:bottom-0 md:w-1/2 lg:w-2/5 2xl:w-1/3">
+                        <div class="hidden md:block absolute top-0 left-0 right-auto bottom-0 w-1/5 bg-gradient-to-r from-neutral-900 z-[1]"></div>
+                        <div class="hidden md:block absolute top-0 left-auto right-0 bottom-0 w-1/5 bg-gradient-to-l from-neutral-900 z-[1]"></div>
+                        <img src="{{ post.get_post_thumbnail }}" alt="Post thumbnail" class="object-cover sm:absolute inset-0 size-full rounded-t-2xl sm:rounded-none"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mt-10">
+        <div class="flex flex-col lg:flex-row">
+            <article class="w-full lg:w-3/5 xl:w-2/3 xl:pe-14">
+                <div class="bg-gray-100 rounded-lg mb-5 p-3">
+                    <span class="caption">{% trans "Summary" %}</span>
+                    <br>
+                    {{ post.excerpt }}
+                </div>
+                <div class="prose">{{ post.content|safe }}</div>
+
+                <div class="mt-5 border-t border-slate-200"></div>
+
+                <a href="{{ post.author.get_absolute_url }}" class="flex items-center p-3">
+                    <div class="relative flex-shrink-0 size-20 ring ring-offset-1 ring-slate-200 rounded-full me-4 overflow-hidden">
+                        <img src="{{ post.author.user_profile.get_avatar }}" alt="avatar" class="object-cover absolute inset-0 size-full">
+                    </div>
+                    <div>
+                        <span class="caption capitalize text-slate-400">{% trans "Written by" %}</span>
+                        <h2 class="h6">{{ post.author.get_full_name }}</h2>
+                        <p class="body2">{{ post.author.user_profile.bio|truncatechars:160 }}</p>
+                    </div>
+                </a>
+
+                <div class="mt-5 border-t border-slate-200"></div>
+
+                <div class="flex items-center flex-wrap gap-0.5 pt-3 pb-2">
+                    {% for tag in post.tags.all %}
+                        {% with tag=tag %}
+                            {% include "blog/components/tag/tag-item.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+
+                {% if has_comment %}
+                    <div class="mt-5">
+                        <!--<h4 class="h4">{% trans "Leave a Comment" %} ({{ comments.count }})</h4>-->
+                        <h4 class="h4">{% trans "Leave a Comment" %} ({{ post.comments_count }})</h4>
+                        <p class="body1">{% trans "Your email address will not be published." %}</p>
+
+                        <div class="mt-5">
+                            {% include "blog/components/comments/comment-form.html" %}
+
+                            <div class="mt-5 border-t border-dashed border-slate-200"></div>
+
+                            {% include "blog/components/comments/comment-list.html" %}
+                        </div>
+                    </div>
+                {% endif %}
+            </article>
+
+            <!-- Sidebar -->
+            {% with posts=posts categories=categories tags=tags authors=authors %}
+                {% include "blog/components/sidebar/sidebar.html" %}
+            {% endwith %}
+        </div>
+    </section>
+
+    <section class="container mt-10">
+        <div class="flex flex-col lg:flex-row">
+            <div class="w-full p-5 sm:p-0 lg:w-3/5 xl:w-2/3 xl:pe-14">
+                <h2 class="h2 capitalize">{% trans "Related Posts" %}</h2>
+                <p class="body1 mt-3">
+                    {% blocktranslate %}
+                        You may also like these posts.
+                    {% endblocktranslate %}
+                </p>
+
+                {% if related_posts.count > 0 %}
+                    <!-- Slider -->
+                    <div class="splide mt-5" id="splide-related-posts">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                {% for post in related_posts.all %}
+                                    <li class="splide__slide">
+                                        {% with post=post %}
+                                            {% include "blog/components/post/post-thumbnail.html" %}
+                                        {% endwith %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% else %}
+                    {% include "blog/components/empty.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'assets/lib/splide/css/splide.min.css' %}">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'assets/lib/splide/js/splide.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new Splide('#splide-related-posts', {
+                pagination: false,
+                perPage: 3,
+                perMove: 1,
+                focus: "center",
+                padding: {left: '2rem', right: '2rem'},
+                gap: 10,
+                breakpoints: {
+                    640: {
+                        perPage: 1,
+                    },
+                    768: {
+                        perPage: 2,
+                    },
+                    1024: {
+                        perPage: 3,
+                    },
+                    1280: {
+                        perPage: 3,
+                    },
+                    1536: {
+                        perPage: 4,
+                    },
+                },
+            }).mount();
+
+            /*
+            const form = document.querySelector("#form-comment");
+            const editor = await ClassicEditor.create(document.querySelector('#id_content'), {
+                toolbar: [
+                    "styles",
+                    "heading",
+                    "|",
+                    "bold",
+                    "italic",
+                    "Underline",
+                    "link",
+                    "|",
+                    "bulletedList",
+                    "numberedList",
+                    "blockQuote",
+                    "|",
+                    "fontSize",
+                    "fontFamily",
+                    "fontColor",
+                    "fontBackgroundColor",],
+            })
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData()
+                const body = formData.append("content", editor.getData())
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: body,
+                    headers: {
+                        'Content-Type': 'form/urlencoded',
+                        'X-CSRFToken': ''
+                    }
+                })
+                console.log(response)
+            })
+            */
+        });
+    </script>
+{% endblock %}

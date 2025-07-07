@@ -1,0 +1,11 @@
+{% load static i18n %}
+
+<a href="{{ author.get_absolute_url }}" class="flex items-start p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+    <div class="relative flex-shrink-0 size-8 sm:size-12 ring ring-offset-1 ring-slate-100 rounded-full me-4 overflow-hidden">
+        <img src="{{ author.user_profile.get_avatar }}" alt="avatar" class="object-cover absolute inset-0 size-full">
+    </div>
+    <div>
+        <h2 class="h6">{{ author.get_full_name }}</h2>
+        <span class="caption">{{ author.user_post.count }} {% trans "Articles" %}</span>
+    </div>
+</a>

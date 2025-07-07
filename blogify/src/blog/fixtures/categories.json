@@ -1,0 +1,268 @@
+[
+  {
+    "model": "blog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Technology",
+      "slug": "technology",
+      "parent": null,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "All things technology.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Programming",
+      "slug": "programming",
+      "parent": 1,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Discussions about coding and development.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Hardware",
+      "slug": "hardware",
+      "parent": 1,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The latest in tech hardware.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Software",
+      "slug": "software",
+      "parent": 1,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Software, applications, and operating systems.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Lifestyle",
+      "slug": "lifestyle",
+      "parent": null,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Everything about living a balanced life.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Health",
+      "slug": "health",
+      "parent": 5,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Health and wellness.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 7,
+    "fields": {
+      "name": "Fitness",
+      "slug": "fitness",
+      "parent": 5,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Physical fitness and exercise.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 8,
+    "fields": {
+      "name": "Nutrition",
+      "slug": "nutrition",
+      "parent": 5,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Healthy eating and nutrition.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 9,
+    "fields": {
+      "name": "Travel",
+      "slug": "travel",
+      "parent": 5,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Travel and adventure.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 10,
+    "fields": {
+      "name": "Entertainment",
+      "slug": "entertainment",
+      "parent": null,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Movies, music, and more.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 11,
+    "fields": {
+      "name": "Movies",
+      "slug": "movies",
+      "parent": 10,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The latest in movies and cinema.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 12,
+    "fields": {
+      "name": "Music",
+      "slug": "music",
+      "parent": 10,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Music and the music industry.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 13,
+    "fields": {
+      "name": "Television",
+      "slug": "television",
+      "parent": 10,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "TV shows and series.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 14,
+    "fields": {
+      "name": "Books",
+      "slug": "books",
+      "parent": 10,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "Books and literature.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 15,
+    "fields": {
+      "name": "Science",
+      "slug": "science",
+      "parent": null,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The latest in scientific research.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 16,
+    "fields": {
+      "name": "Astronomy",
+      "slug": "astronomy",
+      "parent": 15,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The study of celestial objects.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 17,
+    "fields": {
+      "name": "Biology",
+      "slug": "biology",
+      "parent": 15,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The study of living organisms.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 18,
+    "fields": {
+      "name": "Chemistry",
+      "slug": "chemistry",
+      "parent": 15,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The study of matter and its properties.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 19,
+    "fields": {
+      "name": "Physics",
+      "slug": "physics",
+      "parent": 15,
+      "thumbnail": "static/images/placeholders/category-thumbnail.png",
+      "description": "The study of matter and energy.",
+      "is_active": true,
+      "created_at": "2024-03-21T13:55:48.849Z",
+      "updated_at": "2024-03-21T13:56:10.382Z"
+    }
+  }
+]

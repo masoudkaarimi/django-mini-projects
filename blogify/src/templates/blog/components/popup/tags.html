@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div id="tags-modal" class="modal hidden hs-overlay">
+    <div class="modal-dialog modal-lg hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title mx-auto capitalize">{% trans "Discover All tagss" %}</h3>
+                <button type="button" class="modal-btn-close" data-hs-overlay="#tags-modal">
+                    <span class="sr-only">{% trans "Close" %}</span>
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if tags.count > 0 %}
+                    <div class="flex items-center flex-wrap gap-0.5">
+                        {% for tag in tags.all %}
+                            {% with tag=tag %}
+                                {% include "blog/components/tag/tag-item.html" %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+
+                    {% if tags.count > 15 %}
+                        <div class="max-w-44 mt-10 mx-auto">
+                            <button type="button" class="btn btn-lg btn-primary w-full">{% trans "Show more" %}</button>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% include "blog/components/empty.html" %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

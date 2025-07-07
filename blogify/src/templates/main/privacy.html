@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+    <section class="container py-5 sm:py-10">
+        <!-- Grid -->
+        <div class="max-w-2xl lg:max-w-4xl mx-auto">
+            <div class="space-y-6 sm:space-y-8">
+                <!-- Title -->
+                <div class="space-y-2 md:space-y-4">
+                    <h1 class="h1">
+                        {% trans "Privacy" %}
+                        <span class="text-highlight">{% trans "Policy" %}</span>
+                    </h1>
+                    <p class="body1">
+                        {% blocktranslate %}
+                            We are committed to protecting your privacy. We will only use the information that we collect about you lawfully (in accordance with the Data Protection
+                            Act 1998 and the General Data Protection Regulation 2018). We collect information about you for 2 reasons: firstly, to process your order and second, to
+                            provide you with the best possible service. We will not e-mail you in the future unless you have given us your consent. We will give you the chance to
+                            refuse any marketing email from us or from another trader in the future.
+                        {% endblocktranslate %}
+                    </p>
+                    <p class="body1">
+                        {% blocktranslate %}
+                            The type of information we will collect about you includes: your name, address, phone number, email address. We will never collect sensitive information
+                            about you without your explicit consent. The information we hold will be accurate and up to date. You can check the information that we hold about you
+                            by emailing us. If you find any inaccuracies we will delete or correct it promptly. The personal information which we hold will be held securely in
+                            accordance with our internal security policy and the law. If we intend to transfer your information outside the EEA (European Economic Area) we will
+                            always obtain your consent first.
+                        {% endblocktranslate %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

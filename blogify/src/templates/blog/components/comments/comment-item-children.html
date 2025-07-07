@@ -1,0 +1,58 @@
+{% load i18n %}
+
+{% if child.parent %}
+    <li class="flex flex-col gap-x-2 sm:gap-x-4 border-t border-dashed border-slate-200 py-4 w-full">
+        <div class="relative flex items-center gap-3">
+            {% if child.level == 1 %}
+                <div class="w-5 border-t border-dashed border-slate-400"></div>
+            {% endif %}
+
+            {% if child.level == 2 %}
+                <div class="w-10 border-t border-dashed border-slate-400"></div>
+            {% endif %}
+
+            <div class="relative flex-shrink-0 inline-flex items-center justify-center overflow-hidden rounded-full size-10 ring-1 ring-offset-2 ring-slate-300">
+                <img src="{{ child.author.user_profile.get_avatar }}" class="object-cover absolute inset-0 w-full h-full" alt="">
+            </div>
+            <div>
+                {% if child.author.is_staff %}
+                    <a href="{{ comment.author.get_absolute_url }}" class="h6 font-medium truncate text-slate-700 dark:text-slate-300">{{ child.author }}</a>
+                {% else %}
+                    <span class="h6 font-medium truncate text-slate-700 dark:text-slate-300">{{ child.author }}</span>
+                {% endif %}
+                <span class="caption line-clamp-1">{{ child.created_at|date:"M d, Y" }}</span>
+            </div>
+        </div>
+
+        <span class="block mt-2 mb-3 sm:mt-4 sm:mb-4 dark:text-slate-300 {% if child.level == 1 %}ms-8{% elif child.level == 2 %}ms-14{% endif %}">{{ child.content|safe }}</span>
+
+        <div class="flex items-center gap-2 relative {% if child.level == 1 %}ms-8{% elif child.level == 2 %}ms-14{% endif %}">
+            <button type="button" class="btn-ghost btn-ghost-danger" title="{% trans "Likes" %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+                <span>59</span>
+            </button>
+
+            {% if child.level != 2 %}
+                <button type="button" class="btn-ghost btn-ghost-info" title="{% trans "Reply" %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-[18px] w-[18px] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+                    </svg>
+                    <span>{% trans "Reply" %}</span>
+                </button>
+            {% endif %}
+        </div>
+
+        {% if child.children.exists %}
+            <ul class="mt-5 space-y-5">
+                {% for grandchild in child.children.all %}
+                    {% with child=grandchild %}
+                        {% include "blog/components/comments/comment-item-children.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endif %}

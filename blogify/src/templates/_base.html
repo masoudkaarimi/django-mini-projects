@@ -1,0 +1,90 @@
+{% load static tailwind_tags i18n %}
+
+{% get_current_language as LANGUAGE %}
+
+<!doctype html>
+<html class="h-full" lang="{{ LANGUAGE }}" {% if LANGUAGE == 'fa' or LANGUAGE == 'ar' %}dir="rtl" {% else %}dir="ltr"{% endif %}>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEO Meta Tags -->
+    {% with seo=page.page_seo %}
+        {% if seo %}
+            <title>{{ seo.title|title }}</title>
+            <meta name="description" content="{{ seo.description }}">
+            <meta name="keywords" content="{{ seo.keywords }}">
+            <meta name="robots" content="{{ seo.robots }}">
+
+            <!-- Open Graph (OG) Tags for Social Media Sharing -->
+            <meta property="og:type" content="website">
+            <meta property="og:site_name" content="{{ seo.title }}">
+            <meta property="og:locale" content="en_US">
+            <meta property="og:title" content="{{ seo.title }}">
+            <meta property="og:description" content="{{ seo.description }}">
+            <meta property="og:url" content="{{ seo.canonical }}">
+            <meta property="og:image" content="{% static 'your-og-image.jpg' %}">
+
+            <!-- Twitter Card Tags for Twitter Sharing (if needed) -->
+            <meta name="twitter:card" content="summary">
+            <meta name="twitter:title" content="{{ seo.title }}">
+            <meta name="twitter:description" content="{{ seo.description }}">
+            <meta name="twitter:image" content="{% static 'your-twitter-image.jpg' %}">
+            <meta name="twitter:image:alt" content="{{ seo.title }}">
+            <meta name="twitter:site" content="@yourtwitterhandle">
+            <meta name="twitter:creator" content="@yourtwitterhandle">
+
+            <!-- Canonical URL -->
+            <link rel="canonical" href="{{ seo.canonical }}">
+        {% else %}
+            <title>{{ title }} | {{ site_name }}</title>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon/favicon-16x16.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Tailwind CSS -->
+    {% tailwind_preload_css v=static_version %}
+    {% tailwind_css v=static_version %}
+
+    <!-- Stylesheets -->
+    <!--<link href="{% static 'assets/css/index.css' %}?v={{ static_version }}" rel="stylesheet" type="text/css"/>-->
+
+    {% block style %}{% endblock %}
+</head>
+
+<body class="font-vazirmatn flex flex-col h-full bg-gray-50 dark:bg-gray-950">
+
+{% load i18n %}
+
+{% include "base/toast.html" %}
+
+<!-- Header -->
+{% include "base/header.html" %}
+
+<!-- Main -->
+<main class="shrink-0 py-10 bg-gray-50 dark:bg-gray-950">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+{% include "base/footer.html" %}
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.js"></script>
+<script src="{% static 'assets/js/index.js' %}?v={{ static_version }}"></script>
+
+{% block script %}{% endblock %}
+
+
+<!-- SEO: JSON-LD -->
+<script type="application/ld+json">{{ seo.json_ld|safe }}</script>
+</body>
+
+</html>
