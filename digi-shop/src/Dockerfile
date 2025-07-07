@@ -37,10 +37,6 @@ COPY . .
 # Build frontend assets
 RUN npm run build
 
-# Setup Django before building
-#RUN python manage.py collectstatic --noinput || echo "Skipping initial collectstatic"
-#RUN python manage.py migrate --noinput || echo "Skipping initial migrate"
-
 # Copy entrypoint script
 COPY entrypoint.sh /usr/src/
 RUN chmod +x /usr/src/entrypoint.sh

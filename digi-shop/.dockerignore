@@ -13,6 +13,7 @@ db.sqlite3-journal
 # media
 
 # Environment files
+venv/
 .env
 .env.*
 !.env.example
@@ -34,3 +35,4 @@ htmlcov/
 .coverage
 .pytest_cache/
 docs/_build/
+data/
