@@ -35,3 +35,4 @@ htmlcov/
 .coverage
 .pytest_cache/
 docs/_build/
+data/

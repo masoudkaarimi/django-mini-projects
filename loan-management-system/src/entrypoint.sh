@@ -10,10 +10,7 @@ python manage.py load_data
 python manage.py collectstatic --noinput
 
 # Create superuser if not exists
-DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME} \
-DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL} \
-DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD} \
-python manage.py createsuperuser --noinput || echo "Admin already exists"
+python manage.py shell < create_superuser.py
 
 # Start gunicorn
 exec gunicorn -c core/gunicorn.py core.wsgi:application
