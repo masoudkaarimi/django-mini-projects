@@ -17,7 +17,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(MPTTModelAdmin):
     list_display = ('name', 'slug', 'is_active', 'created_at', 'updated_at',)
-
+    ordering = ('name',)
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):

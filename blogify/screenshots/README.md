@@ -9,3 +9,6 @@ This directory contains screenshots of the application in various states and con
 ![Screenshot 5](screenshot-5-min.png)  
 ![Screenshot 6](screenshot-6-min.png)  
 ![Screenshot 7](screenshot-7-min.png)
+![Screenshot 8](screenshot-8-min.png)
+![Screenshot 9](screenshot-9-min.png)
+![Screenshot 10](screenshot-10-min.png)

@@ -205,7 +205,11 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
 
     def get_avatar(self):
-        return self.avatar.url if self.avatar else static('assets/images/placeholders/avatar.webp')
+        if self.avatar:
+            return self.avatar.url
+        return static('assets/images/placeholders/avatar.webp')
 
     def get_cover_photo(self):
-        return self.cover_photo.url if self.cover_photo else static('assets/images/placeholders/cover-photo.webp')
+        if self.cover_photo:
+            return self.cover_photo.url
+        return static('assets/images/placeholders/cover-photo.webp')

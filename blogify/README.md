@@ -1,56 +1,112 @@
-# Django Blog
+# Blogify
 
-This is a simple blog application made with Django.
+A Django-based web application for creating, managing, and sharing blog posts. Blogify offers a modern platform for multi-user blogging with rich content editing, multi-language
+support, and a Dockerized deployment workflow.
 
-**Todo**
+![Screenshot](screenshots/screenshot-1-min.png)
 
-- [x] Add sitemap.xml and robots.txt
-- [ ] User creation from base + adding phone number and OTP login + SMS panel
-- [ ] Creating models
-- [ ] Creating views
-- [ ] Creating authentication views
-- [ ] Configuring Tailwind CSS
-- [ ] Creating templates
-- [ ] Configuring Gunicorn
-- [ ] Configuring Docker
-- [ ] Configuring Nginx
+---
 
-**User and Communication Features:**
+## Features
 
-- [ ] User registration and login
-- [ ] **User profile:** profile information editing, managing posts, managing comments, statistics
-- [ ] **User roles:** author, editor, administrator
-- [ ] Commenting system
-- [ ] Social media sharing capabilities
+- User authentication and registration (email-based login)
+- Create, edit, and delete blog posts
+- Rich text editor for posts (WYSIWYG)
+- Categories and tags for organizing posts
+- Comment system with moderation
+- Multi-language support (English, Persian, Arabic)
+- User profiles and avatars
+- Search and filtering for posts
+- Responsive UI (Django templates, Tailwind CSS)
+- Admin dashboard for managing users, posts, and comments
+- Static informational pages (About, Contact, Privacy)
+- Jalali date support for Persian users
+- Dockerized for easy deployment
+- Nginx reverse proxy configuration
 
-**Content Management:**
+## Technology Stack
 
-- [ ] Creation and editing of posts by users
-- [ ] Display of blog posts list with sorting capability
-- [ ] Detail page for each post
-- [ ] Categorization of posts
-- [ ] Tagging of posts
-- [ ] Related posts display
-- [ ] Filtering posts by date, category, tags
-- [ ] Dedicated pages for authors
+- **Backend:** Django 5.0
+- **Database:** PostgreSQL (default), SQLite (for development)
+- **Frontend:** Django Templates, HTML5, CSS3, Tailwind CSS
+- **Containerization:** Docker, Docker Compose
+- **Web Server:** Gunicorn, Nginx
+- **Other Libraries:**
+    - django-ckeditor (rich text editor)
+    - django-rosetta (translation)
+    - jdatetime (Jalali date support)
+    - psycopg2 (PostgreSQL driver)
+    - python-dotenv (env management)
+    - redis (optional, for caching)
 
-**Search and Access:**
+## Requirements
 
-- [ ] Search functionality within posts
-- [ ] RSS feed for posts
+- Docker & Docker Compose (recommended)
+- Or, for manual setup:
+    - Python 3.10+
+    - PostgreSQL (or SQLite for development)
+    - pip (Python package manager)
 
-**Multilingual Support and Settings:**
+## Quick Start (with Docker)
 
-- [ ] Multilingual support
-- [ ] Advertising management system
-- [ ] Theme Settings
-- [ ] SEO settings
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/masoudkaarimi/django-mini-projects.git
+   cd django-mini-projects/blogify
+   ```
+2. **Configure environment variables:**
+    - Copy `.env.example` to `.env` and set your secrets (DB, Django, etc).
+3. **Build and run the containers:**
+   ```bash
+   docker compose up --build
+   ```
+4. **Access the app:**
+    - Web: http://localhost:8000
+    - Admin: http://localhost:8000/admin/
 
-**Static Pages and Admin Panel:**
+## Manual Setup (without Docker)
 
-- [ ] About Us
-- [ ] Contact Us
-- [ ] Terms and Conditions
-- [ ] Site Map
-- [ ] **Admin panel:** managing posts, managing pages, managing users, managing categories, managing tags
-- [ ] **Newsletter:** Subscription and email sent to subscribers
+1. Create and activate a virtual environment:
+   ```bash
+   cd src
+   python -m venv venv
+   # On Windows
+   venv\Scripts\activate
+   # On macOS/Linux
+   source venv/bin/activate
+   ```
+2. Install Python dependencies:
+   ```bash
+   cd src
+   pip install -r requirements.txt
+   ```
+3. Copy `.env.example` to `.env` and set your secrets (DB, Django, etc).
+4. Run migrations, create a superuser, and load initial data:
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   python manage.py load_data   
+   ```
+5. Collect static files:
+   ```bash
+   python manage.py collectstatic
+   ```
+6. Run the development server:
+   ```bash
+   python manage.py runserver
+   ```
+
+## Docker Compose Services
+
+- **django:** Main application (Gunicorn)
+- **postgres:** Database
+- **nginx:** Reverse proxy
+- **redis:** (optional, for caching)
+
+## Screenshots
+
+See the [`screenshots/`](screenshots/) directory for UI examples.
+
+## License
+
+This project is licensed under the MIT License.

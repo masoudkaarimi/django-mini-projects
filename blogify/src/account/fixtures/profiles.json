@@ -1,178 +1,162 @@
 [
-  {
-    "model": "account.profile",
-    "pk": 1,
-    "fields": {
-      "user": 1,
-      "bio": "Admin user bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://adminwebsite.com",
-      "facebook_url": "https://facebook.com/admin",
-      "twitter_url": "https://twitter.com/admin",
-      "instagram_url": "https://instagram.com/admin",
-      "linkedin_url": "https://linkedin.com/in/admin"
+    {
+        "model": "account.profile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Super Admin's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://superadmin.com",
+            "facebook_url": "https://facebook.com/superadmin",
+            "twitter_url": "https://twitter.com/superadmin",
+            "instagram_url": "https://instagram.com/superadmin",
+            "linkedin_url": "https://linkedin.com/in/superadmin"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "bio": "John Doe's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://johndoe.com",
+            "facebook_url": "https://facebook.com/johndoe",
+            "twitter_url": "https://twitter.com/johndoe",
+            "instagram_url": "https://instagram.com/johndoe",
+            "linkedin_url": "https://linkedin.com/in/johndoe"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "bio": "Jane Doe's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "female",
+            "website_url": "https://janedoe.com",
+            "facebook_url": "https://facebook.com/janedoe",
+            "twitter_url": "https://twitter.com/janedoe",
+            "instagram_url": "https://instagram.com/janedoe",
+            "linkedin_url": "https://linkedin.com/in/janedoe"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "bio": "Bob Smith's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://bobsmith.com",
+            "facebook_url": "https://facebook.com/bobsmith",
+            "twitter_url": "https://twitter.com/bobsmith",
+            "instagram_url": "https://instagram.com/bobsmith",
+            "linkedin_url": "https://linkedin.com/in/bobsmith"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "bio": "Alice Jones's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "female",
+            "website_url": "https://alicejones.com",
+            "facebook_url": "https://facebook.com/alicejones",
+            "twitter_url": "https://twitter.com/alicejones",
+            "instagram_url": "https://instagram.com/alicejones",
+            "linkedin_url": "https://linkedin.com/in/alicejones"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 6,
+        "fields": {
+            "user": 6,
+            "bio": "Charlie Brown's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://charliebrown.com",
+            "facebook_url": "https://facebook.com/charliebrown",
+            "twitter_url": "https://twitter.com/charliebrown",
+            "instagram_url": "https://instagram.com/charliebrown",
+            "linkedin_url": "https://linkedin.com/in/charliebrown"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 7,
+        "fields": {
+            "user": 7,
+            "bio": "Emily White's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "female",
+            "website_url": "https://emilywhite.com",
+            "facebook_url": "https://facebook.com/emilywhite",
+            "twitter_url": "https://twitter.com/emilywhite",
+            "instagram_url": "https://instagram.com/emilywhite",
+            "linkedin_url": "https://linkedin.com/in/emilywhite"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 8,
+        "fields": {
+            "user": 8,
+            "bio": "David Lee's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://davidlee.com",
+            "facebook_url": "https://facebook.com/davidlee",
+            "twitter_url": "https://twitter.com/davidlee",
+            "instagram_url": "https://instagram.com/davidlee",
+            "linkedin_url": "https://linkedin.com/in/davidlee"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 9,
+        "fields": {
+            "user": 9,
+            "bio": "Lucy King's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "female",
+            "website_url": "https://lucyking.com",
+            "facebook_url": "https://facebook.com/lucyking",
+            "twitter_url": "https://twitter.com/lucyking",
+            "instagram_url": "https://instagram.com/lucyking",
+            "linkedin_url": "https://linkedin.com/in/lucyking"
+        }
+    },
+    {
+        "model": "account.profile",
+        "pk": 10,
+        "fields": {
+            "user": 10,
+            "bio": "Michael Clark's bio",
+            "avatar": "placeholders/avatar.webp",
+            "cover_photo": "placeholders/cover-photo.webp",
+            "gender": "male",
+            "website_url": "https://michaelclark.com",
+            "facebook_url": "https://facebook.com/michaelclark",
+            "twitter_url": "https://twitter.com/michaelclark",
+            "instagram_url": "https://instagram.com/michaelclark",
+            "linkedin_url": "https://linkedin.com/in/michaelclark"
+        }
     }
-  },
-  {
-    "model": "account.profile",
-    "pk": 2,
-    "fields": {
-      "user": 2,
-      "bio": "John Doe's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://johndoe.com",
-      "facebook_url": "https://facebook.com/johndoe",
-      "twitter_url": "https://twitter.com/johndoe",
-      "instagram_url": "https://instagram.com/johndoe",
-      "linkedin_url": "https://linkedin.com/in/johndoe"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 3,
-    "fields": {
-      "user": 3,
-      "bio": "Jane Smith's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "female",
-      "website_url": "https://janesmith.com",
-      "facebook_url": "https://facebook.com/janesmith",
-      "twitter_url": "https://twitter.com/janesmith",
-      "instagram_url": "https://instagram.com/janesmith",
-      "linkedin_url": "https://linkedin.com/in/janesmith"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 4,
-    "fields": {
-      "user": 4,
-      "bio": "Alice Johnson's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "female",
-      "website_url": "https://alicejohnson.com",
-      "facebook_url": "https://facebook.com/alicejohnson",
-      "twitter_url": "https://twitter.com/alicejohnson",
-      "instagram_url": "https://instagram.com/alicejohnson",
-      "linkedin_url": "https://linkedin.com/in/alicejohnson"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 5,
-    "fields": {
-      "user": 5,
-      "bio": "Bob Williams's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://bobwilliams.com",
-      "facebook_url": "https://facebook.com/bobwilliams",
-      "twitter_url": "https://twitter.com/bobwilliams",
-      "instagram_url": "https://instagram.com/bobwilliams",
-      "linkedin_url": "https://linkedin.com/in/bobwilliams"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 6,
-    "fields": {
-      "user": 6,
-      "bio": "Charlie Brown's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://charliebrown.com",
-      "facebook_url": "https://facebook.com/charliebrown",
-      "twitter_url": "https://twitter.com/charliebrown",
-      "instagram_url": "https://instagram.com/charliebrown",
-      "linkedin_url": "https://linkedin.com/in/charliebrown"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 7,
-    "fields": {
-      "user": 7,
-      "bio": "David Miller's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://davidmiller.com",
-      "facebook_url": "https://facebook.com/davidmiller",
-      "twitter_url": "https://twitter.com/davidmiller",
-      "instagram_url": "https://instagram.com/davidmiller",
-      "linkedin_url": "https://linkedin.com/in/davidmiller"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 8,
-    "fields": {
-      "user": 8,
-      "bio": "Evelyn Garcia's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "female",
-      "website_url": "https://evelyngarcia.com",
-      "facebook_url": "https://facebook.com/evelyngarcia",
-      "twitter_url": "https://twitter.com/evelyngarcia",
-      "instagram_url": "https://instagram.com/evelyngarcia",
-      "linkedin_url": "https://linkedin.com/in/evelyngarcia"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 9,
-    "fields": {
-      "user": 9,
-      "bio": "Frank Wilson's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://frankwilson.com",
-      "facebook_url": "https://facebook.com/frankwilson",
-      "twitter_url": "https://twitter.com/frankwilson",
-      "instagram_url": "https://instagram.com/frankwilson",
-      "linkedin_url": "https://linkedin.com/in/frankwilson"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 10,
-    "fields": {
-      "user": 10,
-      "bio": "Grace Martinez's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "female",
-      "website_url": "https://gracemartinez.com",
-      "facebook_url": "https://facebook.com/gracemartinez",
-      "twitter_url": "https://twitter.com/gracemartinez",
-      "instagram_url": "https://instagram.com/gracemartinez",
-      "linkedin_url": "https://linkedin.com/in/gracemartinez"
-    }
-  },
-  {
-    "model": "account.profile",
-    "pk": 11,
-    "fields": {
-      "user": 11,
-      "bio": "Henry Davis's bio",
-      "avatar": null,
-      "cover_photo": null,
-      "gender": "male",
-      "website_url": "https://henrydavis.com",
-      "facebook_url": "https://facebook.com/henrydavis",
-      "twitter_url": "https://twitter.com/henrydavis",
-      "instagram_url": "https://instagram.com/henrydavis",
-      "linkedin_url": "https://linkedin.com/in/henrydavis"
-    }
-  }
 ]

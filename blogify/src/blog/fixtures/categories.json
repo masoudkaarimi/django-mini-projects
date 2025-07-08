@@ -1,268 +1,272 @@
 [
-  {
-    "model": "blog.category",
-    "pk": 1,
-    "fields": {
-      "name": "Technology",
-      "slug": "technology",
-      "parent": null,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "All things technology.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
+    {
+        "model": "blog.category",
+        "pk": 1,
+        "fields": {
+            "name": "Technology",
+            "slug": "technology",
+            "parent": null,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "All things technology.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:31:11.867Z",
+            "updated_at": "2025-07-08T18:31:11.867Z",
+            "lft": 1,
+            "rght": 6,
+            "tree_id": 1,
+            "level": 0
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 2,
+        "fields": {
+            "name": "Programming",
+            "slug": "programming",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Discussions about coding and development.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:31:35.478Z",
+            "updated_at": "2025-07-08T18:31:35.479Z",
+            "lft": 2,
+            "rght": 5,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 3,
+        "fields": {
+            "name": "Web Development",
+            "slug": "web-development",
+            "parent": 2,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Building websites and web applications.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:32:06.696Z",
+            "updated_at": "2025-07-08T18:32:36.112Z",
+            "lft": 3,
+            "rght": 4,
+            "tree_id": 1,
+            "level": 2
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 4,
+        "fields": {
+            "name": "Data Science",
+            "slug": "data-science",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Data analysis, machine learning, and AI.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:00.000Z",
+            "updated_at": "2025-07-08T18:33:00.000Z",
+            "lft": 7,
+            "rght": 8,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 5,
+        "fields": {
+            "name": "Mobile Development",
+            "slug": "mobile-development",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Building apps for mobile devices.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:10.000Z",
+            "updated_at": "2025-07-08T18:33:10.000Z",
+            "lft": 9,
+            "rght": 10,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 6,
+        "fields": {
+            "name": "DevOps",
+            "slug": "devops",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "CI/CD, automation, and infrastructure.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:20.000Z",
+            "updated_at": "2025-07-08T18:33:20.000Z",
+            "lft": 11,
+            "rght": 12,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 7,
+        "fields": {
+            "name": "Artificial Intelligence",
+            "slug": "artificial-intelligence",
+            "parent": 4,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "AI, neural networks, and deep learning.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:30.000Z",
+            "updated_at": "2025-07-08T18:33:30.000Z",
+            "lft": 13,
+            "rght": 14,
+            "tree_id": 1,
+            "level": 2
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 8,
+        "fields": {
+            "name": "Machine Learning",
+            "slug": "machine-learning",
+            "parent": 4,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "ML algorithms and applications.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:40.000Z",
+            "updated_at": "2025-07-08T18:33:40.000Z",
+            "lft": 15,
+            "rght": 16,
+            "tree_id": 1,
+            "level": 2
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 9,
+        "fields": {
+            "name": "Cloud Computing",
+            "slug": "cloud-computing",
+            "parent": 6,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Cloud platforms and services.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:33:50.000Z",
+            "updated_at": "2025-07-08T18:33:50.000Z",
+            "lft": 17,
+            "rght": 18,
+            "tree_id": 1,
+            "level": 2
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 10,
+        "fields": {
+            "name": "Cybersecurity",
+            "slug": "cybersecurity",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Security, privacy, and protection.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:00.000Z",
+            "updated_at": "2025-07-08T18:34:00.000Z",
+            "lft": 19,
+            "rght": 20,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 11,
+        "fields": {
+            "name": "Frontend",
+            "slug": "frontend",
+            "parent": 3,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "UI, UX, and client-side development.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:10.000Z",
+            "updated_at": "2025-07-08T18:34:10.000Z",
+            "lft": 21,
+            "rght": 22,
+            "tree_id": 1,
+            "level": 3
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 12,
+        "fields": {
+            "name": "Backend",
+            "slug": "backend",
+            "parent": 3,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Server-side programming.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:20.000Z",
+            "updated_at": "2025-07-08T18:34:20.000Z",
+            "lft": 23,
+            "rght": 24,
+            "tree_id": 1,
+            "level": 3
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 13,
+        "fields": {
+            "name": "Game Development",
+            "slug": "game-development",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Creating games and interactive media.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:30.000Z",
+            "updated_at": "2025-07-08T18:34:30.000Z",
+            "lft": 25,
+            "rght": 26,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 14,
+        "fields": {
+            "name": "Internet of Things",
+            "slug": "iot",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Connected devices and IoT.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:40.000Z",
+            "updated_at": "2025-07-08T18:34:40.000Z",
+            "lft": 27,
+            "rght": 28,
+            "tree_id": 1,
+            "level": 1
+        }
+    },
+    {
+        "model": "blog.category",
+        "pk": 15,
+        "fields": {
+            "name": "Blockchain",
+            "slug": "blockchain",
+            "parent": 1,
+            "thumbnail": "placeholders/category-thumbnail.webp",
+            "description": "Distributed ledger and blockchain tech.",
+            "is_active": true,
+            "created_at": "2025-07-08T18:34:50.000Z",
+            "updated_at": "2025-07-08T18:34:50.000Z",
+            "lft": 29,
+            "rght": 30,
+            "tree_id": 1,
+            "level": 1
+        }
     }
-  },
-  {
-    "model": "blog.category",
-    "pk": 2,
-    "fields": {
-      "name": "Programming",
-      "slug": "programming",
-      "parent": 1,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Discussions about coding and development.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 3,
-    "fields": {
-      "name": "Hardware",
-      "slug": "hardware",
-      "parent": 1,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The latest in tech hardware.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 4,
-    "fields": {
-      "name": "Software",
-      "slug": "software",
-      "parent": 1,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Software, applications, and operating systems.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 5,
-    "fields": {
-      "name": "Lifestyle",
-      "slug": "lifestyle",
-      "parent": null,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Everything about living a balanced life.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 6,
-    "fields": {
-      "name": "Health",
-      "slug": "health",
-      "parent": 5,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Health and wellness.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 7,
-    "fields": {
-      "name": "Fitness",
-      "slug": "fitness",
-      "parent": 5,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Physical fitness and exercise.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 8,
-    "fields": {
-      "name": "Nutrition",
-      "slug": "nutrition",
-      "parent": 5,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Healthy eating and nutrition.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 9,
-    "fields": {
-      "name": "Travel",
-      "slug": "travel",
-      "parent": 5,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Travel and adventure.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 10,
-    "fields": {
-      "name": "Entertainment",
-      "slug": "entertainment",
-      "parent": null,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Movies, music, and more.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 11,
-    "fields": {
-      "name": "Movies",
-      "slug": "movies",
-      "parent": 10,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The latest in movies and cinema.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 12,
-    "fields": {
-      "name": "Music",
-      "slug": "music",
-      "parent": 10,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Music and the music industry.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 13,
-    "fields": {
-      "name": "Television",
-      "slug": "television",
-      "parent": 10,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "TV shows and series.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 14,
-    "fields": {
-      "name": "Books",
-      "slug": "books",
-      "parent": 10,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "Books and literature.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 15,
-    "fields": {
-      "name": "Science",
-      "slug": "science",
-      "parent": null,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The latest in scientific research.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 16,
-    "fields": {
-      "name": "Astronomy",
-      "slug": "astronomy",
-      "parent": 15,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The study of celestial objects.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 17,
-    "fields": {
-      "name": "Biology",
-      "slug": "biology",
-      "parent": 15,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The study of living organisms.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 18,
-    "fields": {
-      "name": "Chemistry",
-      "slug": "chemistry",
-      "parent": 15,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The study of matter and its properties.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  },
-  {
-    "model": "blog.category",
-    "pk": 19,
-    "fields": {
-      "name": "Physics",
-      "slug": "physics",
-      "parent": 15,
-      "thumbnail": "static/images/placeholders/category-thumbnail.png",
-      "description": "The study of matter and energy.",
-      "is_active": true,
-      "created_at": "2024-03-21T13:55:48.849Z",
-      "updated_at": "2024-03-21T13:56:10.382Z"
-    }
-  }
 ]

@@ -49,16 +49,16 @@
             {% endblocktranslate %}
         </p>
 
-        {% if posts.count > 0 %}
+        {% if top_posts.count > 0 %}
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2.5 gap-y-4 sm:gap-6 2xl:gap-8 mt-10">
-                {% for post in posts.all %}
+                {% for post in top_posts.all %}
                     {% with post=post %}
                         {% include "blog/components/post/post-detailed.html" %}
                     {% endwith %}
                 {% endfor %}
             </div>
 
-            {% if  posts.count > 6 %}
+            {% if  top_posts.count > 6 %}
                 <div class="max-w-44 mt-10 mx-auto">
                     <button type="button" class="btn btn-lg btn-primary w-full" onclick="window.location.href=''">{% trans "Show more" %}</button>
                 </div>
@@ -129,7 +129,7 @@
             </div>
 
             <!-- Sidebar -->
-            {% with posts=posts categories=categories tags=tags authors=authors %}
+            {% with posts=top_posts categories=top_categories tags=tags authors=authors %}
                 {% include "blog/components/sidebar/sidebar.html" %}
             {% endwith %}
         </div>

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.utils.translation import gettext as _
@@ -13,22 +14,22 @@ class BlogView(View):
     def archive_post_list_view(cls, request, *args, **kwargs):
         # ajax search
         authors = get_user_model().objects.filter(is_staff=True)
-        categories = Category.objects.all()
-        tags = Tag.objects.all()
+        categories = Category.objects.all()[:10]
+        top_categories = Category.objects.annotate(post_count=Count('category_post')).order_by('-post_count', 'name')[:6]
+        tags = Tag.objects.annotate(post_count=Count('tag_post')).order_by('-post_count', 'name')[:9]
         posts = Post.objects.filter(status=Post.PostStatusChoices.PUBLISHED)
+        top_posts = posts.annotate(post_count=Count('categories')).order_by('-post_count', 'title')[:6]
         latest_posts = posts.order_by('-created_at')[:6]
-        # top_posts = Post.objects.all().order_by('-views')[:6]
-        # popular_posts = Post.objects.filter(status=Post.PostStatusChoices.PUBLISHED).order_by('-views')[:6]
 
         context = {
             'title': 'Home',
             'authors': authors,
             'categories': categories,
+            'top_categories': top_categories,
             'tags': tags,
             'posts': posts,
+            'top_posts': top_posts,
             'latest_posts': latest_posts,
-            # 'top_posts': popular_posts,
-            # 'popular_posts': popular_posts,
         }
         return render(request, "main/home.html", context)
 
@@ -46,8 +47,19 @@ class BlogView(View):
     def category_post_list_view(cls, request, slug, *args, **kwargs):
         categories = Category.objects.all()
         tags = Tag.objects.all()
-        category = get_object_or_404(Category.objects.prefetch_related('category_post'), slug=slug)
-        posts = category.category_post.filter(status=Post.PostStatusChoices.PUBLISHED)
+        category = get_object_or_404(Category.objects.prefetch_related('category_post', 'children'), slug=slug)
+
+        def get_all_subcategories(cat):
+            subs = [cat]
+            for child in cat.children.all():
+                subs += get_all_subcategories(child)
+            return subs
+
+        all_categories = get_all_subcategories(category)
+        posts = Post.objects.filter(
+            categories__in=all_categories,
+            status=Post.PostStatusChoices.PUBLISHED
+        ).distinct()
 
         context = {
             'title': _("Category: %(category)s") % {'category': category.name},
@@ -117,14 +129,15 @@ class BlogView(View):
     @classmethod
     def post_detail_view(cls, request, slug, *args, **kwargs):
         authors = get_user_model().objects.filter(is_staff=True)
-        categories = Category.objects.all()
-        tags = Tag.objects.all()
+        categories = Category.objects.annotate(post_count=Count('category_post')).order_by('-post_count', 'name')[:6]
+        tags = Tag.objects.annotate(post_count=Count('tag_post')).order_by('-post_count', 'name')[:9]
         posts = Post.objects.filter(status=Post.PostStatusChoices.PUBLISHED)
-        related_posts = posts.order_by('-created_at')[:12]
+        top_posts = posts.annotate(post_count=Count('categories')).order_by('-post_count', 'title')[:6]
+        related_posts = posts.order_by('-created_at')[:6]
+
 
         post = get_object_or_404(Post, slug=slug)
         comments = Comment.objects.filter(post=post, status=Comment.CommentStatusChoices.APPROVED)
-
 
         if request.method == 'POST':
             form = CommentForm(request.POST)
@@ -153,6 +166,7 @@ class BlogView(View):
             'authors': authors,
             'categories': categories,
             'tags': tags,
+            "top_posts": top_posts,
             "related_posts": related_posts,
             "comments": comments,
             "has_comment": post.comment_status == Post.CommentStatusChoices.OPEN,

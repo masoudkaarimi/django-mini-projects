@@ -1,36 +1,405 @@
 [
-  {
-    "model": "blog.post",
-    "pk": 1,
-    "fields": {
-      "author": 1,
-      "title": "Sample Post 1",
-      "slug": "sample-post-1",
-      "content": "<p>This is the first sample post content.</p>",
-      "excerpt": "This is the first sample post.",
-      "image": "",
-      "category": 1,
-      "status": "published",
-      "comment_status": "open",
-      "comment_count": 0,
-      "publish_at": "2024-03-20T12:00:00Z"
+    {
+        "model": "blog.post",
+        "pk": 1,
+        "fields": {
+            "author": 1,
+            "title": "Introduction to Technology",
+            "slug": "introduction-to-technology",
+            "content": "<h2>The Evolution of Technology: From Stone Tools to Artificial Intelligence</h2><p>Technology has been an integral part of human civilization since the dawn of time. From the earliest stone tools to the sophisticated artificial intelligence systems of today, the journey of technological advancement is a testament to human ingenuity and adaptability. In this article, we will explore the major milestones in the evolution of technology, the impact it has had on society, and what the future may hold.</p><h3>Early Innovations: The Foundation of Progress</h3><p>The story of technology begins with the simplest of tools. Early humans crafted stone implements to hunt, gather, and protect themselves. The discovery of fire was a turning point, providing warmth, protection, and a means to cook food. As societies evolved, so did their tools. The invention of the wheel revolutionized transportation, while the development of agriculture allowed humans to settle and form communities.</p><h3>The Industrial Revolution: A Leap Forward</h3><p>The 18th and 19th centuries marked a period of unprecedented change. The Industrial Revolution introduced machinery, steam engines, and mass production. Factories sprang up, cities grew, and new forms of communication, such as the telegraph and telephone, connected people across vast distances. This era laid the groundwork for the modern world, transforming economies and lifestyles.</p><h3>The Digital Age: Information at Our Fingertips</h3><p>The 20th century ushered in the digital age. The invention of the computer changed everything. Early computers were massive and limited in capability, but rapid advancements led to the development of personal computers, the internet, and mobile devices. Today, information is accessible instantly, and communication is global. The rise of social media, cloud computing, and the Internet of Things (IoT) has further integrated technology into every aspect of our lives.</p><h3>Artificial Intelligence and Automation</h3><p>One of the most significant technological advancements of the 21st century is artificial intelligence (AI). AI systems can analyze vast amounts of data, recognize patterns, and make decisions with minimal human intervention. Automation, powered by AI, is transforming industries from manufacturing to healthcare. While these advancements offer incredible benefits, they also raise important questions about ethics, employment, and the future of work.</p><h3>The Impact of Technology on Society</h3><ul><li><strong>Communication:</strong> Technology has made it possible to connect with anyone, anywhere, at any time. Video calls, instant messaging, and social networks have redefined how we interact.</li><li><strong>Healthcare:</strong> Medical technology has improved diagnostics, treatments, and patient care. Telemedicine and wearable devices are making healthcare more accessible.</li><li><strong>Education:</strong> Online learning platforms and digital resources have democratized education, allowing people to learn new skills from anywhere in the world.</li><li><strong>Economy:</strong> Technology drives innovation, creates new industries, and increases productivity. However, it also disrupts traditional jobs and requires workers to adapt.</li><li><strong>Environment:</strong> While technology has contributed to environmental challenges, it also offers solutions such as renewable energy, smart grids, and sustainable agriculture.</li></ul><h3>Challenges and Considerations</h3><p>With great power comes great responsibility. The rapid pace of technological change presents challenges:</p><ul><li><strong>Privacy and Security:</strong> As more personal data is collected and stored online, protecting privacy and ensuring cybersecurity are critical concerns.</li><li><strong>Digital Divide:</strong> Not everyone has equal access to technology, leading to disparities in education, employment, and quality of life.</li><li><strong>Ethical Dilemmas:</strong> Issues such as AI bias, surveillance, and the use of autonomous weapons require careful consideration and regulation.</li></ul><h3>The Future of Technology</h3><p>The future promises even more exciting developments. Quantum computing, biotechnology, and space exploration are just a few areas poised for breakthroughs. As we look ahead, it is essential to balance innovation with ethical considerations, ensuring that technology serves humanity as a whole.</p><h3>Conclusion</h3><p>Technology has shaped the course of human history and will continue to do so. By understanding its evolution, embracing its benefits, and addressing its challenges, we can harness the power of technology to create a better, more connected, and sustainable world. The journey is ongoing, and each new discovery brings us closer to unlocking our full potential.</p>",
+            "excerpt": "An overview of technology trends.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                1,
+                2,
+                3
+            ],
+            "tags": [
+                1,
+                2,
+                3
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 4,
+            "publish_at": "2025-07-01T10:00:00Z",
+            "created_at": "2025-06-30T10:00:00Z",
+            "updated_at": "2025-07-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 2,
+        "fields": {
+            "author": 2,
+            "title": "Programming Basics",
+            "slug": "programming-basics",
+            "content": "<h2>Programming Basics: A Comprehensive Guide</h2><p>Programming is the process of creating a set of instructions that tell a computer how to perform a task. It is a fundamental skill in the digital age, enabling the development of software, websites, mobile applications, and much more. In this post, we will explore the essential concepts and building blocks of programming, providing a solid foundation for beginners and a refresher for experienced developers.</p><h3>What is Programming?</h3><p>At its core, programming involves writing code in a language that computers can understand. These languages, such as Python, JavaScript, and C++, have their own syntax and rules. The code you write is translated into machine instructions that the computer executes. Programming allows us to automate tasks, solve problems, and create innovative solutions that impact every aspect of modern life.</p><h3>Key Concepts in Programming</h3><ul><li><strong>Variables:</strong> Variables are used to store data that can be referenced and manipulated in a program. They act as containers for values such as numbers, text, or more complex data structures.</li><li><strong>Data Types:</strong> Common data types include integers, floating-point numbers, strings, and booleans. Understanding data types is crucial for performing operations and managing data effectively.</li><li><strong>Operators:</strong> Operators perform operations on variables and values. Arithmetic operators (+, -, *, /), comparison operators (==, !=, &gt;, &lt;), and logical operators (and, or, not) are widely used in programming.</li><li><strong>Control Structures:</strong> Control structures determine the flow of a program. Conditional statements (if, else) allow programs to make decisions, while loops (for, while) enable repetitive tasks.</li><li><strong>Functions:</strong> Functions are reusable blocks of code that perform specific tasks. They help organize code, reduce repetition, and improve readability.</li><li><strong>Comments:</strong> Comments are notes in the code that explain what certain parts do. They are ignored by the computer but are invaluable for human readers.</li></ul><h3>Writing Your First Program</h3><p>Let&#39;s look at a simple example in Python:</p><pre><code>def greet(name):\n    print(f\"Hello, {name}!\")\n\ngreet(\"World\")</code></pre><p>This program defines a function called <code>greet</code> that takes a name as input and prints a greeting. When you run the program, it outputs: <code>Hello, World!</code></p><h3>Debugging and Problem Solving</h3><p>Debugging is the process of finding and fixing errors in your code. Common errors include syntax errors (mistakes in the code structure), runtime errors (problems that occur while the program is running), and logical errors (the program runs but produces incorrect results). Effective debugging involves reading error messages, using print statements, and systematically testing your code.</p><h3>Best Practices</h3><ul><li><strong>Write Readable Code:</strong> Use meaningful variable and function names, and format your code consistently.</li><li><strong>Break Down Problems:</strong> Divide complex problems into smaller, manageable tasks.</li><li><strong>Test Your Code:</strong> Regularly test your code to catch errors early and ensure it works as expected.</li><li><strong>Keep Learning:</strong> Programming is a constantly evolving field. Stay curious and keep exploring new languages, frameworks, and tools.</li></ul><h3>Applications of Programming</h3><p>Programming skills are in high demand across industries. Some common applications include:</p><ul><li><strong>Web Development:</strong> Building websites and web applications using HTML, CSS, JavaScript, and backend languages like Python or Node.js.</li><li><strong>Mobile Development:</strong> Creating apps for smartphones and tablets using languages like Swift, Kotlin, or React Native.</li><li><strong>Data Science:</strong> Analyzing and visualizing data, building machine learning models, and automating data processing tasks.</li><li><strong>Game Development:</strong> Designing and programming interactive games for various platforms.</li><li><strong>Automation:</strong> Writing scripts to automate repetitive tasks, such as file management or data entry.</li></ul><h3>Conclusion</h3><p>Learning programming opens up a world of possibilities. Whether you want to build your own apps, pursue a career in tech, or simply understand how technology works, mastering the basics is the first step. Practice regularly, experiment with different projects, and don&#39;t be afraid to make mistakes—each error is an opportunity to learn. In future posts, we will dive deeper into specific programming languages, advanced concepts, and real-world projects to help you continue your journey as a programmer.</p>",
+            "excerpt": "A beginner's guide to programming.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                2,
+                4
+            ],
+            "tags": [
+                1,
+                4,
+                5
+            ],
+            "status": "draft",
+            "comment_status": "open",
+            "comments_count": 10,
+            "publish_at": "2025-07-02T10:00:00Z",
+            "created_at": "2025-06-29T10:00:00Z",
+            "updated_at": "2025-06-29T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 3,
+        "fields": {
+            "author": 3,
+            "title": "Web Development Trends",
+            "slug": "web-development-trends",
+            "content": "<h2>Web Development Trends: Navigating the Modern Landscape</h2><p>Web development is a rapidly evolving field, with new technologies, frameworks, and best practices emerging every year. Staying up-to-date with the latest trends is essential for developers, businesses, and anyone interested in building modern, user-friendly, and high-performing web applications. In this article, we will explore the most significant trends shaping web development in 2025 and beyond, providing insights and practical tips for leveraging these advancements in your projects.</p><h3>1. Jamstack Architecture</h3><p>Jamstack (JavaScript, APIs, and Markup) is revolutionizing how websites are built and delivered. By decoupling the frontend from the backend, Jamstack enables faster load times, improved security, and easier scalability. Static site generators like Next.js, Gatsby, and Hugo are gaining popularity, allowing developers to pre-render pages and serve them via CDNs. This approach reduces server load and enhances the user experience, especially for content-heavy sites.</p><h3>2. Progressive Web Apps (PWAs)</h3><p>PWAs combine the best of web and mobile apps, offering offline access, push notifications, and native-like performance. With support from major browsers and operating systems, PWAs are becoming a standard for delivering seamless experiences across devices. Tools like Workbox and frameworks such as Angular and React make it easier to implement PWA features, enabling businesses to reach wider audiences without the need for separate native apps.</p><h3>3. Serverless Computing</h3><p>Serverless architectures, powered by platforms like AWS Lambda, Azure Functions, and Google Cloud Functions, allow developers to run backend code without managing servers. This model reduces operational overhead, scales automatically, and enables rapid deployment of microservices. Serverless is ideal for event-driven applications, APIs, and background processing tasks, making it a key trend for modern web development.</p><h3>4. API-First Development</h3><p>APIs are the backbone of modern web applications, enabling integration with third-party services, mobile apps, and IoT devices. API-first development emphasizes designing robust, well-documented APIs before building the frontend or backend. Tools like Swagger (OpenAPI), Postman, and GraphQL facilitate API design, testing, and documentation, ensuring consistency and scalability as applications grow.</p><h3>5. Component-Based Frameworks</h3><p>Frameworks like React, Vue, and Svelte have popularized component-based development, where UIs are built from reusable, self-contained components. This approach improves code maintainability, reusability, and collaboration among teams. Modern frameworks also offer features like state management, routing, and server-side rendering, enabling developers to build complex applications with ease.</p><h3>6. Motion UI and Micro-Interactions</h3><p>Users expect engaging and interactive experiences. Motion UI, powered by CSS animations, JavaScript libraries, and SVG, brings interfaces to life with smooth transitions, hover effects, and micro-interactions. These subtle animations guide users, provide feedback, and enhance usability. Tools like Framer Motion, GSAP, and Lottie make it easy to implement sophisticated animations without sacrificing performance.</p><h3>7. Accessibility and Inclusive Design</h3><p>Accessibility is no longer optional. Legal requirements and a growing awareness of inclusivity are driving developers to create websites that are usable by everyone, including people with disabilities. Adhering to WCAG guidelines, using semantic HTML, and testing with screen readers are essential practices. Frameworks and tools now offer built-in accessibility features, making it easier to build inclusive web applications from the start.</p><h3>8. AI and Personalization</h3><p>Artificial intelligence is transforming web development by enabling personalized experiences, chatbots, and intelligent search. Machine learning models can analyze user behavior, recommend content, and automate customer support. Integrating AI services like OpenAI, TensorFlow.js, or cloud-based APIs allows developers to add smart features without deep expertise in data science.</p><h3>9. Headless CMS and Content Management</h3><p>Headless CMS solutions like Strapi, Contentful, and Sanity decouple content management from presentation, allowing content to be delivered via APIs to any frontend. This flexibility supports omnichannel experiences, faster development cycles, and easier localization. Developers can choose the best frontend technology while content teams manage updates independently.</p><h3>10. Enhanced Security Practices</h3><p>With cyber threats on the rise, security is a top priority. Modern web development emphasizes secure coding practices, HTTPS by default, Content Security Policy (CSP), and regular vulnerability assessments. Tools like Snyk, OWASP ZAP, and automated CI/CD security checks help identify and mitigate risks early in the development process.</p><h3>11. Green Web Development</h3><p>Sustainability is becoming a key consideration. Optimizing websites for performance not only improves user experience but also reduces energy consumption. Techniques like image optimization, lazy loading, efficient code splitting, and using green hosting providers contribute to a more sustainable web.</p><h3>12. No-Code and Low-Code Platforms</h3><p>No-code and low-code platforms empower non-developers to build web applications using visual interfaces and pre-built components. Solutions like Webflow, Bubble, and OutSystems accelerate prototyping and reduce development costs, making web development more accessible to a broader audience.</p><h3>Conclusion</h3><p>The web development landscape is dynamic and full of opportunities. By embracing these trends—Jamstack, PWAs, serverless, API-first, component-based frameworks, motion UI, accessibility, AI, headless CMS, security, sustainability, and no-code tools—developers can create innovative, high-quality web applications that meet the demands of modern users. Continuous learning and adaptation are essential to stay ahead in this exciting field. Whether you are a seasoned developer or just starting, now is the perfect time to explore these trends and shape the future of the web.</p>",
+            "excerpt": "What's new in web development?",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                3,
+                11
+            ],
+            "tags": [
+                6,
+                7,
+                8
+            ],
+            "status": "pending",
+            "comment_status": "open",
+            "comments_count": 2,
+            "publish_at": "2025-07-05T10:00:00Z",
+            "created_at": "2025-07-04T10:00:00Z",
+            "updated_at": "2025-07-05T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 4,
+        "fields": {
+            "author": 4,
+            "title": "Artificial Intelligence Explained",
+            "slug": "artificial-intelligence-explained",
+            "content": "<p>Understand the basics of AI and its applications.</p>",
+            "excerpt": "A beginner's guide to AI.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                4,
+                7,
+                8
+            ],
+            "tags": [
+                9,
+                10,
+                11
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 5,
+            "publish_at": "2025-07-10T10:00:00Z",
+            "created_at": "2025-07-09T10:00:00Z",
+            "updated_at": "2025-07-10T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 5,
+        "fields": {
+            "author": 5,
+            "title": "Mobile Development Best Practices",
+            "slug": "mobile-development-best-practices",
+            "content": "<p>Discover the best practices for mobile app development.</p>",
+            "excerpt": "Tips for mobile development.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                5
+            ],
+            "tags": [
+                12,
+                13,
+                14
+            ],
+            "status": "archived",
+            "comment_status": "closed",
+            "comments_count": 0,
+            "publish_at": "2025-06-25T10:00:00Z",
+            "created_at": "2025-06-24T10:00:00Z",
+            "updated_at": "2025-06-25T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 6,
+        "fields": {
+            "author": 1,
+            "title": "Data Science for Beginners",
+            "slug": "data-science-for-beginners",
+            "content": "<p>Start your journey into data science with this guide.</p>",
+            "excerpt": "Getting started with data science.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                4,
+                6
+            ],
+            "tags": [
+                2,
+                5,
+                7
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 3,
+            "publish_at": "2025-07-11T10:00:00Z",
+            "created_at": "2025-07-10T10:00:00Z",
+            "updated_at": "2025-07-11T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 7,
+        "fields": {
+            "author": 2,
+            "title": "Understanding JavaScript",
+            "slug": "understanding-javascript",
+            "content": "<p>JavaScript is essential for web development. Learn the basics here.</p>",
+            "excerpt": "JavaScript fundamentals explained.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                3,
+                11
+            ],
+            "tags": [
+                4,
+                6,
+                8
+            ],
+            "status": "draft",
+            "comment_status": "closed",
+            "comments_count": 0,
+            "publish_at": "2025-07-12T10:00:00Z",
+            "created_at": "2025-07-11T10:00:00Z",
+            "updated_at": "2025-07-12T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 8,
+        "fields": {
+            "author": 3,
+            "title": "Python Tips and Tricks",
+            "slug": "python-tips-and-tricks",
+            "content": "<p>Enhance your Python skills with these tips.</p>",
+            "excerpt": "Advanced Python techniques.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                1,
+                2
+            ],
+            "tags": [
+                1,
+                3,
+                9
+            ],
+            "status": "pending",
+            "comment_status": "open",
+            "comments_count": 1,
+            "publish_at": "2025-07-13T10:00:00Z",
+            "created_at": "2025-07-12T10:00:00Z",
+            "updated_at": "2025-07-13T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 9,
+        "fields": {
+            "author": 4,
+            "title": "Machine Learning Applications",
+            "slug": "machine-learning-applications",
+            "content": "<p>Explore real-world applications of machine learning.</p>",
+            "excerpt": "Machine learning in action.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                4,
+                8
+            ],
+            "tags": [
+                10,
+                11,
+                12
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 2,
+            "publish_at": "2025-07-14T10:00:00Z",
+            "created_at": "2025-07-13T10:00:00Z",
+            "updated_at": "2025-07-14T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 10,
+        "fields": {
+            "author": 5,
+            "title": "React vs Vue: A Comparison",
+            "slug": "react-vs-vue-comparison",
+            "content": "<p>Compare React and Vue for your next project.</p>",
+            "excerpt": "React and Vue differences.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                3,
+                6
+            ],
+            "tags": [
+                6,
+                8,
+                13
+            ],
+            "status": "archived",
+            "comment_status": "closed",
+            "comments_count": 0,
+            "publish_at": "2025-07-15T10:00:00Z",
+            "created_at": "2025-07-14T10:00:00Z",
+            "updated_at": "2025-07-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 11,
+        "fields": {
+            "author": 1,
+            "title": "DevOps Essentials",
+            "slug": "devops-essentials",
+            "content": "<p>Learn the basics of DevOps and CI/CD pipelines.</p>",
+            "excerpt": "DevOps for beginners.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                6,
+                9
+            ],
+            "tags": [
+                12,
+                14,
+                2
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 4,
+            "publish_at": "2025-07-16T10:00:00Z",
+            "created_at": "2025-07-15T10:00:00Z",
+            "updated_at": "2025-07-16T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 12,
+        "fields": {
+            "author": 2,
+            "title": "Cloud Computing Overview",
+            "slug": "cloud-computing-overview",
+            "content": "<p>An introduction to cloud computing concepts.</p>",
+            "excerpt": "Cloud basics explained.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                9
+            ],
+            "tags": [
+                5,
+                7,
+                9
+            ],
+            "status": "draft",
+            "comment_status": "closed",
+            "comments_count": 0,
+            "publish_at": "2025-07-17T10:00:00Z",
+            "created_at": "2025-07-16T10:00:00Z",
+            "updated_at": "2025-07-17T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 13,
+        "fields": {
+            "author": 3,
+            "title": "Cybersecurity Fundamentals",
+            "slug": "cybersecurity-fundamentals",
+            "content": "<p>Protect your applications with these cybersecurity tips.</p>",
+            "excerpt": "Cybersecurity basics.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                10
+            ],
+            "tags": [
+                11,
+                13,
+                1
+            ],
+            "status": "pending",
+            "comment_status": "open",
+            "comments_count": 1,
+            "publish_at": "2025-07-18T10:00:00Z",
+            "created_at": "2025-07-17T10:00:00Z",
+            "updated_at": "2025-07-18T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 14,
+        "fields": {
+            "author": 4,
+            "title": "UI/UX Design Principles",
+            "slug": "ui-ux-design-principles",
+            "content": "<p>Improve your apps with solid UI/UX design principles.</p>",
+            "excerpt": "UI/UX best practices.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                11
+            ],
+            "tags": [
+                3,
+                8,
+                10
+            ],
+            "status": "published",
+            "comment_status": "open",
+            "comments_count": 5,
+            "publish_at": "2025-07-19T10:00:00Z",
+            "created_at": "2025-07-18T10:00:00Z",
+            "updated_at": "2025-07-19T10:00:00Z"
+        }
+    },
+    {
+        "model": "blog.post",
+        "pk": 15,
+        "fields": {
+            "author": 5,
+            "title": "Open Source Contribution Guide",
+            "slug": "open-source-contribution-guide",
+            "content": "<p>Learn how to contribute to open source projects.</p>",
+            "excerpt": "Open source for everyone.",
+            "thumbnail": "placeholders/post-thumbnail.webp",
+            "categories": [
+                1,
+                15
+            ],
+            "tags": [
+                14,
+                2,
+                4
+            ],
+            "status": "archived",
+            "comment_status": "closed",
+            "comments_count": 0,
+            "publish_at": "2025-07-20T10:00:00Z",
+            "created_at": "2025-07-19T10:00:00Z",
+            "updated_at": "2025-07-20T10:00:00Z"
+        }
     }
-  },
-  {
-    "model": "blog.post",
-    "pk": 2,
-    "fields": {
-      "author": 2,
-      "title": "Sample Post 2",
-      "slug": "sample-post-2",
-      "content": "<p>This is the second sample post content.</p>",
-      "excerpt": "This is the second sample post.",
-      "image": "",
-      "category": 2,
-      "status": "draft",
-      "comment_status": "closed",
-      "comment_count": 0,
-      "publish_at": null
-    }
-  }
 ]

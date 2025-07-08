@@ -1,19 +1,18 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-from django.templatetags.static import static
 from django.urls import reverse
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.utils import timezone
+from django.templatetags.static import static
+from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
-from django_ckeditor_5.fields import CKEditor5Field
-from autoslug import AutoSlugField
-from autoslug.settings import slugify
-from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from autoslug import AutoSlugField
+from mptt.fields import TreeForeignKey
+from django_ckeditor_5.fields import CKEditor5Field
 
-from blog.validators import category_thumbnail_validator, post_thumbnail_validator
 from main.utils import generate_upload_path
+from blog.validators import category_thumbnail_validator, post_thumbnail_validator
 
 
 class Post(models.Model):
@@ -83,12 +82,10 @@ class Post(models.Model):
                     'The maximum file size is <b>{max_size}MB</b>.').format(allowed_image_extensions=', '.join(settings.ALLOWED_IMAGE_EXTENSIONS),
                                                                             max_size=settings.MAX_IMAGE_SIZE / 1024)
     )
-    category = models.ForeignKey(
+    categories = models.ManyToManyField(
         'Category',
         related_name='category_post',
-        on_delete=models.SET_NULL,
         blank=True,
-        null=True,
         verbose_name=_('Post Categories'),
         help_text=_('The categories of the post. (Optional)')
     )
@@ -234,6 +231,9 @@ class Category(MPTTModel):
         verbose_name_plural = _('Categories')
         ordering = ['name']
 
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
     def __str__(self):
         return self.name
 
@@ -241,7 +241,9 @@ class Category(MPTTModel):
         return reverse("blog:category_posts_list", kwargs={"slug": self.slug})
 
     def get_category_thumbnail(self):
-        return self.thumbnail.url if self.thumbnail else static('assets/images/placeholders/category-thumbnail.webp')
+        if self.thumbnail:
+            return self.thumbnail.url
+        return static('assets/images/placeholders/category-thumbnail.webp')
 
 
 class Tag(models.Model):

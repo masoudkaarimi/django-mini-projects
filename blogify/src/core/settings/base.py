@@ -15,6 +15,7 @@ from pathlib import Path
 from shutil import which
 
 from dotenv import load_dotenv
+
 from django.utils.translation import gettext_lazy as _
 
 # Load environment variables from .env
@@ -30,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.getenv("DJANGO_DEBUG") == "True" else False
+DEBUG = True if os.environ.get("DJANGO_DEBUG") == "True" else False
 
 # Application definition
 INSTALLED_APPS = [

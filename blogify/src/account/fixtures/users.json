@@ -1,200 +1,213 @@
 [
-  {
-    "model": "account.user",
-    "pk": 1,
-    "fields": {
-      "first_name": "Admin",
-      "last_name": "User",
-      "username": "admin",
-      "email": "admin@gmail.com",
-      "phone": "+989015906120",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": true,
-      "is_staff": true,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-02-29T14:12:00Z",
-      "date_joined": "2024-02-29T14:12:00Z"
+    {
+        "model": "account.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$zyEtUG0mBBWSnKJgZHIM5H$LIyKrANRp690pf65FQ049SO8trvtMoyf2rmU6JkIIaM=",
+            "last_login": "2024-07-01T09:00:00.000Z",
+            "is_superuser": true,
+            "username": "superadmin",
+            "first_name": "Super",
+            "last_name": "Admin",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-01T10:00:00.000Z",
+            "email": "superadmin@example.com",
+            "phone": "+12025550101",
+            "groups": [
+                1,
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-02T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "johndoe",
+            "first_name": "John",
+            "last_name": "Doe",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-02T10:00:00.000Z",
+            "email": "johndoe@example.com",
+            "phone": "+447911123456",
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-03T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "janedoe",
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-03T10:00:00.000Z",
+            "email": "janedoe@example.com",
+            "phone": "+4915112345678",
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-04T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "bobsmith",
+            "first_name": "Bob",
+            "last_name": "Smith",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-04T10:00:00.000Z",
+            "email": "bobsmith@example.com",
+            "phone": "+33123456789",
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-05T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "alicejones",
+            "first_name": "Alice",
+            "last_name": "Jones",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-05T10:00:00.000Z",
+            "email": "alicejones@example.com",
+            "phone": "+61234567890",
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-06T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "charliebrown",
+            "first_name": "Charlie",
+            "last_name": "Brown",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-06T10:00:00.000Z",
+            "email": "charliebrown@example.com",
+            "phone": "+819012345678",
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-07T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "emilywhite",
+            "first_name": "Emily",
+            "last_name": "White",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-07T10:00:00.000Z",
+            "email": "emilywhite@example.com",
+            "phone": "+5511987654321",
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-08T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "davidlee",
+            "first_name": "David",
+            "last_name": "Lee",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-08T10:00:00.000Z",
+            "email": "davidlee@example.com",
+            "phone": "+8613800138000",
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 9,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-09T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "lucyking",
+            "first_name": "Lucy",
+            "last_name": "King",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-09T10:00:00.000Z",
+            "email": "lucyking@example.com",
+            "phone": "+393331234567",
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "account.user",
+        "pk": 10,
+        "fields": {
+            "password": "pbkdf2_sha256$720000$ylg0M8garsNJap4Ag7zwQh$cAgrVFXXLYDjpUpyKlmiyEWdSh5CFeX36qVuJ8Jku5c=",
+            "last_login": "2024-07-10T09:00:00.000Z",
+            "is_superuser": false,
+            "username": "michaelclark",
+            "first_name": "Michael",
+            "last_name": "Clark",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-10T10:00:00.000Z",
+            "email": "michaelclark@example.com",
+            "phone": "+27821234567",
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        }
     }
-  },
-  {
-    "model": "account.user",
-    "pk": 2,
-    "fields": {
-      "first_name": "John",
-      "last_name": "Doe",
-      "username": "johndoe",
-      "email": "johndoe@example.com",
-      "phone": "+12345678910",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": true,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-03-30T14:30:00Z",
-      "date_joined": "2024-03-30T14:30:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 3,
-    "fields": {
-      "first_name": "Jane",
-      "last_name": "Smith",
-      "username": "janesmith",
-      "email": "janesmith@example.com",
-      "phone": "+12345678911",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": true,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-03-31T02:20:00Z",
-      "date_joined": "2024-03-31T02:20:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 4,
-    "fields": {
-      "first_name": "Alice",
-      "last_name": "Johnson",
-      "username": "alicejohnson",
-      "email": "alicejohnson@example.com",
-      "phone": "+12345678912",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": true,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-01T14:00:00Z",
-      "date_joined": "2024-04-01T14:00:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 5,
-    "fields": {
-      "first_name": "Bob",
-      "last_name": "Williams",
-      "username": "bobwilliams",
-      "email": "bobwilliams@example.com",
-      "phone": "+12345678913",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-02T15:20:00Z",
-      "date_joined": "2024-04-02T15:20:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 6,
-    "fields": {
-      "first_name": "Charlie",
-      "last_name": "Brown",
-      "username": "charliebrown",
-      "email": "charliebrown@example.com",
-      "phone": "+12345678914",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-03T16:10:00Z",
-      "date_joined": "2024-04-03T16:10:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 7,
-    "fields": {
-      "first_name": "David",
-      "last_name": "Miller",
-      "username": "davidmiller",
-      "email": "davidmiller@example.com",
-      "phone": "+12345678915",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-04T05:15:00Z",
-      "date_joined": "2024-04-04T05:15:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 8,
-    "fields": {
-      "first_name": "Evelyn",
-      "last_name": "Garcia",
-      "username": "evelyngarcia",
-      "email": "evelyngarcia@example.com",
-      "phone": "+12345678916",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-05T09:12:00Z",
-      "date_joined": "2024-04-05T09:12:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 9,
-    "fields": {
-      "first_name": "Frank",
-      "last_name": "Wilson",
-      "username": "frankwilson",
-      "email": "frankwilson@example.com",
-      "phone": "+12345678917",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-06T10:10:00Z",
-      "date_joined": "2024-04-06T10:10:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 10,
-    "fields": {
-      "first_name": "Grace",
-      "last_name": "Martinez",
-      "username": "gracemartinez",
-      "email": "gracemartinez@example.com",
-      "phone": "+12345678918",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-07T19:25:00Z",
-      "date_joined": "2024-04-07T19:25:00Z"
-    }
-  },
-  {
-    "model": "account.user",
-    "pk": 11,
-    "fields": {
-      "first_name": "Henry",
-      "last_name": "Davis",
-      "username": "henrydavis",
-      "email": "henrydavis@example.com",
-      "phone": "+12345678919",
-      "password": "pbkdf2_sha256$720000$FDaJsp4CYBU0iU1QzDbKd2$Wbof2F71hwAg3Nv519FznPmGKS9p8BB+4veqcangGaE=",
-      "is_superuser": false,
-      "is_staff": false,
-      "is_active": true,
-      "last_login_ip": "127.0.0.1",
-      "last_login": "2024-04-08T23:45:00Z",
-      "date_joined": "2024-04-08T23:45:00Z"
-    }
-  }
 ]
