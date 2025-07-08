@@ -17,7 +17,7 @@ class Command(BaseCommand):
             "loan/fixtures/installment_payments.json",
         ]
 
-        self.stdout.write(self.style.MIGRATE_HEADING("Starting fixture loading process...\n"))
+        self.stdout.write(self.style.MIGRATE_HEADING("\nStarting fixture loading process...\n"))
 
         for fixture_path in fixtures:
             full_path = BASE_DIR / fixture_path
@@ -29,8 +29,8 @@ class Command(BaseCommand):
             try:
                 self.stdout.write(self.style.NOTICE(f"\nLoading fixture: {fixture_path} ..."))
                 call_command('loaddata', str(full_path))
-                self.stdout.write(self.style.SUCCESS(f"Loaded {fixture_path}"))
+                self.stdout.write(self.style.SUCCESS(f"✓ Loaded {fixture_path}"))
             except Exception as e:
-                self.stderr.write(self.style.ERROR(f"Failed to load {fixture_path}: {e}"))
+                self.stderr.write(self.style.ERROR(f"✗ Failed to load {fixture_path}: {e}"))
 
-        self.stdout.write(self.style.SUCCESS("\nAll fixtures loaded successfully."))
+        self.stdout.write(self.style.SUCCESS("\n🎉 All fixtures loaded successfully!"))
